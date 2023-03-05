@@ -15,7 +15,9 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
         $echo_search_by = 'Author';
     }
 
-    $search_catalogs = $mysqli -> query($sql1);
+    $statement = $pdo->prepare($sql1);
+    $statement->execute();
+    $search_catalogs = $statement->fetchAll();
     
 
 }else{
@@ -40,7 +42,12 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
         $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
     }
 
-    $catalogs = $mysqli -> query($sql1);
+
+    $statement = $pdo->prepare($sql1);
+
+    $statement->execute();
+
+    $catalogs = $statement->fetchAll();
 }
 
 
@@ -52,7 +59,8 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Librarian Panel</title>
+    <link rel = "icon" href="assets/image/logo.png" type = "image/x-icon">
+    <title>Online Library System</title>
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/custom.css">
@@ -75,8 +83,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form action="" method="POST"
-                                    enctype="multipart/form-data">
+                                <form action="register_borrower.php" method="POST" enctype="multipart/form-data">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="registerModal">Register</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -115,7 +122,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        <button type="submit" name="register" class="btn btn-success">Submit</button>
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Cancel</button>
                                     </div>
@@ -138,7 +145,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                 <a class="btn btn-secondary" href="index.php" role="button">Go back</a>
             </h2>';
             
-            if (mysqli_fetch_assoc($search_catalogs)>0){
+            if (!empty($search_catalogs)){
                 echo '
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -150,20 +157,39 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                 <th scope="col">Author</th>
                                 <th scope="col">Publisher</th>
                                 <th scope="col">Date Published</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody class="border">';
                             $number = 1;
                             foreach ($search_catalogs as $search_catalog){
                                 $book_status = "";
-                                echo '<tr>
-                                    <td>$number</td>
+                                echo '
+                                <tr>
+                                    <td>'.$number.'</td>
                                     <td>'.$search_catalog["catalog_number"].'</td>
                                     <td>'.$search_catalog["catalog_book_title"].'</td>
                                     <td>'.$search_catalog["catalog_author"].'</td>
                                     <td>'.$search_catalog["catalog_publisher"].'</td>
-                                    <td>'.$search_catalog["catalog_year"].'</td>
-                                </tr>';
+                                    <td>'.$search_catalog["catalog_year"].'</td>';
+                                    if($search_catalog["catalog_status"]=="Available"){
+                                        echo '
+                                        <td>'.$search_catalog["catalog_status"].' 
+                                            <span class="text-success">
+                                                <i class="bi bi-check-circle-fill"></i>
+                                            </span>
+                                        </td>';
+                                    }else{
+                                        echo '
+                                        <td>'.$search_catalog["catalog_status"].' 
+                                            <span class="text-danger">
+                                                <i class="bi bi-check-circle-fill"></i>
+                                            </span>
+                                        </td>';
+                                    }
+                                echo '
+                                </tr>
+                                ';
                                 $number++;
                             }
                         echo '
@@ -213,7 +239,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                             </th>
                             <th scope="col">
                                 <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Book Number</div>
+                                    <div class="text-dark">Book No.</div>
                                 </div>
                             </th>
                             <th scope="col">
@@ -260,8 +286,23 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                 <td>'.$catalog["catalog_book_title"].'</td>
                                 <td>'.$catalog["catalog_author"].'</td>
                                 <td>'.$catalog["catalog_publisher"].'</td>
-                                <td>'.$catalog["catalog_year"].'</td>
-                                <td>'.$catalog["catalog_status"].'</td>
+                                <td>'.$catalog["catalog_year"].'</td>';
+                                if($catalog["catalog_status"]=="Available"){
+                                    echo '
+                                    <td>'.$catalog["catalog_status"].' 
+                                        <span class="text-success">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                        </span>
+                                    </td>';
+                                }else{
+                                    echo '
+                                    <td>'.$catalog["catalog_status"].' 
+                                        <span class="text-danger">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                        </span>
+                                    </td>';
+                                }
+                            echo '
                             </tr>
                             ';
                             $number++;
@@ -276,6 +317,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
 
     <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
 </body>
 
 

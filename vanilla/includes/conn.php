@@ -1,12 +1,17 @@
 <?php
 
 
-$mysqli = new mysqli("localhost","root","","library_management_system");
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$db = 'onlinelibrarysystem';
 
-// Check connection
-if ($mysqli -> connect_errno) {
-    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-    exit();
-}else{
-    echo "<script>console.log('connected successfully to MySQL');</script>";
+try {
+	$pdo = new PDO("mysql:host=".$host.";dbname=".$db.";charset=UTF8", $user, $password);
+
+	if ($pdo) {
+		echo "<script> console.log('Connected to the ".$db." database successfully!') </script>";
+	}
+} catch (PDOException $e) {
+	echo $e->getMessage();
 }
