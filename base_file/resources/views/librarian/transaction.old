@@ -1,0 +1,149 @@
+@extends('librarian/template')
+
+@section('content')
+<div class="m-4">
+    <h2 class="mb-4 text-dark">
+        <span class="page-title">Transactions</span>
+        <hr>
+        <!--button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">
+            Add
+        </button-->
+    </h2>
+
+    <!-- end add modal -->
+    @if ( count($transactions)<=0 ) 
+        <div class="alert alert-warning">
+            No Transactions to be displayed
+        </div>
+    @else
+        <div class="table-responsive">
+            <table class="table table-striped table-light">
+                <thead class="border border-dark">
+                    <tr>
+                        <th scope="col" class="border border-dark">#</th>
+                        <th scope="col" class="border border-dark">Catalog ID</th>
+                        <th scope="col" class="border border-dark">Borrower ID</th>
+                        <th scope="col" class="border border-dark">Borrow Date & Time</th>
+                        <th scope="col" class="border border-dark">Return Date & Time</th>
+                        <th scope="col" class="border border-dark">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php $number = 1 @endphp
+                    @foreach ($transactions as $transaction)
+                    <tr>
+                        <td class="border border-dark">{!!$number!!}</td>
+                        <td class="border border-dark">{!!$transaction['book_id']!!}</td>
+                        <td class="border border-dark">{!!$transaction['borrower_id']!!}</td>
+                        <td class="border border-dark">{!!$transaction['transaction_borrow_datetime']!!}</td>
+                        <td class="border border-dark">{!!$transaction['transaction_return_datetime']!!}</td>
+                        <td class="border border-dark">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#modalEdit{!!$number!!}">
+                                <i class="bi-pencil-square"></i>
+                            </button>
+                            <!-- edit modal -->
+                            <div class="modal fade" id="modalEdit{!!$number!!}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{ route('edit.book') }}" method="post">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Edit Transaction</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="bookNumber" class="col-form-label">Catalog ID</label>
+                                                    <input type="text" name="book_number"
+                                                        class="form-control border-dark border"
+                                                        value="{!! $transaction['book_id'] !!}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="bookTitle" class="col-form-label">Borrower ID</label>
+                                                    <input type="text" name="book_title" class="form-control border-dark border"
+                                                        value="{!! $transaction['borrower_id'] !!}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="author" class="col-form-label">Borrow Date Time</label>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <input type="date" name="book_author"
+                                                                class="form-control border-dark border" />
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="time" name="book_author"
+                                                                class="form-control border-dark border" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="author" class="col-form-label">Return Date Time</label>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <input type="date" name="book_author"
+                                                                class="form-control border-dark border" />
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="time" name="book_author"
+                                                                class="form-control border-dark border" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end edit modal -->
+
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalDelete{!!$number!!}">
+                                <i class="bi-trash"></i>
+                            </button>
+                            <!-- delete modal -->
+                            <div class="modal fade" id="modalDelete{!!$number!!}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{ route('delete.catalog') }}" method="post">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Transaction</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this transaction?
+                                            </div>
+                                            <input type="hidden" name="catalog_id"
+                                                value="{!! $transaction['transaction_id'] !!}">
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-success">Yes</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- delete edit modal -->
+                        </td>
+                    </tr>
+                    @php
+                    $number++;
+                    @endphp
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif  
+</div>
+@endsection
