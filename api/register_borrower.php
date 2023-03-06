@@ -1,13 +1,13 @@
 <?php
 
-include_once "includes/conn.php";
-include_once "includes/functions.php";
+include_once "../includes/conn.php";
+include_once "../includes/functions.php";
 
 try {
     if(isset($_POST['register'])){
         $filename=$_FILES["idpicture"]["name"];
         $tempname=$_FILES["idpicture"]["tmp_name"];
-        $folder='assets/image/idpictures/'.$filename;
+        $folder='../assets/image/idpictures/'.$filename;
     
         $sql = 'INSERT INTO borrower_table(
             borrower_fname,
@@ -42,9 +42,11 @@ try {
             ]);
             //header('Location: index.php?register=success');
             printInConsole('Borrower Registered Successfully!');
+            redirectURL('../index.php');
         }
     }else{
         printInConsole('Registered Error!');
+        redirectURL('../index.php');
     }
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";

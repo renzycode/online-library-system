@@ -83,7 +83,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form action="register_borrower.php" method="POST" enctype="multipart/form-data">
+                                <form action="api/register_borrower.php" method="POST" enctype="multipart/form-data">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="registerModal">Register</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
