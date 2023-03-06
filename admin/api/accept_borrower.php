@@ -12,6 +12,6 @@ if(isset($_POST['accept_borrower'])){
     $statement->bindParam(':borrower_id', $_POST['id']);
 
     if($statement->execute()){
-        redirectURL('../borrower.php');
+        redirectURL('../borrower.php?borrower=pending&accept=success');
     }
 }

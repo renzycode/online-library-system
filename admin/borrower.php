@@ -126,6 +126,14 @@ include_once "../includes/functions.php";
                 ?>
         </h2>
         
+        <div class="alert alert-danger">
+            Error, Please try again later.
+        </div>
+
+        <div class="alert alert-success">
+            Borrower has been successfully accepted.
+        </div>
+
         <!-- pending borrowers -->
         <?php
         if($borrower=='pending'){

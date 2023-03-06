@@ -101,7 +101,7 @@
                     }
                 ?>
             >
-                <a class="nav-link" href="{{ route('librarian.catalog') }}">
+                <a class="nav-link" href="catalog.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Catalog</span>
                 </a>
@@ -128,7 +128,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <button id="sidebarToggleTop" class="btn btn-light d-md-none mx-2 ">
                         <i class="fa fa-bars"></i>
                     </button>
 
@@ -149,7 +149,7 @@
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item">
-                            <button type="button" class="nav-link btn" data-bs-toggle="modal"
+                            <button type="button" class="nav-link btn mr-4" data-bs-toggle="modal"
                                 data-bs-target="#modalLogout">
                                 <strong><i class="bi-box-arrow-right text-dark"></i></strong>
                             </button>
