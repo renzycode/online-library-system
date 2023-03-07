@@ -289,17 +289,19 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                 <td>'.$catalog["catalog_year"].'</td>';
                                 if($catalog["catalog_status"]=="Available"){
                                     echo '
-                                    <td>'.$catalog["catalog_status"].' 
+                                    <td>
                                         <span class="text-success">
                                             <i class="bi bi-check-circle-fill"></i>
                                         </span>
+                                        '.$catalog["catalog_status"].' 
                                     </td>';
                                 }else{
                                     echo '
-                                    <td>'.$catalog["catalog_status"].' 
+                                    <td>
                                         <span class="text-danger">
-                                            <i class="bi bi-check-circle-fill"></i>
+                                            <i class="bi bi-x-circle-fill"></i>
                                         </span>
+                                        '.$catalog["catalog_status"].' 
                                     </td>';
                                 }
                             echo '

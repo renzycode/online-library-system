@@ -86,7 +86,7 @@ include_once "../includes/functions.php";
 
                     <!-- view button if accepted section -->
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="">
-                        Download Report (Accepted Borrowers)
+                        Download Report
                     </button>
 
                 <?php
@@ -126,13 +126,60 @@ include_once "../includes/functions.php";
                 ?>
         </h2>
         
-        <div class="alert alert-danger">
-            Error, Please try again later.
-        </div>
+        <?php
 
-        <div class="alert alert-success">
-            Borrower has been successfully accepted.
-        </div>
+        if(isset($_GET['accept'])){
+            if($_GET['accept']=='success'){
+                echo '
+                <div class="alert alert-success">
+                    Borrower has been successfully accepted.
+                </div>
+                ';
+            }
+            if($_GET['accept']=='error'){
+                echo '
+                <div class="alert alert-danger">
+                    Error, Please try again later.
+                </div>
+                ';
+            }
+        }
+
+        if(isset($_GET['reject'])){
+            if($_GET['reject']=='success'){
+                echo '
+                <div class="alert alert-success">
+                    Borrower has been successfully rejected.
+                </div>
+                ';
+            }
+            if($_GET['reject']=='error'){
+                echo '
+                <div class="alert alert-danger">
+                    Error, Please try again later.
+                </div>
+                ';
+            }
+        }
+
+        if(isset($_GET['delete'])){
+            if($_GET['delete']=='success'){
+                echo '
+                <div class="alert alert-success">
+                    Borrower has been successfully deleted.
+                </div>
+                ';
+            }
+            if($_GET['delete']=='error'){
+                echo '
+                <div class="alert alert-danger">
+                    Error, Please try again later.
+                </div>
+                ';
+            }
+        }
+
+        ?>
 
         <!-- pending borrowers -->
         <?php
@@ -402,23 +449,22 @@ include_once "../includes/functions.php";
                                         </div>
                                         <!-- end view pic modal -->
                                     </td>
-                                    <td>{'.$rejected['borrower_id'].'</td>
-                                    <td>{'.$rejected['borrower_fname'].'</td>
-                                    <td>{'.$rejected['borrower_lname'].'</td>
-                                    <td>{'.$rejected['borrower_address'].'</td>
-                                    <td>{'.$rejected['borrower_contact'].'</td>
-                                    <td>{'.$rejected['borrower_email'].'</td>
+                                    <td>'.$rejected['borrower_id'].'</td>
+                                    <td>'.$rejected['borrower_fname'].'</td>
+                                    <td>'.$rejected['borrower_lname'].'</td>
+                                    <td>'.$rejected['borrower_address'].'</td>
+                                    <td>'.$rejected['borrower_contact'].'</td>
+                                    <td>'.$rejected['borrower_email'].'</td>
                                     <td>
                                         <!-- reject modal button -->
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalReject{!!$number!!}">
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalReject'.$number.'">
                                             <i class="bi-trash"></i>
                                         </button>
                                         <!-- delete modal -->
-                                        <div class="modal fade" id="modalReject{!!$number!!}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalReject'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="" method="post">
-                                                        @csrf
+                                                    <form action="api/delete_rejected_borrower.php" method="post">
                                                         <div class="modal-header">
                                                             <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -428,7 +474,7 @@ include_once "../includes/functions.php";
                                                             <input type="hidden" name="id" value="'.$rejected['borrower_id'].'">
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-success">Yes</button>
+                                                            <button type="submit" name="delete_rejected_borrower" class="btn btn-success">Yes</button>
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                                         </div>
                                                     </form>

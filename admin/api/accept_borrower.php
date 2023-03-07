@@ -15,3 +15,4 @@ if(isset($_POST['accept_borrower'])){
         redirectURL('../borrower.php?borrower=pending&accept=success');
     }
 }
+redirectURL('../borrower.php?borrower=pending&accept=error');
