@@ -15,6 +15,9 @@ include_once "../includes/functions.php";
 
 ?>
 
+<!---------------->
+<!-- START BODY -->
+<!---------------->
 
 <div class="m-4">
     <h2 class="mb-4 text-dark">
@@ -223,7 +226,7 @@ include_once "../includes/functions.php";
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="" method="post">
+                                            <form action="api/edit_catalog.php" method="post">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Edit Catalog</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -343,7 +346,7 @@ include_once "../includes/functions.php";
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">Submit</button>
+                                                    <button type="submit" name="edit_catalog" class="btn btn-success">Submit</button>
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Cancel</button>
                                                 </div>
@@ -395,6 +398,10 @@ include_once "../includes/functions.php";
     }
     ?>
     </div>
+
+    <!---------------->
+    <!---- END BODY -->
+    <!---------------->
 
 <?php
 include_once 'includes/footer.php';

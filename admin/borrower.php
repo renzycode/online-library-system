@@ -102,17 +102,16 @@ include_once "../includes/functions.php";
                     <div class="modal fade" id="delete-all-rejected" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form action="{{ route('delete.all.rejected.borrower') }}" method="post">
-                                    @csrf
+                                <form action="api/delete_all_rejected_borrowers.php" method="POST">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Delete All Data</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure you want to delete all data?
+                                        Are you sure you want to delete all rejected borrowers?
                                     </div>
                                     <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Yes</button>
+                                    <button type="submit" name="delete_all_rejected_borrowers" class="btn btn-success">Yes</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
                                 </form>
@@ -154,6 +153,23 @@ include_once "../includes/functions.php";
                 ';
             }
             if($_GET['reject']=='error'){
+                echo '
+                <div class="alert alert-danger">
+                    Error, Please try again later.
+                </div>
+                ';
+            }
+        }
+
+        if(isset($_GET['deleteall'])){
+            if($_GET['deleteall']=='success'){
+                echo '
+                <div class="alert alert-success">
+                    All rejected Borrowers has been successfully deleted.
+                </div>
+                ';
+            }
+            if($_GET['deleteall']=='error'){
                 echo '
                 <div class="alert alert-danger">
                     Error, Please try again later.
@@ -397,7 +413,7 @@ include_once "../includes/functions.php";
             if ( count($rejected_borrowers)<=0 ){
                 echo'
                 <div class="alert alert-warning">
-                    No rejecetd borrowers to be displayed
+                    No rejected borrowers to be displayed
                 </div>
                 ';
             }
