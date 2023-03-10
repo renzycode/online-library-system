@@ -1,9 +1,23 @@
 <?php
+
+session_start();
+
 $active = 'borrower';
 include_once 'includes/header.php';
 
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
+
+
+if(isset($_SESSION["authen"])){
+    if($_SESSION["authen"]!=TRUE){
+        redirectURL('../login.php');
+    }else{
+        $uname = $_SESSION["uname"];
+    }
+}else{
+    redirectURL('login.php');
+}
 
     if(!isset($_GET['borrower'])){
         redirectURL('borrower.php?borrower=pending');

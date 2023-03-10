@@ -11,6 +11,6 @@ function redirectURL($url){
 function jsonResponse($args){
     ob_end_clean();
     header('Content-type: application/json');
-    echo json_encode(array('msg'=>$args));
+    echo json_encode(array('res'=>$args));
     exit();
 }

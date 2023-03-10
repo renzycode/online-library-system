@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+include_once '../includes/functions.php';
+
+if(isset($_SESSION["authen"]) && isset($_SESSION["uname"])){
+    redirectURL('index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,15 +108,15 @@
             if (typeof uname === 'string' && uname.length === 0) {
                 $('#alert-msg').html(`
                     <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Username field empty!</p>
+                        <p class="alert alert-danger m-0 p-2">Username field empty</p>
                     </div>
                 `);
                 return;
             }
-            if (typeof password === 'string' && password.length === 0) {
+            if (typeof pass === 'string' && pass.length === 0) {
                 $('#alert-msg').html(`
                     <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Password field empty!</p>
+                        <p class="alert alert-danger m-0 p-2">Password field empty</p>
                     </div>
                 `);
                 return;
@@ -121,8 +130,33 @@
                     pass: pass,
                     login: login
                 },
-                success: function(res) {   
-                    alert(res['msg']);
+                success: function(data) {   
+                    if(data.res == "no-uname-found"){
+                        $('#alert-msg').html(`
+                        <div class="mb-3">
+                            <p class="alert alert-danger m-0 p-2">No Username Found</p>
+                        </div>
+                        `);
+                        return;
+                    }
+                    else if(data.res == "wrong-password"){
+                        $('#alert-msg').html(`
+                        <div class="mb-3">
+                            <p class="alert alert-danger m-0 p-2">Wrong Password</p>
+                        </div>
+                        `);
+                        return;
+                    }
+                    else if(data.res == "success"){
+                        window.location.href = "index.php";
+                    }
+                    else{
+                        $('#alert-msg').html(`
+                        <div class="mb-3">
+                            <p class="alert alert-danger m-0 p-2">Error, Please try again later</p>
+                        </div>
+                        `);
+                    }
                 },
                 error: function(data) {
                     alert('error');

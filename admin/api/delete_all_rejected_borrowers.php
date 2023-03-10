@@ -13,4 +13,6 @@ if(isset($_POST['delete_all_rejected_borrowers'])){
         redirectURL('../borrower.php?borrower=rejected&deleteall=success');
     }
 }
+
+
 redirectURL('../borrower.php?borrower=rejected&deleteall=error');
