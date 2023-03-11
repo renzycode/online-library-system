@@ -369,6 +369,7 @@ if(isset($_SESSION["authen"])){
                                 <th scope="col">Address</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Remove</th>
                             </tr>
                         </thead>
                         <tbody class="border">
@@ -408,6 +409,34 @@ if(isset($_SESSION["authen"])){
                                     <td>'.$accepted['borrower_address'].'</td>
                                     <td>'.$accepted['borrower_contact'].'</td>
                                     <td>'.$accepted['borrower_email'].'</td>
+                                    <td>
+                                        <!-- reject modal button -->
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete'.$number.'">
+                                            <i class="bi-trash"></i>
+                                        </button>
+                                        <!-- delete modal -->
+                                        <div class="modal fade" id="modalDelete'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="api/delete_accepted_borrower.php" method="post">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete this data?
+                                                            <input type="hidden" name="id" value="'.$accepted['borrower_id'].'">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" name="delete_accepted_borrower" class="btn btn-success">Yes</button>
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end delete modal -->
+                                    </td>
                                 </tr>
                                 ';
                             }

@@ -47,6 +47,59 @@ if(isset($_SESSION["authen"])){
         </button>
     </h2>
 
+    <?php
+
+    if(isset($_GET['add'])){
+        if($_GET['add']=='success'){
+            echo '
+            <div class="alert alert-success">
+                Catalog has been successfully accepted.
+            </div>
+            ';
+        }
+        if($_GET['add']=='error'){
+            echo '
+            <div class="alert alert-danger">
+                Error, Please try again later.
+            </div>
+            ';
+        }
+    }
+
+    if(isset($_GET['edit'])){
+        if($_GET['edit']=='success'){
+            echo '
+            <div class="alert alert-success">
+                Catalog has been successfully updated.
+            </div>
+            ';
+        }
+        if($_GET['edit']=='error'){
+            echo '
+            <div class="alert alert-danger">
+                Error, Please try again later.
+            </div>
+            ';
+        }
+    }
+
+    if(isset($_GET['delete'])){
+        if($_GET['delete']=='success'){
+            echo '
+            <div class="alert alert-success">
+                Catalog has been successfully deleted.
+            </div>
+            ';
+        }
+        if($_GET['delete']=='error'){
+            echo '
+            <div class="alert alert-danger">
+                Error, Please try again later.
+            </div>
+            ';
+        }
+    }
+    ?>
     <!-- add modal -->
     <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -376,21 +429,21 @@ if(isset($_SESSION["authen"])){
                                 </button>
                                 <!-- delete modal -->
                                 <div class="modal fade" id="modalDelete'.$number.'" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    aria-labelledby="" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="" method="post">
+                                            <form action="api/delete_catalog.php" method="post">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Catalog</h5>
+                                                    <h5 class="modal-title" id="">Delete Catalog</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     Are you sure you want to delete this catalog?
                                                 </div>
-                                                <input type="hidden" name="catalog_id" value="'.$catalog['catalog_id'].'">
+                                                <input type="hidden" name="id" value="'.$catalog['catalog_id'].'">
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-success">Yes</button>
+                                                    <button type="submit" name="delete_catalog" class="btn btn-success">Yes</button>
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Cancel</button>
                                                 </div>

@@ -50,7 +50,7 @@ try {
         ]);
 
         printInConsole('Borrower Registered Successfully!');
-        redirectURL('../catalog.php?edit=sucess');
+        redirectURL('../catalog.php?edit=success');
     }else{
         printInConsole('Registered Error!');
         redirectURL('../catalog.php?edit=error');
