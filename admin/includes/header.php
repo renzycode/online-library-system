@@ -85,7 +85,7 @@
                     }
                 ?>
             >
-                <a class="nav-link" href="{{ route('librarian.transaction') }}">
+                <a class="nav-link" href="transaction.php">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Transaction</span>
                 </a>

@@ -27,6 +27,9 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/dataTables/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/dataTables/dataTables.bootstrap5.min.js"></script>
+
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -35,6 +38,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/vendor/sb-admin-2/sb-admin-2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.myDataTable').DataTable();
+        });
+    </script>
 
 </body>
 
