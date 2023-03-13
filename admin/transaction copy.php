@@ -33,6 +33,13 @@ if(isset($_SESSION["authen"])){
 <!---------------->
 
 <div class="m-4">
+    <h2 class="mb-4 text-dark">
+        <span class="page-title">Transactions</span>
+        <hr>
+        <!--button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">
+            Add
+        </button-->
+    </h2>
 
     <div class="row">
         <div class="form col-12 mb-4">
@@ -41,10 +48,6 @@ if(isset($_SESSION["authen"])){
                     <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
                     <hr>
                     <div class="row">
-                        <div class="form-group col-12">
-                            <label for="bookNumber" class="col-form-label">Book ID 1</label>
-                            <input type="text" name="book_number" class="form-control col-2" />
-                        </div>  
                         <div class="form-group col-2">
                             <label for="bookNumber" class="col-form-label">Book ID 1</label>
                             <input type="text" name="book_number" class="form-control" />

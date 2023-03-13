@@ -34,7 +34,7 @@ if(isset($_SESSION["authen"])){
 
 <div class="m-4">
     <h2 class="mb-4 text-dark">
-        <span class="page-title">Catalog</span>
+        <span class="page-title">Catalog Table</span>
         <hr>
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd">
             Add

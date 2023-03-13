@@ -90,6 +90,22 @@
                     <span>Transaction</span>
                 </a>
             </li>
+            
+            <!-- nav item catalog -->
+            <li
+                <?php
+                    if($active == 'transaction-table'){ 
+                        echo 'class="nav-item active"';
+                    }else{
+                        echo 'class="nav-item"';
+                    }
+                ?>
+            >
+                <a class="nav-link" href="catalog.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Transaction Table</span>
+                </a>
+            </li>
 
             <!-- nav item catalog -->
             <li
@@ -103,7 +119,7 @@
             >
                 <a class="nav-link" href="catalog.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Catalog</span>
+                    <span>Catalog Table</span>
                 </a>
             </li>
 
