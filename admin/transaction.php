@@ -156,10 +156,23 @@ if(isset($_SESSION["authen"])){
                                             <td>'.$catalog['catalog_number'].'</td>
                                             <td>'.$catalog['catalog_book_title'].'</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['catalog_id'].')">
-                                                    <i class="bi bi-clipboard"></i>
-                                                    Copy ID
-                                                </button>
+                                            ';
+                                            if($catalog['catalog_status']=='Available'){
+                                                echo '
+                                                    <button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['catalog_id'].')">
+                                                        <i class="bi bi-clipboard"></i>
+                                                        Copy ID
+                                                    </button>
+                                                ';
+                                            }else{
+                                                echo '
+                                                    
+                                                    <button type="button" class="btn btn-danger" disabled>
+                                                        Unavailable
+                                                    </button>
+                                                ';
+                                            }
+                                            echo'
                                             </td>
                                         </tr>
                                     ';
