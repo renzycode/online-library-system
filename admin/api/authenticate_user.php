@@ -19,17 +19,22 @@ try{
     
             $sql = "SELECT librarian_pass FROM librarian_table WHERE librarian_uname = ?";
             $statement = $pdo->prepare($sql);
-            $statement->bindParam(1, $uname);
-            $statement->execute();
+            $statement->execute(array($uname));
             $pass_fetched = $statement->fetch();
     
             if(password_verify($pass,$pass_fetched['librarian_pass'])){
+
+                $sql = "SELECT librarian_id FROM librarian_table WHERE librarian_uname = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($uname));
+                $id_fetched = $statement->fetch();
 
                 session_start();
 
                 // Set session variables
                 $_SESSION["authen"] = True;
                 $_SESSION["uname"] = $uname;
+                $_SESSION["librarian_id"] = $id_fetched['librarian_id'];
 
                 jsonResponse('success');
             }else{

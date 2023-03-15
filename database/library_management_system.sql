@@ -40,15 +40,21 @@ CREATE TABLE catalog_table (
   CONSTRAINT catalog_table FOREIGN KEY (librarian_id) REFERENCES librarian_table(librarian_id)
 )
 
-CREATE TABLE transaction_table (
-  transaction_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  catalog_id int(11) NOT NULL,
-  borrower_id int(11) NOT NULL,
-  transaction_borrow_datetime varchar(100) DEFAULT NULL,
-  transaction_return_datetime varchar(100) DEFAULT NULL,
-  transaction_status varchar(100) DEFAULT NULL,
-  CONSTRAINT transaction_table FOREIGN KEY (catalog_id) REFERENCES catalog_table(catalog_id),
-  FOREIGN KEY (borrower_id) REFERENCES borrower_table(borrower_id)
-)
+CREATE TABLE transaction_table ( 
+  transaction_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  librarian_id int(11) NOT NULL, 
+  catalog_id_1 int(11) NOT NULL, 
+  catalog_id_2 int(11) NOT NULL, 
+  catalog_id_3 int(11) NOT NULL, 
+  catalog_id_4 int(11) NOT NULL, 
+  catalog_id_5 int(11) NOT NULL, 
+  borrower_id int(11) NOT NULL, 
+  transaction_borrow_datetime varchar(100) DEFAULT NULL, 
+  transaction_return_datetime varchar(100) DEFAULT NULL, 
+  transaction_status varchar(100) DEFAULT NULL, 
+  CONSTRAINT transaction_table FOREIGN KEY (borrower_id) REFERENCES borrower_table(borrower_id), 
+  FOREIGN KEY (librarian_id) REFERENCES librarian_table(librarian_id) 
+);
+
 
 INSERT INTO `librarian_table`(`librarian_id`, `librarian_uname`, `librarian_pass`) VALUES (1,'admin','$2y$10$CsJsu2L5XPYMdbEX.aYO7OER4oRT85bk94chDttVAGGVBDzaq5oM2');

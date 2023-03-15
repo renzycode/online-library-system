@@ -14,6 +14,7 @@ if(isset($_SESSION["authen"])){
         redirectURL('../login.php');
     }else{
         $uname = $_SESSION["uname"];
+        $librarian_id = $_SESSION["librarian_id"];
     }
 }else{
     redirectURL('login.php');
@@ -38,73 +39,97 @@ if(isset($_SESSION["authen"])){
 <!---------------->
 
 <div class="m-4">
-
     <div class="row">
         <div class="form col-12 mb-4">
             <div class="border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                <form action="{{ route('add.book') }}" method="post">
+                <form action="api/add_transaction.php" method="POST">
                     <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
                     <hr>
+
+                    <?php
+
+                    if(isset($_GET['add'])){
+                        if($_GET['add']=='success'){
+                            echo '
+                            <div class="alert alert-success">
+                                Transaction has been successfully added.
+                            </div>
+                            ';
+                        }
+                        if($_GET['add']=='error'){
+                            echo '
+                            <div class="alert alert-danger">
+                                Error, Please try again later.
+                            </div>
+                            ';
+                        }
+                    }
+
+                    ?>
+
                     <div class="row">
+                        <?php
+                            echo '<input type="hidden" name="librarian_id" value="'.$librarian_id.'">';
+                        ?>
                         <div class="form-group col-12 mb-1">
                             <div class="row">
                                 <div class="col-2">
                                     <label for="bookNumber" class="col-form-label">
                                         <span><i class="bi bi-person-fill"></i></span>
-                                        Borrower ID</label>
-                                    <input type="text" name="book_number" class="form-control" />
+                                        Borrower ID <span class="text-danger">(required)</span></label>
+                                    <input type="text" name="borrower_id" class="form-control" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Book ID 1</label>
-                            <input type="text" name="book_number" class="form-control" />
+                                Catalog ID 1 <span class="text-danger">(required)</span></label>
+                            <input type="text" name="catalog_id_1" class="form-control" required/>
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Book ID 2</label>
-                            <input type="text" name="book_number" class="form-control" />
+                                Catalog ID 2</label>
+                            <input type="text" name="catalog_id_2" class="form-control" />
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Book ID 3</label>
-                            <input type="text" name="book_number" class="form-control" />
+                                Catalog ID 3</label>
+                            <input type="text" name="catalog_id_3" class="form-control" />
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Book ID 4</label>
-                            <input type="text" name="book_number" class="form-control" />
+                                Catalog ID 4</label>
+                            <input type="text" name="catalog_id_4" class="form-control" />
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Book ID 5</label>
-                            <input type="text" name="book_number" class="form-control" />
+                                Catalog ID 5</label>
+                            <input type="text" name="catalog_id_5" class="form-control" />
                         </div>
                         <div class="form-group col-12 mb-1">
-                            <label for="author" class="col-form-label">Borrow Date & Time</label>
+                            <label for="author" class="col-form-label">Borrow Date & Time <span class="text-danger">(required)</span></label>
                             <div class="row">
                                 <div class="col-2">
-                                    <input type="date" name="book_author" class="form-control" />
+                                    <input type="date" name="borrow_date" class="form-control" required/>
                                 </div>
                                 <div class="col-2">
-                                    <input type="time" name="book_author" class="form-control" />
+                                    <input type="time" name="borrow_time" class="form-control" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-12 mb-1">
-                            <label for="author" class="col-form-label">Return Date & Time</label>
+                            <label for="author" class="col-form-label">Return Date & Time <span class="text-danger">(required)</span></label>
                             <div class="row">
                                 <div class="col-2">
-                                    <input type="date" name="book_author" class="form-control" />
+                                    <input type="date" name="return_date" class="form-control" required/>
                                 </div>
                                 <div class="col-2">
-                                    <input type="time" name="book_author" class="form-control" />
+                                    <input type="time" name="return_time" class="form-control" required/>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +146,7 @@ if(isset($_SESSION["authen"])){
                     </div-->
                         <div class="form-group col-12">
                             <div class="mt-3">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="submit" class="btn btn-success" name="add_transaction">Submit</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </div>

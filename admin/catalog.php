@@ -14,12 +14,13 @@ if(isset($_SESSION["authen"])){
         redirectURL('../login.php');
     }else{
         $uname = $_SESSION["uname"];
+        $librarian_id = $_SESSION["librarian_id"];
     }
 }else{
     redirectURL('login.php');
 }
 
-        $sql = 'SELECT * FROM catalog_table ORDER BY catalog_book_title ASC';
+        $sql = 'SELECT * FROM catalog_table';
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $catalogs = $statement->fetchAll();
@@ -110,34 +111,34 @@ if(isset($_SESSION["authen"])){
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body row">
-                        <input type="hidden" name="librarian_id" value="{!! $librarian_id .'">
+                        <input type="hidden" name="librarian_id" value="<?php echo $librarian_id ?>">
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Catalog Number
-                                <span class="text-danger">*</span>
+                                <span class="text-danger">(required)</span>
                             </label>
                             <input type="text" name="catalog_number" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Book Title
-                                <span class="text-danger">*</span>
+                                <span class="text-danger">(required)</span>
                             </label>
                             <input type="text" name="catalog_book_title" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Author
-                                <span class="text-danger">*</span>
+                                <span class="text-danger">(required)</span>
                             </label>
                             <input type="text" name="catalog_author" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Publisher
-                                <span class="text-danger">*</span>
+                                <span class="text-danger">(required)</span>
                             </label>
                             <input type="text" name="catalog_publisher" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Year
-                                <span class="text-danger">*</span>
+                                <span class="text-danger">(required)</span>
                             </label>
                             <input type="text" name="catalog_year" class="form-control border-dark border" required/>
                         </div>
