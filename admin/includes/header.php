@@ -103,7 +103,7 @@
                     }
                 ?>
             >
-                <a class="nav-link" href="catalog.php">
+                <a class="nav-link" href="transaction_table.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Transaction Table</span>
                 </a>
