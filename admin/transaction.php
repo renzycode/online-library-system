@@ -156,6 +156,47 @@ if(isset($_SESSION["authen"])){
         </div>
         <div class="tables col-12">
             <div class="row">
+                
+                <div class="borrower-table col-6">
+                    <div
+                        class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
+                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers  <span><i class="bi bi-person-fill"></i></span></h5>
+                        <hr>
+                        <table class="table table-bordered myDataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Borrower ID</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $number = 0;
+                                foreach ($borrowers as $borrower){
+                                    $number++;
+                                    echo '
+                                        <tr>
+                                            <td class="">'.$borrower['borrower_id'].'</td>
+                                            <td>'.$borrower['borrower_lname'].'</td>
+                                            <td>'.$borrower['borrower_email'].'</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
+                                                    <i class="bi bi-clipboard"></i>
+                                                    Copy ID
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    ';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div class="book-table col-6 ">
                     <div
                         class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
@@ -207,45 +248,7 @@ if(isset($_SESSION["authen"])){
                         </table>
                     </div>
                 </div>
-                <div class="borrower-table col-6">
-                    <div
-                        class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers  <span><i class="bi bi-person-fill"></i></span></h5>
-                        <hr>
-                        <table class="table table-bordered myDataTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Borrower ID</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $number = 0;
-                                foreach ($borrowers as $borrower){
-                                    $number++;
-                                    echo '
-                                        <tr>
-                                            <td class="">'.$borrower['borrower_id'].'</td>
-                                            <td>'.$borrower['borrower_lname'].'</td>
-                                            <td>'.$borrower['borrower_email'].'</td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
-                                                    <i class="bi bi-clipboard"></i>
-                                                    Copy ID
-                                                </button>
-                                            </td>
-                                        </tr>
 
-                                    ';
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

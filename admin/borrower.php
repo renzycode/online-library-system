@@ -369,7 +369,7 @@ if(isset($_SESSION["authen"])){
                                 <th scope="col">Address</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Remove</th>
+                                <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody class="border">
@@ -420,11 +420,11 @@ if(isset($_SESSION["authen"])){
                                                 <div class="modal-content">
                                                     <form action="api/delete_accepted_borrower.php" method="post">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
+                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Borrower</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Are you sure you want to delete this data?
+                                                            Are you sure you want to delete this borrower?
                                                             <input type="hidden" name="id" value="'.$accepted['borrower_id'].'">
                                                         </div>
                                                         <div class="modal-footer">

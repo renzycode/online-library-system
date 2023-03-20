@@ -16,7 +16,7 @@ try {
             $_POST['borrower_id'],
             $_POST['borrow_date'].'|'.$_POST['borrow_time'],
             $_POST['return_date'].'|'.$_POST['return_time'],
-            'hehe',
+            'On Borrow',
         );
 
         $sql = 'INSERT INTO transaction_table(

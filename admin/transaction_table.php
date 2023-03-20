@@ -52,7 +52,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['add']=='success'){
             echo '
             <div class="alert alert-success">
-                transaction has been successfully accepted.
+                Transaction has been successfully accepted.
             </div>
             ';
         }
@@ -69,7 +69,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['edit']=='success'){
             echo '
             <div class="alert alert-success">
-                transaction has been successfully updated.
+                Transaction has been successfully updated.
             </div>
             ';
         }
@@ -86,7 +86,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['delete']=='success'){
             echo '
             <div class="alert alert-success">
-                transaction has been successfully deleted.
+                Transaction has been successfully deleted.
             </div>
             ';
         }
@@ -245,11 +245,11 @@ if(isset($_SESSION["authen"])){
                             
                             
                             ';
-                            if($transaction["transaction_status"]=="on_borrow"){
+                            if($transaction["transaction_status"]=="On Borrow"){
                                 echo '
                                 <td>
-                                    <span class="text-success">
-                                        <i class="bi bi-arrow-clockwise"></i>
+                                    <span class="text-danger">
+                                        <i class="bi bi-exclamation-circle-fill"></i>
                                     </span>
                                     '.$transaction["transaction_status"].' 
                                 </td>';
@@ -428,7 +428,7 @@ if(isset($_SESSION["authen"])){
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body row">
-                                                    <input type="hidden" name="transaction_id" value="">
+                                                    <input type="hidden" name="transaction_id" value="'.$transaction['transaction_id'].'">
                                                     
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Status</label>
