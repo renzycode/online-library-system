@@ -223,6 +223,7 @@ if(isset($_SESSION["authen"])){
                         <th scope="col">Borrow Date & Time</th>
                         <th scope="col">Return Date & Time</th>
                         <th scope="col">Status</th>
+                        <th scope="col">View Borrowed Books</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -241,6 +242,7 @@ if(isset($_SESSION["authen"])){
                             <td>'.$transaction['borrower_email'].'</td>
                             <td>'.$transaction['transaction_borrow_datetime'].'</td>
                             <td>'.$transaction['transaction_return_datetime'].'</td>
+                            
                             
                             ';
                             if($transaction["transaction_status"]=="on_borrow"){
@@ -263,6 +265,153 @@ if(isset($_SESSION["authen"])){
                             echo '
                             </td>
                             <td>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#modalView'.$number.'">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <!-- edit modal -->
+                                <div class="modal fade" id="modalView'.$number.'" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="api/edit_transaction.php" method="post">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Borrowed Books</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body row">
+                                                    
+                                                    <div class="table-responsive">';
+
+                                                        $sql2 = 'SELECT * FROM catalog_table
+                                                        WHERE catalog_id = '.$transaction['catalog_id_1'];
+                                                        $statement2 = $pdo->prepare($sql2);
+                                                        $statement2->execute();
+                                                        $catalog1 = $statement2->fetchAll();
+
+                                                        $sql2 = 'SELECT * FROM catalog_table
+                                                        WHERE catalog_id = '.$transaction['catalog_id_2'];
+                                                        $statement2 = $pdo->prepare($sql2);
+                                                        $statement2->execute();
+                                                        $catalog2 = $statement2->fetchAll();
+
+                                                        $sql2 = 'SELECT * FROM catalog_table
+                                                        WHERE catalog_id = '.$transaction['catalog_id_3'];
+                                                        $statement2 = $pdo->prepare($sql2);
+                                                        $statement2->execute();
+                                                        $catalog3 = $statement2->fetchAll();
+
+                                                        $sql2 = 'SELECT * FROM catalog_table
+                                                        WHERE catalog_id = '.$transaction['catalog_id_4'];
+                                                        $statement2 = $pdo->prepare($sql2);
+                                                        $statement2->execute();
+                                                        $catalog4 = $statement2->fetchAll();
+
+                                                        $sql2 = 'SELECT * FROM catalog_table
+                                                        WHERE catalog_id = '.$transaction['catalog_id_5'];
+                                                        $statement2 = $pdo->prepare($sql2);
+                                                        $statement2->execute();
+                                                        $catalog5 = $statement2->fetchAll();
+
+                                                        echo '
+                                                        <table class="table table-bordered border-secondary">
+                                                            <thead class="border">
+                                                                <tr>
+                                                                    <th scope="col">No.</th>
+                                                                    <th scope="col">Catalog ID</th>
+                                                                    <th scope="col">Catalog Number</th>
+                                                                    <th scope="col">Book Title</th>
+                                                                    <th scope="col">Author</th>
+                                                                    <th scope="col">Publisher</th>
+                                                                    <th scope="col">Year</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="border">
+                                                            ';
+                                                                foreach ($catalog1 as $c){
+                                                                    echo '
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['catalog_number'].'</td>
+                                                                        <td>'.$c['catalog_book_title'].'</td>
+                                                                        <td>'.$c['catalog_author'].'</td>
+                                                                        <td>'.$c['catalog_publisher'].'</td>
+                                                                        <td>'.$c['catalog_year'].'</td>
+                                                                    </tr>
+                                                                    ';
+                                                                }
+                                                                foreach ($catalog2 as $c){
+                                                                    echo '
+                                                                    <tr>
+                                                                        <td>2</td>
+                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['catalog_number'].'</td>
+                                                                        <td>'.$c['catalog_book_title'].'</td>
+                                                                        <td>'.$c['catalog_author'].'</td>
+                                                                        <td>'.$c['catalog_publisher'].'</td>
+                                                                        <td>'.$c['catalog_year'].'</td>
+                                                                    </tr>
+                                                                    ';
+                                                                }
+                                                                foreach ($catalog3 as $c){
+                                                                    echo '
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['catalog_number'].'</td>
+                                                                        <td>'.$c['catalog_book_title'].'</td>
+                                                                        <td>'.$c['catalog_author'].'</td>
+                                                                        <td>'.$c['catalog_publisher'].'</td>
+                                                                        <td>'.$c['catalog_year'].'</td>
+                                                                    </tr>
+                                                                    ';
+                                                                }
+                                                                foreach ($catalog4 as $c){
+                                                                    echo '
+                                                                    <tr>
+                                                                        <td>4</td>
+                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['catalog_number'].'</td>
+                                                                        <td>'.$c['catalog_book_title'].'</td>
+                                                                        <td>'.$c['catalog_author'].'</td>
+                                                                        <td>'.$c['catalog_publisher'].'</td>
+                                                                        <td>'.$c['catalog_year'].'</td>
+                                                                    </tr>
+                                                                    ';
+                                                                }
+                                                                foreach ($catalog5 as $c){
+                                                                    echo '
+                                                                    <tr>
+                                                                        <td>5</td>
+                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['catalog_number'].'</td>
+                                                                        <td>'.$c['catalog_book_title'].'</td>
+                                                                        <td>'.$c['catalog_author'].'</td>
+                                                                        <td>'.$c['catalog_publisher'].'</td>
+                                                                        <td>'.$c['catalog_year'].'</td>
+                                                                    </tr>
+                                                                    ';
+                                                                }
+                                                            echo '
+                                                            </tbody>
+                                                        </table>
+                                                    </div>';
+
+                                                echo '
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end edit modal -->
+                            </td>
+                            <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalEdit'.$number.'">
                                     <i class="bi-pencil-square"></i>
@@ -280,116 +429,28 @@ if(isset($_SESSION["authen"])){
                                                 </div>
                                                 <div class="modal-body row">
                                                     <input type="hidden" name="transaction_id" value="">
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">transaction Number
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" name="transaction_number"
-                                                            class="form-control border-dark border" value="" required/>
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Book Title
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" name="transaction_book_title"
-                                                            class="form-control border-dark border" value="" required/>
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Author
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" name="transaction_author"
-                                                            class="form-control border-dark border" value="" required/>
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Publisher
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" name="transaction_publisher"
-                                                            class="form-control border-dark border" value="" required/>
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Year
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <input type="text" name="transaction_year"
-                                                            class="form-control border-dark border" value" required/>
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Date Received</label>
-                                                        <input type="text" name="transaction_date_received"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Class</label>
-                                                        <input type="text" name="transaction_class"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Edition</label>
-                                                        <input type="text" name="transaction_edition"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Volumes</label>
-                                                        <input type="text" name="transaction_volumes"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Pages</label>
-                                                        <input type="text" name="transaction_pages"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Source of Fund</label>
-                                                        <input type="text" name="transaction_source_of_fund"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Cost Price</label>
-                                                        <input type="text" name="transaction_cost_price"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Location Symbol</label>
-                                                        <input type="text" name="transaction_location_symbol"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Class Number</label>
-                                                        <input type="text" name="transaction_class_number"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Author Number</label>
-                                                        <input type="text" name="transaction_author_number"
-                                                            class="form-control border-dark border" />
-                                                    </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Copyright Date</label>
-                                                        <input type="text" name="transaction_copyright_date"
-                                                            class="form-control border-dark border" />
-                                                    </div>
+                                                    
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Status</label>
                                                         ';
-                                                        if($transaction['transaction_status'] == "Available"){
+                                                        if($transaction['transaction_status'] == "Returned"){
                                                             echo '
                                                             <select class="form-select" aria-label="" name="transaction_status">
-                                                                <option selected value="Available">Available</option>
-                                                                <option value="Unavailable">Unavailable</option>
+                                                                <option selected value="Returned">Returned</option>
+                                                                <option value="On Borrow">On Borrow</option>
                                                             </select>
                                                             ';
                                                         }else{
                                                             echo '
                                                             <select class="form-select" aria-label="" name="transaction_status">
-                                                                <option selected value="Unavailable">Unavailable</option>
-                                                                <option value="Available">Available</option>
+                                                                <option selected value="On Borrow">On Borrow</option>
+                                                                <option value="Returned">Returned</option>
                                                             </select>
                                                             ';
                                                         }
                                                     echo '
                                                     </div>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" name="edit_transaction" class="btn btn-success">Submit</button>

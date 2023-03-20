@@ -159,7 +159,7 @@ if(isset($_SESSION["authen"])){
                 <div class="book-table col-6 ">
                     <div
                         class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                        <h5 class="modal-title" id="exampleModalLabel">List of Books</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">List of Books <span><i class="bi bi-book-half"></i></span></h5>
                         <hr>
                         <table class="table table-bordered myDataTable">
                             <thead>
@@ -210,7 +210,7 @@ if(isset($_SESSION["authen"])){
                 <div class="borrower-table col-6">
                     <div
                         class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers  <span><i class="bi bi-person-fill"></i></span></h5>
                         <hr>
                         <table class="table table-bordered myDataTable">
                             <thead>
