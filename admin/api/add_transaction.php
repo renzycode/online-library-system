@@ -7,7 +7,7 @@ try {
     if(isset($_POST['add_transaction'])){
     
         $params = array(
-            1,
+            $_POST['librarian_id'],
             $_POST['catalog_id_1'],
             $_POST['catalog_id_2'],
             $_POST['catalog_id_3'],

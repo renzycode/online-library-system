@@ -43,9 +43,6 @@ if(isset($_SESSION["authen"])){
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="">
             Download Report
         </button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="">
-            Clear Catalog
-        </button>
     </h2>
 
     <?php

@@ -97,11 +97,67 @@ if(isset($_SESSION["authen"])){
                 <?php
                 if($borrower == "accepted"){
                 ?>
-
-                    <!-- view button if accepted section -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="">
-                        Download Report
+                    <button type="button" class="btn btn-success mx-1 my-2" data-bs-toggle="modal"
+                        data-bs-target="#modalRegister">
+                        Add
                     </button>
+                    <!-- register modal -->
+                    <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="api/add_accepted_borrower.php" method="POST" enctype="multipart/form-data">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="registerModal">Add Accepted Borrower</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label class="col-form-label">First Name</label>
+                                            <input type="text" name="fname" class="form-control border-dark border"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Last Name</label>
+                                            <input type="text" name="lname" class="form-control border-dark border"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Address</label>
+                                            <input type="text" name="address" class="form-control border-dark border"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Contact</label>
+                                            <input type="text" name="contact" class="form-control border-dark border"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Email</label>
+                                            <input type="email" name="email" class="form-control border-dark border"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">ID Picture</label>
+                                            <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
+                                                class="form-control border-dark border">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="register" class="btn btn-success">Submit</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end edit modal -->
+                    <!-- view button if accepted section -->
+                    <a href="download_reports/accepted_borrower.php" type="button" class="btn btn-success">
+                        Download Report
+                    </a>
 
                 <?php
                 }elseif($borrower == "rejected"){

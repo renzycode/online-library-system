@@ -41,9 +41,6 @@ if(isset($_SESSION["authen"])){
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="">
             Download Report
         </button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="">
-            Clear transaction
-        </button>
     </h2>
 
     <?php
@@ -99,108 +96,6 @@ if(isset($_SESSION["authen"])){
         }
     }
     ?>
-    <!-- add modal -->
-    <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="api/add_transaction.php" method="POST">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add transaction</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body row">
-                        <input type="hidden" name="librarian_id" value="<?php echo $librarian_id ?>">
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">transaction Number
-                                <span class="text-danger">(required)</span>
-                            </label>
-                            <input type="text" name="transaction_number" class="form-control border-dark border" required/>
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Book Title
-                                <span class="text-danger">(required)</span>
-                            </label>
-                            <input type="text" name="transaction_book_title" class="form-control border-dark border" required/>
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Author
-                                <span class="text-danger">(required)</span>
-                            </label>
-                            <input type="text" name="transaction_author" class="form-control border-dark border" required/>
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Publisher
-                                <span class="text-danger">(required)</span>
-                            </label>
-                            <input type="text" name="transaction_publisher" class="form-control border-dark border" required/>
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Year
-                                <span class="text-danger">(required)</span>
-                            </label>
-                            <input type="text" name="transaction_year" class="form-control border-dark border" required/>
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Date Received</label>
-                            <input type="text" name="transaction_date_received" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Class</label>
-                            <input type="text" name="transaction_class" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Edition</label>
-                            <input type="text" name="transaction_edition" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Volumes</label>
-                            <input type="text" name="transaction_volumes" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Pages</label>
-                            <input type="text" name="transaction_pages" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Source of Fund</label>
-                            <input type="text" name="transaction_source_of_fund" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Cost Price</label>
-                            <input type="text" name="transaction_cost_price" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Location Symbol</label>
-                            <input type="text" name="transaction_location_symbol" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Class Number</label>
-                            <input type="text" name="transaction_class_number" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Author Number</label>
-                            <input type="text" name="transaction_author_number" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Copyright Date</label>
-                            <input type="text" name="transaction_copyright_date" class="form-control border-dark border" />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Status</label>
-                            <select class="form-select" aria-label="" name="transaction_status">
-                                <option selected value="Available">Available</option>
-                                <option value="Unavailable">Unavailable</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" name="add_transaction" class="btn btn-success">Submit</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-            </div>
-            </form>
-        </div>
-    </div>
-    <!-- end add modal -->
     <?php
     if ( count($transactions)<=0 ) {
         echo '

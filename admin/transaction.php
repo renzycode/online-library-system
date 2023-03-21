@@ -144,10 +144,11 @@ if(isset($_SESSION["authen"])){
                             </div>
                         </div>
                     </div-->
+                        <input type="hidden" name="librarian_id" class="form-control" value="<?php echo $librarian_id ?>"/>
                         <div class="form-group col-12">
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-success" name="add_transaction">Submit</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <a href="transaction.php" type="button" class="btn btn-secondary">Cancel</a>
                             </div>
                         </div>
                     </div>
