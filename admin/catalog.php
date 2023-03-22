@@ -36,13 +36,13 @@ if(isset($_SESSION["authen"])){
 <div class="m-4">
     <h2 class="mb-4 text-dark">
         <span class="page-title">Catalog Table</span>
-        <hr>
+        <hr>    
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd">
             Add
         </button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="">
+        <a type="button" class="btn btn-success" href="download_reports/catalog.php">
             Download Report
-        </button>
+        </a>
     </h2>
 
     <?php
@@ -214,7 +214,8 @@ if(isset($_SESSION["authen"])){
             <table class="table table-bordered border-secondary">
                 <thead class="border">
                     <tr>
-                        <th scope="col">No.</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Book ID</th>
                         <th scope="col">Catalog Number</th>
                         <th scope="col">Book Title</th>
                         <th scope="col">Author</th>
@@ -244,6 +245,7 @@ if(isset($_SESSION["authen"])){
                         echo '
                         <tr>
                             <td>'.$number.'</td>
+                            <td>'.$catalog['book_id'].'</td>
                             <td>'.$catalog['catalog_number'].'</td>
                             <td>'.$catalog['catalog_book_title'].'</td>
                             <td>'.$catalog['catalog_author'].'</td>
@@ -263,20 +265,16 @@ if(isset($_SESSION["authen"])){
                             <td>';
                             if($catalog["catalog_status"]=="Available"){
                                 echo '
-                                <td>
                                     <span class="text-success">
                                         <i class="bi bi-check-circle-fill"></i>
                                     </span>
-                                    '.$catalog["catalog_status"].' 
-                                </td>';
+                                    '.$catalog["catalog_status"];
                             }else{
                                 echo '
-                                <td>
                                     <span class="text-danger">
                                         <i class="bi bi-x-circle-fill"></i>
                                     </span>
-                                    '.$catalog["catalog_status"].' 
-                                </td>';
+                                    '.$catalog["catalog_status"];
                             }
                             echo '
                             </td>
@@ -297,7 +295,7 @@ if(isset($_SESSION["authen"])){
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body row">
-                                                    <input type="hidden" name="catalog_id" value="'.$catalog['catalog_id'].'">
+                                                    <input type="hidden" name="book_id" value="'.$catalog['book_id'].'">
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Catalog Number
                                                             <span class="text-danger">*</span>
@@ -336,57 +334,57 @@ if(isset($_SESSION["authen"])){
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Date Received</label>
                                                         <input type="text" name="catalog_date_received"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_date_received'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Class</label>
                                                         <input type="text" name="catalog_class"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_class'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Edition</label>
                                                         <input type="text" name="catalog_edition"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_edition'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Volumes</label>
                                                         <input type="text" name="catalog_volumes"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_volumes'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Pages</label>
                                                         <input type="text" name="catalog_pages"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_pages'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Source of Fund</label>
                                                         <input type="text" name="catalog_source_of_fund"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_source_of_fund'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Cost Price</label>
                                                         <input type="text" name="catalog_cost_price"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_cost_price'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Location Symbol</label>
                                                         <input type="text" name="catalog_location_symbol"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_location_symbol'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Class Number</label>
                                                         <input type="text" name="catalog_class_number"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_class_number'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Author Number</label>
                                                         <input type="text" name="catalog_author_number"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_author_number'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Copyright Date</label>
                                                         <input type="text" name="catalog_copyright_date"
-                                                            class="form-control border-dark border" />
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_copyright_date'].'"/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Status</label>
@@ -439,7 +437,7 @@ if(isset($_SESSION["authen"])){
                                                 <div class="modal-body">
                                                     Are you sure you want to delete this catalog?
                                                 </div>
-                                                <input type="hidden" name="id" value="'.$catalog['catalog_id'].'">
+                                                <input type="hidden" name="id" value="'.$catalog['book_id'].'">
                                                 <div class="modal-footer">
                                                     <button type="submit" name="delete_catalog" class="btn btn-success">Yes</button>
                                                     <button type="button" class="btn btn-secondary"

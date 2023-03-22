@@ -57,11 +57,89 @@ if(isset($_SESSION["authen"])){
                             ';
                         }
                         if($_GET['add']=='error'){
-                            echo '
-                            <div class="alert alert-danger">
-                                Error, Please try again later.
-                            </div>
-                            ';
+
+                            if($_GET['error']=='book1'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book ID 1 not found!
+                                </div>
+                                ';
+                            }elseif($_GET['error']=='book2'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book ID 2 not found!
+                                </div>
+                                ';
+                            }elseif($_GET['error']=='book3'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book ID 3 not found!
+                                </div>
+                                ';
+                            }elseif($_GET['error']=='book4'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book ID 4 not found!
+                                </div>
+                                ';
+                            }elseif($_GET['error']=='book5'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book ID 5 not found!
+                                </div>
+                                ';
+                            }elseif($_GET['error']=='borrower'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Borrower ID not found!
+                                </div>
+                                ';
+                            }
+                            
+                            elseif($_GET['error']=='book1unavailable'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book 1 is unavailable!
+                                </div>
+                                ';
+                            }
+                            elseif($_GET['error']=='book2unavailable'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book 2 is unavailable!
+                                </div>
+                                ';
+                            }
+                            elseif($_GET['error']=='book3unavailable'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book 3 is unavailable!
+                                </div>
+                                ';
+                            }
+                            elseif($_GET['error']=='book4unavailable'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book 4 is unavailable!
+                                </div>
+                                ';
+                            }
+                            elseif($_GET['error']=='book5unavailable'){
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Book 5 is unavailable!
+                                </div>
+                                ';
+                            }
+                            
+                            else{
+                                echo '
+                                <div class="alert alert-danger">
+                                    Error, Please try again later.
+                                </div>
+                                ';
+                            }
+                            
                         }
                     }
 
@@ -84,32 +162,32 @@ if(isset($_SESSION["authen"])){
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Catalog ID 1 <span class="text-danger">(required)</span></label>
-                            <input type="text" name="catalog_id_1" class="form-control" required/>
+                                Book ID 1 <span class="text-danger">(required)</span></label>
+                            <input type="text" name="book_id_1" class="form-control" required/>
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Catalog ID 2</label>
-                            <input type="text" name="catalog_id_2" class="form-control" />
+                                Book ID 2</label>
+                            <input type="text" name="book_id_2" class="form-control" />
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Catalog ID 3</label>
-                            <input type="text" name="catalog_id_3" class="form-control" />
+                                Book ID 3</label>
+                            <input type="text" name="book_id_3" class="form-control" />
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Catalog ID 4</label>
-                            <input type="text" name="catalog_id_4" class="form-control" />
+                                Book ID 4</label>
+                            <input type="text" name="book_id_4" class="form-control" />
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 <span><i class="bi bi-book-half"></i></span>
-                                Catalog ID 5</label>
-                            <input type="text" name="catalog_id_5" class="form-control" />
+                                Book ID 5</label>
+                            <input type="text" name="book_id_5" class="form-control" />
                         </div>
                         <div class="form-group col-12 mb-1">
                             <label for="author" class="col-form-label">Borrow Date & Time <span class="text-danger">(required)</span></label>
@@ -167,8 +245,7 @@ if(isset($_SESSION["authen"])){
                             <thead>
                                 <tr>
                                     <th scope="col">Borrower ID</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Borrower Email</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -180,7 +257,6 @@ if(isset($_SESSION["authen"])){
                                     echo '
                                         <tr>
                                             <td class="">'.$borrower['borrower_id'].'</td>
-                                            <td>'.$borrower['borrower_lname'].'</td>
                                             <td>'.$borrower['borrower_email'].'</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
@@ -219,14 +295,14 @@ if(isset($_SESSION["authen"])){
                                     $number++;
                                     echo '
                                         <tr>
-                                            <td>'.$catalog['catalog_id'].'</td>
+                                            <td>'.$catalog['book_id'].'</td>
                                             <td>'.$catalog['catalog_number'].'</td>
                                             <td>'.$catalog['catalog_book_title'].'</td>
                                             <td>
                                             ';
                                             if($catalog['catalog_status']=='Available'){
                                                 echo '
-                                                    <button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['catalog_id'].')">
+                                                    <button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
                                                         <i class="bi bi-clipboard"></i>
                                                         Copy ID
                                                     </button>

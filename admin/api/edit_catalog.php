@@ -17,6 +17,7 @@ try {
         catalog_class = :catalog_class,
         catalog_edition = :catalog_edition,
         catalog_volumes = :catalog_volumes,
+        catalog_pages = :catalog_pages,
         catalog_source_of_fund = :catalog_source_of_fund,
         catalog_cost_price = :catalog_cost_price,
         catalog_location_symbol = :catalog_location_symbol,
@@ -24,7 +25,7 @@ try {
         catalog_author_number = :catalog_author_number,
         catalog_copyright_date = :catalog_copyright_date,
         catalog_status = :catalog_status
-        WHERE catalog_id = :catalog_id ';
+        WHERE book_id = :book_id ';
     
         $statement = $pdo->prepare($sql);
     
@@ -39,6 +40,7 @@ try {
             ':catalog_class' => $_POST['catalog_class'],
             ':catalog_edition' => $_POST['catalog_edition'],
             ':catalog_volumes' => $_POST['catalog_volumes'],
+            ':catalog_pages' => $_POST['catalog_pages'],
             ':catalog_source_of_fund' => $_POST['catalog_source_of_fund'],
             ':catalog_cost_price' => $_POST['catalog_cost_price'],
             ':catalog_location_symbol' => $_POST['catalog_location_symbol'],
@@ -46,7 +48,7 @@ try {
             ':catalog_author_number' => $_POST['catalog_author_number'],
             ':catalog_copyright_date' => $_POST['catalog_copyright_date'],
             ':catalog_status' => $_POST['catalog_status'],
-            ':catalog_id' => $_POST['catalog_id']
+            ':book_id' => $_POST['book_id']
         ]);
 
         printInConsole('Borrower Registered Successfully!');

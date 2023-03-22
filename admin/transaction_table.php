@@ -38,9 +38,9 @@ if(isset($_SESSION["authen"])){
     <h2 class="mb-4 text-dark">
         <span class="page-title">Transaction Table</span>
         <hr>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="">
+        <a type="button" class="btn btn-success" href="download_reports/transaction.php">
             Download Report
-        </button>
+        </a>
     </h2>
 
     <?php
@@ -110,16 +110,21 @@ if(isset($_SESSION["authen"])){
             <table class="table table-bordered border-secondary">
                 <thead class="border">
                     <tr>
-                        <th scope="col">No.</th>
+                        <th scope="col">#</th>
                         <th scope="col">Transaction ID</th>
                         <th scope="col">Borrower ID</th>
-                        <th scope="col">Borrower Full Name</th>
+                        <!--th scope="col">Borrower Full Name</th-->
                         <th scope="col">Borrower Email</th>
-                        <th scope="col">Borrow Date & Time</th>
-                        <th scope="col">Return Date & Time</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Borrow Date&Time</th>
+                        <th scope="col">Return Date&Time</th>
                         <th scope="col">View Borrowed Books</th>
-                        <th scope="col">Edit</th>
+                        
+                        
+                        <th scope="col">Date&Time Returned</th>
+                        <th scope="col">Days&Hours Lapse</th>
+                        
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
@@ -133,32 +138,11 @@ if(isset($_SESSION["authen"])){
                             <td>'.$number.'</td>
                             <td>'.$transaction['transaction_id'].'</td>
                             <td>'.$transaction['borrower_id'].'</td>
-                            <td>'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td>
+                            <!--td>'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td-->
                             <td>'.$transaction['borrower_email'].'</td>
                             <td>'.$transaction['transaction_borrow_datetime'].'</td>
                             <td>'.$transaction['transaction_return_datetime'].'</td>
                             
-                            
-                            ';
-                            if($transaction["transaction_status"]=="On Borrow"){
-                                echo '
-                                <td>
-                                    <span class="text-danger">
-                                        <i class="bi bi-exclamation-circle-fill"></i>
-                                    </span>
-                                    '.$transaction["transaction_status"].' 
-                                </td>';
-                            }else{
-                                echo '
-                                <td>
-                                    <span class="text-success">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                    </span>
-                                    '.$transaction["transaction_status"].' 
-                                </td>';
-                            }
-                            echo '
-                            </td>
                             <td>
                                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#modalView'.$number.'">
@@ -180,31 +164,31 @@ if(isset($_SESSION["authen"])){
                                                     <div class="table-responsive">';
 
                                                         $sql2 = 'SELECT * FROM catalog_table
-                                                        WHERE catalog_id = '.$transaction['catalog_id_1'];
+                                                        WHERE book_id = '.$transaction['book_id_1'];
                                                         $statement2 = $pdo->prepare($sql2);
                                                         $statement2->execute();
                                                         $catalog1 = $statement2->fetchAll();
 
                                                         $sql2 = 'SELECT * FROM catalog_table
-                                                        WHERE catalog_id = '.$transaction['catalog_id_2'];
+                                                        WHERE book_id = '.$transaction['book_id_2'];
                                                         $statement2 = $pdo->prepare($sql2);
                                                         $statement2->execute();
                                                         $catalog2 = $statement2->fetchAll();
 
                                                         $sql2 = 'SELECT * FROM catalog_table
-                                                        WHERE catalog_id = '.$transaction['catalog_id_3'];
+                                                        WHERE book_id = '.$transaction['book_id_3'];
                                                         $statement2 = $pdo->prepare($sql2);
                                                         $statement2->execute();
                                                         $catalog3 = $statement2->fetchAll();
 
                                                         $sql2 = 'SELECT * FROM catalog_table
-                                                        WHERE catalog_id = '.$transaction['catalog_id_4'];
+                                                        WHERE book_id = '.$transaction['book_id_4'];
                                                         $statement2 = $pdo->prepare($sql2);
                                                         $statement2->execute();
                                                         $catalog4 = $statement2->fetchAll();
 
                                                         $sql2 = 'SELECT * FROM catalog_table
-                                                        WHERE catalog_id = '.$transaction['catalog_id_5'];
+                                                        WHERE book_id = '.$transaction['book_id_5'];
                                                         $statement2 = $pdo->prepare($sql2);
                                                         $statement2->execute();
                                                         $catalog5 = $statement2->fetchAll();
@@ -213,8 +197,8 @@ if(isset($_SESSION["authen"])){
                                                         <table class="table table-bordered border-secondary">
                                                             <thead class="border">
                                                                 <tr>
-                                                                    <th scope="col">No.</th>
-                                                                    <th scope="col">Catalog ID</th>
+                                                                    <th scope="col">#</th>
+                                                                    <th scope="col">Book ID</th>
                                                                     <th scope="col">Catalog Number</th>
                                                                     <th scope="col">Book Title</th>
                                                                     <th scope="col">Author</th>
@@ -228,7 +212,7 @@ if(isset($_SESSION["authen"])){
                                                                     echo '
                                                                     <tr>
                                                                         <td>1</td>
-                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['book_id'].'</td>
                                                                         <td>'.$c['catalog_number'].'</td>
                                                                         <td>'.$c['catalog_book_title'].'</td>
                                                                         <td>'.$c['catalog_author'].'</td>
@@ -241,7 +225,7 @@ if(isset($_SESSION["authen"])){
                                                                     echo '
                                                                     <tr>
                                                                         <td>2</td>
-                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['book_id'].'</td>
                                                                         <td>'.$c['catalog_number'].'</td>
                                                                         <td>'.$c['catalog_book_title'].'</td>
                                                                         <td>'.$c['catalog_author'].'</td>
@@ -254,7 +238,7 @@ if(isset($_SESSION["authen"])){
                                                                     echo '
                                                                     <tr>
                                                                         <td>3</td>
-                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['book_id'].'</td>
                                                                         <td>'.$c['catalog_number'].'</td>
                                                                         <td>'.$c['catalog_book_title'].'</td>
                                                                         <td>'.$c['catalog_author'].'</td>
@@ -267,7 +251,7 @@ if(isset($_SESSION["authen"])){
                                                                     echo '
                                                                     <tr>
                                                                         <td>4</td>
-                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['book_id'].'</td>
                                                                         <td>'.$c['catalog_number'].'</td>
                                                                         <td>'.$c['catalog_book_title'].'</td>
                                                                         <td>'.$c['catalog_author'].'</td>
@@ -280,7 +264,7 @@ if(isset($_SESSION["authen"])){
                                                                     echo '
                                                                     <tr>
                                                                         <td>5</td>
-                                                                        <td>'.$c['catalog_id'].'</td>
+                                                                        <td>'.$c['book_id'].'</td>
                                                                         <td>'.$c['catalog_number'].'</td>
                                                                         <td>'.$c['catalog_book_title'].'</td>
                                                                         <td>'.$c['catalog_author'].'</td>
@@ -306,10 +290,40 @@ if(isset($_SESSION["authen"])){
                                 </div>
                                 <!-- end edit modal -->
                             </td>
+                            
+                            <td>'.$transaction['transaction_borrow_datetime'].'</td>
+                            <td>Days: 5 | Hours: 2</td>
+
+                            ';
+                            if($transaction["transaction_status"]=="On Borrow"){
+                                echo '
+                                <td>
+                                    <span class="text-danger">
+                                        <i class="bi bi-exclamation-circle-fill"></i>
+                                    </span>
+                                    '.$transaction["transaction_status"].' 
+                                </td>';
+                            }else{
+                                echo '
+                                <td>
+                                    <span class="text-success">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                    </span>
+                                    '.$transaction["transaction_status"].' 
+                                </td>';
+                            }
+                            echo '
+
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalEdit'.$number.'">
-                                    <i class="bi-pencil-square"></i>
+                                    data-bs-target="#modalEdit'.$number.'"
+                                    '; 
+                                    if($transaction["transaction_status"]=="Returned"){
+                                        echo 'disabled';
+                                    }
+                                    echo ' 
+                                    >
+                                    Return Books
                                 </button>
                                 <!-- edit modal -->
                                 <div class="modal fade" id="modalEdit'.$number.'" tabindex="-1"
@@ -318,37 +332,18 @@ if(isset($_SESSION["authen"])){
                                         <div class="modal-content">
                                             <form action="api/edit_transaction.php" method="post">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit transaction</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Return Books</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body row">
+                                                <div class="modal-body">
                                                     <input type="hidden" name="transaction_id" value="'.$transaction['transaction_id'].'">
                                                     
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Status</label>
-                                                        ';
-                                                        if($transaction['transaction_status'] == "Returned"){
-                                                            echo '
-                                                            <select class="form-select" aria-label="" name="transaction_status">
-                                                                <option selected value="Returned">Returned</option>
-                                                                <option value="On Borrow">On Borrow</option>
-                                                            </select>
-                                                            ';
-                                                        }else{
-                                                            echo '
-                                                            <select class="form-select" aria-label="" name="transaction_status">
-                                                                <option selected value="On Borrow">On Borrow</option>
-                                                                <option value="Returned">Returned</option>
-                                                            </select>
-                                                            ';
-                                                        }
-                                                    echo '
-                                                    </div>
+                                                    Are you sure that the books are returned?
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" name="edit_transaction" class="btn btn-success">Submit</button>
+                                                    <button type="submit" name="edit_transaction" class="btn btn-success">Continue</button>
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Cancel</button>
                                                 </div>
@@ -358,6 +353,7 @@ if(isset($_SESSION["authen"])){
                                 </div>
                                 <!-- end edit modal -->
                             </td>
+
                             <td>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#modalDelete'.$number.'">

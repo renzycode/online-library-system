@@ -14,14 +14,41 @@ try {
     
 
         $params=array(
-            $_POST['transaction_status'],
+            'Returned',
             $_POST['transaction_id']
         );
 
 
         $statement->execute($params);
 
-        printInConsole('Transaction Edited Successfully!');
+        if($_POST['transaction_status']=='Returned'){
+            $sql = 'SELECT * FROM transaction_table
+            WHERE transaction_id = ? ';
+            $statement = $pdo->prepare($sql);
+            $params=array(
+                $_POST['transaction_id']
+            );
+            $statement->execute($params);
+            $result = $statement->fetch();
+            $books = array(
+                $result['book_id_1'],
+                $result['book_id_2'],
+                $result['book_id_3'],
+                $result['book_id_4'],
+                $result['book_id_5']
+            );
+            foreach ($books as $book){
+                $sql = 'UPDATE catalog_table SET 
+                catalog_status = "Available"
+                WHERE book_id = ?';
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($book));
+            }
+        }
+
+        
+
+
         redirectURL('../transaction_table.php?edit=success');
     }else{
         printInConsole('Edit Transaction Error!');
