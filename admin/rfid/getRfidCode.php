@@ -12,6 +12,21 @@
 
     //for scan
     $rfidCode=$_POST["rfidCode"];
+
+
+	registered
+
+	rfid code
+	0192384
+
+	book id
+	29
+
+	book title
+	harry potter
+
+	submiy refresh
+
 	$Write2='
 	<h1> '.$rfidCode.' </h1>
 	';

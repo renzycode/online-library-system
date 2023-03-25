@@ -216,6 +216,7 @@ if(isset($_SESSION["authen"])){
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Book ID</th>
+                        <th scope="col">RFID Code</th>
                         <th scope="col">Catalog Number</th>
                         <th scope="col">Book Title</th>
                         <th scope="col">Author</th>
@@ -246,6 +247,7 @@ if(isset($_SESSION["authen"])){
                         <tr>
                             <td>'.$number.'</td>
                             <td>'.$catalog['book_id'].'</td>
+                            <td>'.$catalog['rfid_code'].'</td>
                             <td>'.$catalog['catalog_number'].'</td>
                             <td>'.$catalog['catalog_book_title'].'</td>
                             <td>'.$catalog['catalog_author'].'</td>

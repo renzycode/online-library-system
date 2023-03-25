@@ -149,21 +149,25 @@ if(isset($_SESSION["authen"])){
                         <?php
                             echo '<input type="hidden" name="librarian_id" value="'.$librarian_id.'">';
                         ?>
+
                         <div class="form-group col-12 mb-1">
                             <div class="row">
                                 <div class="col-2">
                                     <label for="bookNumber" class="col-form-label">
-                                        <span><i class="bi bi-person-fill"></i></span>
                                         Borrower ID <span class="text-danger">(required)</span></label>
-                                    <input type="text" name="borrower_id" class="form-control" required/>
+                                    <input type="text" name="borrower_id" class="form-control" required />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
-                                <span><i class="bi bi-book-half"></i></span>
                                 Book ID 1 <span class="text-danger">(required)</span></label>
-                            <input type="text" name="book_id_1" class="form-control" required/>
+                            <input type="text" name="book_id_1" class="form-control" required />
+
+                            <!-- triggers modal and refresh rfid code -->
+                            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                data-bs-target="#book1modal" onclick="clearRFID()">Scan RFID</button>
+
                         </div>
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
@@ -190,24 +194,26 @@ if(isset($_SESSION["authen"])){
                             <input type="text" name="book_id_5" class="form-control" />
                         </div>
                         <div class="form-group col-12 mb-1">
-                            <label for="author" class="col-form-label">Borrow Date & Time <span class="text-danger">(required)</span></label>
+                            <label for="author" class="col-form-label">Borrow Date & Time <span
+                                    class="text-danger">(required)</span></label>
                             <div class="row">
                                 <div class="col-2">
-                                    <input type="date" name="borrow_date" class="form-control" required/>
+                                    <input type="date" name="borrow_date" class="form-control" required />
                                 </div>
                                 <div class="col-2">
-                                    <input type="time" name="borrow_time" class="form-control" required/>
+                                    <input type="time" name="borrow_time" class="form-control" required />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group col-12 mb-1">
-                            <label for="author" class="col-form-label">Return Date & Time <span class="text-danger">(required)</span></label>
+                            <label for="author" class="col-form-label">Return Date & Time <span
+                                    class="text-danger">(required)</span></label>
                             <div class="row">
                                 <div class="col-2">
-                                    <input type="date" name="return_date" class="form-control" required/>
+                                    <input type="date" name="return_date" class="form-control" required />
                                 </div>
                                 <div class="col-2">
-                                    <input type="time" name="return_time" class="form-control" required/>
+                                    <input type="time" name="return_time" class="form-control" required />
                                 </div>
                             </div>
                         </div>
@@ -222,7 +228,8 @@ if(isset($_SESSION["authen"])){
                             </div>
                         </div>
                     </div-->
-                        <input type="hidden" name="librarian_id" class="form-control" value="<?php echo $librarian_id ?>"/>
+                        <input type="hidden" name="librarian_id" class="form-control"
+                            value="<?php echo $librarian_id ?>" />
                         <div class="form-group col-12">
                             <div class="mt-3">
                                 <button type="submit" class="btn btn-success" name="add_transaction">Submit</button>
@@ -233,13 +240,83 @@ if(isset($_SESSION["authen"])){
                 </form>
             </div>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="book1modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan Book 1</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- for refreshing rfid code -->
+                        <div id="refresh-rfid-code">
+
+                        </div>
+                        
+                        <script>
+                            function clearRFID() {
+                                $(document).ready(function() {
+                                    $.post("refresh.php",
+                                    function(data, status){
+                                        console.log("rfid cleared");
+                                    });
+                                });
+                            }
+
+                            function submitBookID() {
+                                console.log("boom id submitted");
+                            }
+                        </script>
+
+                        <div class="render">
+
+                            <div class="form-group mt-3">
+                                <span class="alert alert-success py-3">
+                                    Registered
+                                </span>
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label class="col-form-label">RFID Code</label>
+                                <input type="text" class="form-control w-50" value="098376">
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label class="col-form-label">Book ID</label>
+                                <input type="text" class="form-control w-50" value="1">
+                            </div>
+
+                            <div class="form-group mb-1">
+                                <label class="col-form-label">Book Title</label>
+                                <input type="text" class="form-control w-50" value="Harry Pota">
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
         <div class="tables col-12">
             <div class="row">
-                
+
                 <div class="borrower-table col-6">
                     <div
                         class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers  <span><i class="bi bi-person-fill"></i></span></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers <span><i
+                                    class="bi bi-person-fill"></i></span></h5>
                         <hr>
                         <table class="table table-bordered myDataTable">
                             <thead>
@@ -277,7 +354,8 @@ if(isset($_SESSION["authen"])){
                 <div class="book-table col-6 ">
                     <div
                         class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                        <h5 class="modal-title" id="exampleModalLabel">List of Books <span><i class="bi bi-book-half"></i></span></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">List of Books <span><i
+                                    class="bi bi-book-half"></i></span></h5>
                         <hr>
                         <table class="table table-bordered myDataTable">
                             <thead>
