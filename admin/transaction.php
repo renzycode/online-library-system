@@ -162,36 +162,40 @@ if(isset($_SESSION["authen"])){
                         <div class="form-group col-2 mb-1">
                             <label for="bookNumber" class="col-form-label">
                                 Book ID 1 <span class="text-danger">(required)</span></label>
-                            <input type="text" name="book_id_1" class="form-control" required />
-
+                            <input type="text" name="book_id_1" class="form-control" id="book1" required />
                             <!-- triggers modal and refresh rfid code -->
                             <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
-                                data-bs-target="#book1modal" onclick="clearRFID()">Scan RFID</button>
+                                data-bs-target="#book1modal" onclick="clearRFID1()">Scan RFID</button>
 
                         </div>
                         <div class="form-group col-2 mb-1">
-                            <label for="bookNumber" class="col-form-label">
-                                <span><i class="bi bi-book-half"></i></span>
-                                Book ID 2</label>
-                            <input type="text" name="book_id_2" class="form-control" />
+                            <label for="bookNumber" class="col-form-label">Book ID 2</label>
+                            <input type="text" name="book_id_2" class="form-control" id="book2"/>
+                            <!-- triggers modal and refresh rfid code -->
+                            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#book2modal" onclick="clearRFID2()">Scan RFID</button>
+
                         </div>
                         <div class="form-group col-2 mb-1">
-                            <label for="bookNumber" class="col-form-label">
-                                <span><i class="bi bi-book-half"></i></span>
-                                Book ID 3</label>
-                            <input type="text" name="book_id_3" class="form-control" />
+                            <label for="bookNumber" class="col-form-label">Book ID 3</label>
+                            <input type="text" name="book_id_3" class="form-control" id="book3"/>
+                            <!-- triggers modal and refresh rfid code -->
+                            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#book3modal" onclick="clearRFID3()">Scan RFID</button>
                         </div>
                         <div class="form-group col-2 mb-1">
-                            <label for="bookNumber" class="col-form-label">
-                                <span><i class="bi bi-book-half"></i></span>
-                                Book ID 4</label>
-                            <input type="text" name="book_id_4" class="form-control" />
+                            <label for="bookNumber" class="col-form-label">Book ID 4</label>
+                            <input type="text" name="book_id_4" class="form-control" id="book4"/>
+                            <!-- triggers modal and refresh rfid code -->
+                            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#book4modal" onclick="clearRFID4()">Scan RFID</button>
                         </div>
                         <div class="form-group col-2 mb-1">
-                            <label for="bookNumber" class="col-form-label">
-                                <span><i class="bi bi-book-half"></i></span>
-                                Book ID 5</label>
-                            <input type="text" name="book_id_5" class="form-control" />
+                            <label for="bookNumber" class="col-form-label">Book ID 5</label>
+                            <input type="text" name="book_id_5" class="form-control" id="book5"/>
+                            <!-- triggers modal and refresh rfid code -->
+                            <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#book5modal" onclick="clearRFID5()">Scan RFID</button>
                         </div>
                         <div class="form-group col-12 mb-1">
                             <label for="author" class="col-form-label">Borrow Date & Time <span
@@ -242,7 +246,7 @@ if(isset($_SESSION["authen"])){
         </div>
 
 
-        <!-- Modal -->
+        <!-- Modal 1-->
         <div class="modal fade" id="book1modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -251,63 +255,195 @@ if(isset($_SESSION["authen"])){
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
                         <!-- for refreshing rfid code -->
-                        <div id="refresh-rfid-code">
-
-                        </div>
-                        
+                        <div id="refresh-rfid-code"></div>
                         <script>
-                            function clearRFID() {
+                            function clearRFID1() {
                                 $(document).ready(function() {
-                                    $.post("refresh.php",
+                                    $.post("rfid/refresh.php",
                                     function(data, status){
                                         console.log("rfid cleared");
                                     });
                                 });
                             }
-
-                            function submitBookID() {
+                            function submitBookID1() {
                                 console.log("boom id submitted");
+                                $(document).ready(function() {
+                                    var bookid = $('#bookid').val();
+                                    $('#book1').val(bookid);
+                                });
                             }
                         </script>
-
-                        <div class="render">
-
-                            <div class="form-group mt-3">
-                                <span class="alert alert-success py-3">
-                                    Registered
-                                </span>
-                            </div>
-
-                            <div class="form-group mb-1">
-                                <label class="col-form-label">RFID Code</label>
-                                <input type="text" class="form-control w-50" value="098376">
-                            </div>
-
-                            <div class="form-group mb-1">
-                                <label class="col-form-label">Book ID</label>
-                                <input type="text" class="form-control w-50" value="1">
-                            </div>
-
-                            <div class="form-group mb-1">
-                                <label class="col-form-label">Book Title</label>
-                                <input type="text" class="form-control w-50" value="Harry Pota">
-                            </div>
-
-                        </div>
-
+                        <div class="render"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID()">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID1()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2-->
+        <div class="modal fade" id="book2modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan Book 2</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- for refreshing rfid code -->
+                        <div id="refresh-rfid-code"></div>
+                        <script>
+                            function clearRFID2() {
+                                $(document).ready(function() {
+                                    $.post("rfid/refresh.php",
+                                    function(data, status){
+                                        console.log("rfid cleared");
+                                    });
+                                });
+                            }
+                            function submitBookID2() {
+                                console.log("boom id submitted");
+                                $(document).ready(function() {
+                                    var bookid = $('#bookid').val();
+                                    $('#book2').val(bookid);
+                                });
+                            }
+                        </script>
+                        <div class="render"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID2()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 3-->
+        <div class="modal fade" id="book3modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan Book 3</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- for refreshing rfid code -->
+                        <div id="refresh-rfid-code"></div>
+                        <script>
+                            function clearRFID3() {
+                                $(document).ready(function() {
+                                    $.post("rfid/refresh.php",
+                                    function(data, status){
+                                        console.log("rfid cleared");
+                                    });
+                                });
+                            }
+                            function submitBookID3() {
+                                console.log("boom id submitted");
+                                $(document).ready(function() {
+                                    var bookid = $('#bookid').val();
+                                    $('#book3').val(bookid);
+                                });
+                            }
+                        </script>
+                        <div class="render"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID3()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 4-->
+        <div class="modal fade" id="book4modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan Book 4</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- for refreshing rfid code -->
+                        <div id="refresh-rfid-code"></div>
+                        <script>
+                            function clearRFID4() {
+                                $(document).ready(function() {
+                                    $.post("rfid/refresh.php",
+                                    function(data, status){
+                                        console.log("rfid cleared");
+                                    });
+                                });
+                            }
+                            function submitBookID4() {
+                                console.log("boom id submitted");
+                                $(document).ready(function() {
+                                    var bookid = $('#bookid').val();
+                                    $('#book4').val(bookid);
+                                });
+                            }
+                        </script>
+                        <div class="render"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID4()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 5-->
+        <div class="modal fade" id="book5modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan Book 5</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- for refreshing rfid code -->
+                        <div id="refresh-rfid-code"></div>
+                        <script>
+                            function clearRFID5() {
+                                $(document).ready(function() {
+                                    $.post("rfid/refresh.php",
+                                    function(data, status){
+                                        console.log("rfid cleared");
+                                    });
+                                });
+                            }
+                            function submitBookID5() {
+                                console.log("boom id submitted");
+                                $(document).ready(function() {
+                                    var bookid = $('#bookid').val();
+                                    $('#book5').val(bookid);
+                                });
+                            }
+                        </script>
+                        <div class="render"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="submitBookID5()">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
-
+        <script>
+            $(document).ready(function() {
+                setInterval(() => {
+                    $('.render').load('rfid/codeForScan.php').fadeIn("fast");
+                }, 500);
+            });
+        </script>
 
         <div class="tables col-12">
             <div class="row">
