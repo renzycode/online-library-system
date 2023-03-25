@@ -8,7 +8,7 @@ include_once "../../includes/functions.php";
 
 
 	$Write1='
-	<input name="rfid_code" value="'.$rfidCode.'" >
+	<input type="text" name="rfid_code" class="form-control form-control border-dark border col-4" id="rfid_code" value="'.$rfidCode.'"/>
 	';
 	file_put_contents('codeForRegister.php', $Write1);
 

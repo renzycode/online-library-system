@@ -37,7 +37,7 @@ if(isset($_SESSION["authen"])){
     <h2 class="mb-4 text-dark">
         <span class="page-title">Catalog Table</span>
         <hr>    
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd" onclick="clearRFID()">
             Add
         </button>
         <a type="button" class="btn btn-success" href="download_reports/catalog.php">
@@ -109,6 +109,36 @@ if(isset($_SESSION["authen"])){
                     </div>
                     <div class="modal-body row">
                         <input type="hidden" name="librarian_id" value="<?php echo $librarian_id ?>">
+
+                        <div class="form-group col-12 mb-1">
+                            <label class="col-form-label">RFID Code</label>
+                            
+                            <span id="renderrfidcode">
+                                
+                            </span>
+                            <!-- triggers modal and refresh rfid code -->
+                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()">Scan New</button>
+
+                            <script>
+                                function clearRFID() {
+                                    $(document).ready(function() {
+                                        $.post("rfid/refreshreg.php",
+                                        function(data, status){
+                                            console.log("rfid cleared");
+                                        });
+                                    });
+                                }
+                                function submitBookID() {
+                                    console.log("boom id submitted");
+                                    $(document).ready(function() {
+                                        var bookid = $('#bookid').val();
+                                        $('#book1').val(bookid);
+                                    });
+                                }
+                            </script>
+
+                        </div>
+
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Catalog Number
                                 <span class="text-danger">(required)</span>
@@ -199,6 +229,15 @@ if(isset($_SESSION["authen"])){
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            setInterval(() => {
+                $('#renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
+            }, 500);
+        });
+    </script>
+
     <!-- end add modal -->
     <?php
     if ( count($catalogs)<=0 ) {
