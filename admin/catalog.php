@@ -51,16 +51,24 @@ if(isset($_SESSION["authen"])){
         if($_GET['add']=='success'){
             echo '
             <div class="alert alert-success">
-                Catalog has been successfully accepted.
+                Catalog has been successfully added.
             </div>
             ';
         }
         if($_GET['add']=='error'){
-            echo '
-            <div class="alert alert-danger">
-                Error, Please try again later.
-            </div>
-            ';
+            if($_GET['rfid']=='existing'){
+                echo '
+                <div class="alert alert-danger">
+                    Error Add, RFID already used.
+                </div>
+                ';
+            }else{
+                echo '
+                <div class="alert alert-danger">
+                    Error Add, Please try again later.
+                </div>
+                ';
+            }
         }
     }
 
@@ -73,11 +81,19 @@ if(isset($_SESSION["authen"])){
             ';
         }
         if($_GET['edit']=='error'){
-            echo '
-            <div class="alert alert-danger">
-                Error, Please try again later.
-            </div>
-            ';
+            if($_GET['rfid']=='existing'){
+                echo '
+                <div class="alert alert-danger">
+                    Error Edit, RFID already used.
+                </div>
+                ';
+            }else{
+                echo '
+                <div class="alert alert-danger">
+                    Error Edit, Please try again later.
+                </div>
+                ';
+            }
         }
     }
 
@@ -92,7 +108,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['delete']=='error'){
             echo '
             <div class="alert alert-danger">
-                Error, Please try again later.
+                Error Delete, Please try again later.
             </div>
             ';
         }
@@ -113,7 +129,7 @@ if(isset($_SESSION["authen"])){
                         <div class="form-group col-12 mb-1">
                             <label class="col-form-label">RFID Code</label>
                             
-                            <span id="renderrfidcode">
+                            <span class="renderrfidcode">
                                 
                             </span>
                             <!-- triggers modal and refresh rfid code -->
@@ -126,13 +142,6 @@ if(isset($_SESSION["authen"])){
                                         function(data, status){
                                             console.log("rfid cleared");
                                         });
-                                    });
-                                }
-                                function submitBookID() {
-                                    console.log("boom id submitted");
-                                    $(document).ready(function() {
-                                        var bookid = $('#bookid').val();
-                                        $('#book1').val(bookid);
                                     });
                                 }
                             </script>
@@ -230,14 +239,6 @@ if(isset($_SESSION["authen"])){
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            setInterval(() => {
-                $('#renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
-            }, 500);
-        });
-    </script>
-
     <!-- end add modal -->
     <?php
     if ( count($catalogs)<=0 ) {
@@ -321,7 +322,7 @@ if(isset($_SESSION["authen"])){
                             </td>
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalEdit'.$number.'">
+                                    data-bs-target="#modalEdit'.$number.'" onclick="clearRFID2()">
                                     <i class="bi-pencil-square"></i>
                                 </button>
                                 <!-- edit modal -->
@@ -337,6 +338,46 @@ if(isset($_SESSION["authen"])){
                                                 </div>
                                                 <div class="modal-body row">
                                                     <input type="hidden" name="book_id" value="'.$catalog['book_id'].'">
+                                                    ';
+
+                                                    if($catalog['rfid_code']!=''){
+                                                        echo '
+                                                        <div class="form-group col-12 mb-0">
+                                                            <label class="col-form-label">RFID Code
+                                                                <span class="text-danger">(RFID Code cannot be changed)</span>
+                                                            </label>
+                                                            <input type="text"
+                                                                class="form-control border-dark border col-3" value="'.$catalog['rfid_code'].'" disabled/>
+                                                            <input type="hidden" name="hasRfidCodeAlready" value="true"/>
+                                                        </div>
+                                                        ';
+                                                    }else{
+                                                        echo '
+                                                        <div class="form-group col-12 mb-1">
+                                                            <label class="col-form-label">RFID Code</label>
+                                                            
+                                                            <span class="renderrfidcode">
+                                                                
+                                                            </span>
+                                                            <!-- triggers modal and refresh rfid code -->
+                                                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()2">Scan New</button>
+
+                                                            <script>
+                                                                function clearRFID2() {
+                                                                    $(document).ready(function() {
+                                                                        $.post("rfid/refreshreg.php",
+                                                                        function(data, status){
+                                                                            console.log("rfid cleared");
+                                                                        });
+                                                                    });
+                                                                }
+                                                            </script>
+
+                                                        </div>
+                                                        ';
+                                                    }
+                                                    
+                                                    echo '
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Catalog Number
                                                             <span class="text-danger">*</span>
@@ -501,6 +542,13 @@ if(isset($_SESSION["authen"])){
     }
     ?>
     </div>
+    <script>
+        $(document).ready(function() {
+            setInterval(() => {
+                $('.renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
+            }, 500);
+        });
+    </script>
 
     <!---------------->
     <!---- END BODY -->

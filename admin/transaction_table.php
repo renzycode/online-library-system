@@ -56,7 +56,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['add']=='error'){
             echo '
             <div class="alert alert-danger">
-                Error, Please try again later.
+                Error Add, Please try again later.
             </div>
             ';
         }
@@ -73,7 +73,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['edit']=='error'){
             echo '
             <div class="alert alert-danger">
-                Error, Please try again later.
+                Error Edit, Please try again later.
             </div>
             ';
         }
@@ -90,7 +90,7 @@ if(isset($_SESSION["authen"])){
         if($_GET['delete']=='error'){
             echo '
             <div class="alert alert-danger">
-                Error, Please try again later.
+                Error Delete, Please try again later.
             </div>
             ';
         }

@@ -5,23 +5,19 @@ include_once "../../includes/functions.php";
 
 try {
     if(isset($_POST['edit_transaction'])){
-    
+
         $sql = 'UPDATE transaction_table SET 
         transaction_status = ?
         WHERE transaction_id = ? ';
-    
         $statement = $pdo->prepare($sql);
-    
-
         $params=array(
             'Returned',
             $_POST['transaction_id']
         );
 
+        if($statement->execute($params)){
 
-        $statement->execute($params);
 
-        if($_POST['transaction_status']=='Returned'){
             $sql = 'SELECT * FROM transaction_table
             WHERE transaction_id = ? ';
             $statement = $pdo->prepare($sql);

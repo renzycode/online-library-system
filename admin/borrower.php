@@ -208,7 +208,7 @@ if(isset($_SESSION["authen"])){
             if($_GET['accept']=='error'){
                 echo '
                 <div class="alert alert-danger">
-                    Error, Please try again later.
+                    Error Accept, Please try again later.
                 </div>
                 ';
             }
@@ -225,7 +225,7 @@ if(isset($_SESSION["authen"])){
             if($_GET['reject']=='error'){
                 echo '
                 <div class="alert alert-danger">
-                    Error, Please try again later.
+                    Error Reject, Please try again later.
                 </div>
                 ';
             }
@@ -242,7 +242,7 @@ if(isset($_SESSION["authen"])){
             if($_GET['deleteall']=='error'){
                 echo '
                 <div class="alert alert-danger">
-                    Error, Please try again later.
+                    Error Delete All, Please try again later.
                 </div>
                 ';
             }
@@ -259,7 +259,7 @@ if(isset($_SESSION["authen"])){
             if($_GET['delete']=='error'){
                 echo '
                 <div class="alert alert-danger">
-                    Error, Please try again later.
+                    Error Delete, Please try again later.
                 </div>
                 ';
             }

@@ -99,35 +99,35 @@ if(isset($_SESSION["authen"])){
                             elseif($_GET['error']=='book1unavailable'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, Book 1 is unavailable!
+                                    Error, one of the book you entered is unavailable!
                                 </div>
                                 ';
                             }
                             elseif($_GET['error']=='book2unavailable'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, Book 2 is unavailable!
+                                Error Add, one of the book you entered is unavailable!
                                 </div>
                                 ';
                             }
                             elseif($_GET['error']=='book3unavailable'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, Book 3 is unavailable!
+                                Error, one of the book you entered is unavailable!
                                 </div>
                                 ';
                             }
                             elseif($_GET['error']=='book4unavailable'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, Book 4 is unavailable!
+                                Error, one of the book you entered is unavailable!
                                 </div>
                                 ';
                             }
                             elseif($_GET['error']=='book5unavailable'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, Book 5 is unavailable!
+                                Error, one of the book you entered is unavailable!
                                 </div>
                                 ';
                             }

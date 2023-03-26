@@ -14,6 +14,8 @@ try {
         if($result>0){
 
 
+            $runquery="true";
+
             if(!empty($_POST['book_id_1'])){
                 $params = array($_POST['book_id_1']);
                 $sql = 'SELECT * FROM catalog_table WHERE book_id = ?';
@@ -22,9 +24,15 @@ try {
                 $result = $statement->fetch();
                 if($result<=0){
                     redirectURL('../transaction.php?add=error&error=book1');
+                    $runquery="";
+                    exit();
                 }
-                if($result['catalog_status']=='Unavailable'){
+                elseif($result['catalog_status']=='Unavailable'){
                     redirectURL('../transaction.php?add=error&error=book1unavailable');
+                    $runquery="";
+                    exit();
+                }else{
+                    
                 }
             }
 
@@ -36,9 +44,13 @@ try {
                 $result = $statement->fetch();
                 if($result<=0){
                     redirectURL('../transaction.php?add=error&error=book2');
+                    $runquery="";
+                    exit();
                 }
                 if($result['catalog_status']=='Unavailable'){
                     redirectURL('../transaction.php?add=error&error=book2unavailable');
+                    $runquery="";
+                    exit();
                 }
             }
 
@@ -50,9 +62,13 @@ try {
                 $result = $statement->fetch();
                 if($result<=0){
                     redirectURL('../transaction.php?add=error&error=book3');
+                    $runquery="";
+                    exit();
                 }
                 if($result['catalog_status']=='Unavailable'){
                     redirectURL('../transaction.php?add=error&error=book3unavailable');
+                    $runquery="";
+                    exit();
                 }
             }
 
@@ -64,9 +80,13 @@ try {
                 $result = $statement->fetch();
                 if($result<=0){
                     redirectURL('../transaction.php?add=error&error=book4');
+                    $runquery="";
+                    exit();
                 }
                 if($result['catalog_status']=='Unavailable'){
                     redirectURL('../transaction.php?add=error&error=book4unavailable');
+                    $runquery="";
+                    exit();
                 }
             }
 
@@ -78,62 +98,70 @@ try {
                 $result = $statement->fetch();
                 if($result<=0){
                     redirectURL('../transaction.php?add=error&error=book5');
+                    $runquery="";
+                    exit();
                 }
                 if($result['catalog_status']=='Unavailable'){
                     redirectURL('../transaction.php?add=error&error=book5unavailable');
+                    $runquery="";
+                    exit();
                 }
             }
             
-            $params = array(
-                $_POST['librarian_id'],
-                $_POST['book_id_1'],
-                $_POST['book_id_2'],
-                $_POST['book_id_3'],
-                $_POST['book_id_4'],
-                $_POST['book_id_5'],
-                $_POST['borrower_id'],
-                $_POST['borrow_date'].'|'.$_POST['borrow_time'],
-                $_POST['return_date'].'|'.$_POST['return_time'],
-                'On Borrow',
-            );
-            $sql = 'INSERT INTO transaction_table(
-                librarian_id,
-                book_id_1,
-                book_id_2,
-                book_id_3,
-                book_id_4,
-                book_id_5,
-                borrower_id,
-                transaction_borrow_datetime,
-                transaction_return_datetime,
-                transaction_status
-                ) 
-            VALUES(?,?,?,?,?,?,?,?,?,?)';
-            $statement = $pdo->prepare($sql);
-            $statement->execute($params);
-            printInConsole('Add Transaction Successfully!');
-            
-            $books = array(
-                $_POST['book_id_1'],
-                $_POST['book_id_2'],
-                $_POST['book_id_3'],
-                $_POST['book_id_4'],
-                $_POST['book_id_5']
-            );
-
-            foreach ($books as $book){
-                $sql = 'UPDATE catalog_table SET 
-                catalog_status = "Unavailable"
-                WHERE book_id = ?';
-        
+            if($runquery=="true"){
+                $params = array(
+                    $_POST['librarian_id'],
+                    $_POST['book_id_1'],
+                    $_POST['book_id_2'],
+                    $_POST['book_id_3'],
+                    $_POST['book_id_4'],
+                    $_POST['book_id_5'],
+                    $_POST['borrower_id'],
+                    $_POST['borrow_date'].'|'.$_POST['borrow_time'],
+                    $_POST['return_date'].'|'.$_POST['return_time'],
+                    'On Borrow',
+                );
+                $sql = 'INSERT INTO transaction_table(
+                    librarian_id,
+                    book_id_1,
+                    book_id_2,
+                    book_id_3,
+                    book_id_4,
+                    book_id_5,
+                    borrower_id,
+                    transaction_borrow_datetime,
+                    transaction_return_datetime,
+                    transaction_status
+                    ) 
+                VALUES(?,?,?,?,?,?,?,?,?,?)';
                 $statement = $pdo->prepare($sql);
+                $statement->execute($params);
+                printInConsole('Add Transaction Successfully!');
+                
+                $books = array(
+                    $_POST['book_id_1'],
+                    $_POST['book_id_2'],
+                    $_POST['book_id_3'],
+                    $_POST['book_id_4'],
+                    $_POST['book_id_5']
+                );
+    
+                foreach ($books as $book){
+                    $sql = 'UPDATE catalog_table SET 
+                    catalog_status = "Unavailable"
+                    WHERE book_id = ?';
             
-                $statement->execute(array($book));
+                    $statement = $pdo->prepare($sql);
+                
+                    $statement->execute(array($book));
+                }
+                
+    
+    
+                redirectURL('../transaction.php?add=success');
             }
             
-
-
-            redirectURL('../transaction.php?add=success');
+        
         
         }else{
             printInConsole('Add Transaction Error!');
