@@ -13,6 +13,39 @@ try {
         $result = $statement->fetch();
         if($result>0){
 
+            if( 
+                $_POST['book_id_1'] == $_POST['book_id_2'] || 
+                $_POST['book_id_1'] == $_POST['book_id_3'] || 
+                $_POST['book_id_1'] == $_POST['book_id_4'] || 
+                $_POST['book_id_1'] == $_POST['book_id_5']
+            ){
+                redirectURL('../transaction.php?add=error&error=duplicatebook');
+                exit();
+            }
+
+            if( 
+                $_POST['book_id_2'] == $_POST['book_id_3'] || 
+                $_POST['book_id_2'] == $_POST['book_id_4'] || 
+                $_POST['book_id_2'] == $_POST['book_id_5']
+            ){
+                redirectURL('../transaction.php?add=error&error=duplicatebook');
+                exit();
+            }
+
+            if( 
+                $_POST['book_id_3'] == $_POST['book_id_4'] || 
+                $_POST['book_id_3'] == $_POST['book_id_5']
+            ){
+                redirectURL('../transaction.php?add=error&error=duplicatebook');
+                exit();
+            }
+
+            if( 
+                $_POST['book_id_4'] == $_POST['book_id_5']
+            ){
+                redirectURL('../transaction.php?add=error&error=duplicatebook');
+                exit();
+            }
 
             $runquery="true";
 

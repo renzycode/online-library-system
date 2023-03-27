@@ -131,6 +131,13 @@ if(isset($_SESSION["authen"])){
                                 </div>
                                 ';
                             }
+                            elseif($_GET['error']=='duplicatebook'){
+                                echo '
+                                <div class="alert alert-danger">
+                                Error, duplicate Book ID!
+                                </div>
+                                ';
+                            }
                             
                             else{
                                 echo '
