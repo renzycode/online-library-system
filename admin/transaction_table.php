@@ -291,8 +291,8 @@ if(isset($_SESSION["authen"])){
                                 <!-- end edit modal -->
                             </td>
                             
-                            <td>'.$transaction['transaction_borrow_datetime'].'</td>
-                            <td>Days: 5 | Hours: 2</td>
+                            <td>'.$transaction['transaction_datetime_return'].'</td>
+                            <td>'.$transaction['transaction_datetime_lapse'].'</td>
 
                             ';
                             if($transaction["transaction_status"]=="On Borrow"){
