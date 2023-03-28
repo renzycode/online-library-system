@@ -357,7 +357,7 @@ if(isset($_SESSION["authen"])){
                             <td>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#modalDelete'.$number.'">
-                                    <i class="bi-trash"></i>
+                                    Delete
                                 </button>
                                 <!-- delete modal -->
                                 <div class="modal fade" id="modalDelete'.$number.'" tabindex="-1"

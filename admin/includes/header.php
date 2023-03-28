@@ -46,7 +46,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li 
+            <!--li 
                 <?php
                     if($active == 'dashboard'){ 
                         echo 'class="nav-item active"';
@@ -59,7 +59,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>
+            </li-->
 
             <!-- nav item borrower -->
             <li

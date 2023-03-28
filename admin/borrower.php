@@ -335,7 +335,7 @@ if(isset($_SESSION["authen"])){
                                     <td>
                                         <!-- accept modal button-->
                                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAccept'.$number.'">
-                                            <i class="bi-check-circle"></i>
+                                            Accept
                                         </button>
                                         <!-- accept modal -->
                                         <div class="modal fade" id="modalAccept'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -363,7 +363,7 @@ if(isset($_SESSION["authen"])){
                                     <td>
                                         <!-- reject modal button -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalReject'.$number.'">
-                                            <i class="bi-x-circle"></i>
+                                            Reject
                                         </button>
                                         <!-- reject modal -->
                                         <div class="modal fade" id="modalReject'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -468,7 +468,7 @@ if(isset($_SESSION["authen"])){
                                     <td>
                                         <!-- reject modal button -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete'.$number.'">
-                                            <i class="bi-trash"></i>
+                                            Delete
                                         </button>
                                         <!-- delete modal -->
                                         <div class="modal fade" id="modalDelete'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -573,7 +573,7 @@ if(isset($_SESSION["authen"])){
                                     <td>
                                         <!-- reject modal button -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalReject'.$number.'">
-                                            <i class="bi-trash"></i>
+                                            Delete
                                         </button>
                                         <!-- delete modal -->
                                         <div class="modal fade" id="modalReject'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

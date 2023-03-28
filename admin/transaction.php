@@ -479,7 +479,6 @@ if(isset($_SESSION["authen"])){
                                             <td>'.$borrower['borrower_email'].'</td>
                                             <td>
                                                 <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
-                                                    <i class="bi bi-clipboard"></i>
                                                     Copy ID
                                                 </button>
                                             </td>
@@ -522,7 +521,6 @@ if(isset($_SESSION["authen"])){
                                             if($catalog['catalog_status']=='Available'){
                                                 echo '
                                                     <button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
-                                                        <i class="bi bi-clipboard"></i>
                                                         Copy ID
                                                     </button>
                                                 ';

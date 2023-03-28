@@ -323,7 +323,7 @@ if(isset($_SESSION["authen"])){
                             <td>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalEdit'.$number.'" onclick="clearRFID2()">
-                                    <i class="bi-pencil-square"></i>
+                                    Edit
                                 </button>
                                 <!-- edit modal -->
                                 <div class="modal fade" id="modalEdit'.$number.'" tabindex="-1"
@@ -503,7 +503,7 @@ if(isset($_SESSION["authen"])){
                             <td>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#modalDelete'.$number.'">
-                                    <i class="bi-trash"></i>
+                                    Delete
                                 </button>
                                 <!-- delete modal -->
                                 <div class="modal fade" id="modalDelete'.$number.'" tabindex="-1"
