@@ -88,11 +88,26 @@
                 ?>
             >
                 <a class="nav-link" href="transaction.php">
-                    <i class="fas fa-fw fa-list"></i>
-                    <span>Transaction</span>
+                    <i class="fas fa-fw fa-plus"></i>
+                    <span>Add Transaction</span>
                 </a>
             </li>
             
+            <li
+                <?php
+                    if($active == 'return-book'){ 
+                        echo 'class="nav-item active"';
+                    }else{
+                        echo 'class="nav-item"';
+                    }
+                ?>
+            >
+                <a class="nav-link" href="return_book.php">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Return Book</span>
+                </a>
+            </li>
+
             <!-- nav item catalog -->
             <li
                 <?php
@@ -108,6 +123,8 @@
                     <span>Transaction Table</span>
                 </a>
             </li>
+
+            
 
             <!-- nav item catalog -->
             <li

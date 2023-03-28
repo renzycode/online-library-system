@@ -12,6 +12,7 @@ CREATE TABLE borrower_table (
   borrower_contact varchar(100) DEFAULT NULL,
   borrower_email varchar(100) DEFAULT NULL,
   borrower_id_image_name varchar(255) DEFAULT NULL,
+  borrower_no_books_borrowed varchar(100) DEFAULT NULL,
   borrower_status varchar(100) DEFAULT NULL
 )
 
@@ -36,25 +37,23 @@ CREATE TABLE catalog_table (
   catalog_author_number varchar(100) DEFAULT NULL,
   catalog_copyright_date varchar(100) DEFAULT NULL,
   catalog_status varchar(100) DEFAULT NULL,
-
   CONSTRAINT catalog_table FOREIGN KEY (librarian_id) REFERENCES librarian_table(librarian_id)
 )
 
-CREATE TABLE transaction_table ( 
-  transaction_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  librarian_id int(11) NOT NULL, 
-  catalog_id_1 int(11) NOT NULL, 
-  catalog_id_2 int(11) NOT NULL, 
-  catalog_id_3 int(11) NOT NULL, 
-  catalog_id_4 int(11) NOT NULL, 
-  catalog_id_5 int(11) NOT NULL, 
-  borrower_id int(11) NOT NULL, 
-  transaction_borrow_datetime varchar(100) DEFAULT NULL, 
-  transaction_return_datetime varchar(100) DEFAULT NULL, 
-  transaction_status varchar(100) DEFAULT NULL, 
-  CONSTRAINT transaction_table FOREIGN KEY (borrower_id) REFERENCES borrower_table(borrower_id), 
-  FOREIGN KEY (librarian_id) REFERENCES librarian_table(librarian_id) 
-);
+CREATE TABLE transaction_table (
+  transaction_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  librarian_id int(11) NOT NULL,
+  borrower_id int(11) NOT NULL,
+  book_id int(11) NOT NULL,
+  transaction_borrow_datetime varchar(100) DEFAULT NULL,
+  transaction_return_datetime varchar(100) DEFAULT NULL,
+  transaction_datetime_return varchar(100) DEFAULT NULL,
+  transaction_datetime_lapse varchar(100) DEFAULT NULL,
+  transaction_status varchar(100) DEFAULT NULL,
+  CONSTRAINT transaction_table FOREIGN KEY (borrower_id) REFERENCES borrower_table (borrower_id),
+  FOREIGN KEY (librarian_id) REFERENCES librarian_table (librarian_id),
+  FOREIGN KEY (book_id) REFERENCES catalog_table (book_id)
+)
 
 
-INSERT INTO `librarian_table`(`librarian_id`, `librarian_uname`, `librarian_pass`) VALUES (1,'admin','$2y$10$CsJsu2L5XPYMdbEX.aYO7OER4oRT85bk94chDttVAGGVBDzaq5oM2');
+INSERT INTO librarian_table(librarian_id, librarian_uname, librarian_pass) VALUES (1,'admin','$2y$10$CsJsu2L5XPYMdbEX.aYO7OER4oRT85bk94chDttVAGGVBDzaq5oM2');
