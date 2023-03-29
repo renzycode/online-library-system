@@ -55,7 +55,7 @@ if($hours<0){
     }
 }
 
-echo  $string;
+//echo  $string;
 
 
 ?>
@@ -99,7 +99,7 @@ echo  $string;
         <div class="row">
             <div class=" col-lg-6 col-12 col-md-8">
                 <div class=" p-3 border-left-primary border-top border-right border-bottom shadow rounded">
-                    <h5 id="exampleModalLabel">List of Borrowers </h5>
+                    <h5 id="exampleModalLabel">Return Book</h5>
                     <hr>
                     <div class="form-group col-12 mb-1">
                         <div class="row">
@@ -117,8 +117,7 @@ echo  $string;
                                                 data-bs-target="#book1modal" onclick="clearRFID1()">Scan RFID</button>
 
                                             <br>
-                                            <button type="submit" class="btn btn-success mt-2" data-bs-toggle="modal"
-                                                data-bs-target="#book1modal" onclick="">Submit</button>
+                                            <button type="submit" class="btn btn-success mt-2">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +165,7 @@ echo  $string;
                                         echo '
                                         <div class="row mx-1">
                                             <div class="col-12 mb-0 mt-3">
-                                                <div class="alert alert-danger py-2 mb-2">There is no transaction for this book.</div>
+                                                <div class="alert alert-danger py-2 mb-2">There is no pending transaction for this book.</div>
                                             </div>
                                         </div>
                                         ';
@@ -270,8 +269,7 @@ echo  $string;
                                 <div class="mt-4 text-right">
                                     <button type="submit" class="btn btn-success" name="edit_transaction">Return
                                         Book</button>
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel</button>
+                                    <a href="#" type="button" class="btn btn-secondary">Cancel</a>
                                 </div>
 
                             </form>

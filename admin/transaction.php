@@ -61,31 +61,7 @@ if(isset($_SESSION["authen"])){
                             if($_GET['error']=='book1'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, Book ID 1 not found!
-                                </div>
-                                ';
-                            }elseif($_GET['error']=='book2'){
-                                echo '
-                                <div class="alert alert-danger">
-                                    Error, Book ID 2 not found!
-                                </div>
-                                ';
-                            }elseif($_GET['error']=='book3'){
-                                echo '
-                                <div class="alert alert-danger">
-                                    Error, Book ID 3 not found!
-                                </div>
-                                ';
-                            }elseif($_GET['error']=='book4'){
-                                echo '
-                                <div class="alert alert-danger">
-                                    Error, Book ID 4 not found!
-                                </div>
-                                ';
-                            }elseif($_GET['error']=='book5'){
-                                echo '
-                                <div class="alert alert-danger">
-                                    Error, Book ID 5 not found!
+                                    Error, Book ID not found!
                                 </div>
                                 ';
                             }elseif($_GET['error']=='borrower'){
@@ -99,35 +75,7 @@ if(isset($_SESSION["authen"])){
                             elseif($_GET['error']=='book1unavailable'){
                                 echo '
                                 <div class="alert alert-danger">
-                                    Error, one of the book you entered is unavailable!
-                                </div>
-                                ';
-                            }
-                            elseif($_GET['error']=='book2unavailable'){
-                                echo '
-                                <div class="alert alert-danger">
-                                Error Add, one of the book you entered is unavailable!
-                                </div>
-                                ';
-                            }
-                            elseif($_GET['error']=='book3unavailable'){
-                                echo '
-                                <div class="alert alert-danger">
-                                Error, one of the book you entered is unavailable!
-                                </div>
-                                ';
-                            }
-                            elseif($_GET['error']=='book4unavailable'){
-                                echo '
-                                <div class="alert alert-danger">
-                                Error, one of the book you entered is unavailable!
-                                </div>
-                                ';
-                            }
-                            elseif($_GET['error']=='book5unavailable'){
-                                echo '
-                                <div class="alert alert-danger">
-                                Error, one of the book you entered is unavailable!
+                                    Error, book is unavailable!
                                 </div>
                                 ';
                             }

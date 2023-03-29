@@ -42,8 +42,8 @@ try {
                     $_POST['book_id'],
                     $_POST['borrow_date'].' '.date("g:i a", strtotime($_POST['borrow_time'])),
                     $_POST['return_date'].' '.date("g:i a", strtotime($_POST['return_time'])),
-                    'Pending',
-                    'Pending',
+                    '------',
+                    '------',
                     'On Borrow',
                 );
                 $sql = 'INSERT INTO transaction_table(

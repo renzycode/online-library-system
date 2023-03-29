@@ -4,7 +4,7 @@
 
 include_once "../../includes/conn.php";
 
-$sql = 'SELECT * FROM catalog_table ';
+$sql = 'SELECT * FROM catalog_table';
 $statement = $pdo->prepare($sql);
 $statement->execute();
 $catalogs = $statement->fetchAll();
@@ -12,75 +12,70 @@ $catalogs = $statement->fetchAll();
 
 
 date_default_timezone_set("Asia/Hong_Kong");
-$delimiter = ","; 
-$filename = "catalog_" . date('Y-m-d') . ".csv"; 
+$filename = "catalogs_" . date('Y-m-d') . ".xls"; 
     
-// Create a file pointer 
-$f = fopen('php://memory', 'w'); 
-    
-// Set column headers 
-$fields = array(
-    '#',
-    'Catalog ID',
-    'Catalog Number',
-    'Book Title',
-    'Author',
-    'Publisher',
-    'Year',
-    'Date Received',
-    'Class',
-    'Edition',
-    'Volumes',
-    'Pages',
-    'Source of Fund',
-    'Cost Price',
-    'Location Symbol',
-    'Class Number',
-    'Author Number',
-    'Copyright Date',
-    'Status'
-);
-fputcsv($f, $fields, $delimiter); 
-    
-// Output each row of the data, format line as csv and write to file pointer 
-    
-$number = 0;
-foreach ($catalogs as $catalog){
-    $number++;
-    $lineData = array(
-        $number,
-        $catalog['book_id'],
-        $catalog['catalog_number'],
-        $catalog['catalog_book_title'],
-        $catalog['catalog_author'],
-        $catalog['catalog_publisher'],
-        $catalog['catalog_year'],
-        $catalog['catalog_date_received'],
-        $catalog['catalog_class'],
-        $catalog['catalog_edition'],
-        $catalog['catalog_volumes'],
-        $catalog['catalog_pages'],
-        $catalog['catalog_source_of_fund'],
-        $catalog['catalog_cost_price'],
-        $catalog['catalog_location_symbol'],
-        $catalog['catalog_class_number'],
-        $catalog['catalog_author_number'],
-        $catalog['catalog_copyright_date'],
-        $catalog['catalog_status']
-    );
-    fputcsv($f, $lineData, $delimiter);
-}
-
-// Move back to beginning of file 
-fseek($f, 0); 
-    
-// Set headers to download file rather than displayed 
-header('Content-Type: text/csv'); 
-header('Content-Disposition: attachment; filename="' . $filename . '";'); 
-    
-//output all remaining data on a file pointer 
-fpassthru($f); 
-exit; 
-
-
 ?>
+<table>
+    <tr>
+        <th style="border: 1px solid black;">No.</th>
+        <th style="border: 1px solid black;">Book ID</th>
+        <th style="border: 1px solid black;">RFID Code</th>
+        <th style="border: 1px solid black;">Catalog Number</th>
+        <th style="border: 1px solid black;">Book Title</th>
+        <th style="border: 1px solid black;">Author</th>
+        <th style="border: 1px solid black;">Publisher</th>
+        <th style="border: 1px solid black;">Year</th>
+        <th style="border: 1px solid black;">Date Received</th>
+        <th style="border: 1px solid black;">Class</th>
+        <th style="border: 1px solid black;">Edition</th>
+        <th style="border: 1px solid black;">Volumes</th>
+        <th style="border: 1px solid black;">Pages</th>
+        <th style="border: 1px solid black;">Source of Fund</th>
+        <th style="border: 1px solid black;">Cost Price</th>
+        <th style="border: 1px solid black;">Location</th>
+        <th style="border: 1px solid black;">Class Number</th>
+        <th style="border: 1px solid black;">Author</th>
+        <th style="border: 1px solid black;">Copyright Date</th>
+        <th style="border: 1px solid black;">Status</th>
+    </tr>
+    <?php
+    $num_row = 1;
+    foreach($catalogs as $catalog){
+        echo '
+            <tr>
+                <td style="border: 1px solid black;">'.$num_row.' </td>
+                <td style="border: 1px solid black;">'.$catalog['book_id'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['rfid_code'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_number'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_book_title'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_author'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_publisher'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_year'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_date_received'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_class'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_edition'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_volumes'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_pages'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_source_of_fund'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_cost_price'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_location_symbol'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_class_number'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_author_number'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_copyright_date'].'</td>
+                <td style="border: 1px solid black;">'.$catalog['catalog_status'].'</td>
+            </tr>
+        ';
+        $num_row++;
+    }
+    ?>
+</table>
+
+<?php
+header('Content-Type: application/xls');
+header('Content-Disposition:attachment; filename='.$filename);
+
+exit();
+?>
+
+
+

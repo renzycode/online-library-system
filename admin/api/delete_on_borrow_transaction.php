@@ -14,7 +14,7 @@ if(isset($_POST['delete_transaction'])){
     );
 
     if($statement->execute($params)){
-        redirectURL('../transaction_table.php?delete=success');
+        redirectURL('../transaction_table.php?transaction=on borrow&delete=success');
     }
 }
-redirectURL('../transaction_table.php?delete=error');
+redirectURL('../transaction_table.php?transaction=on borrow&delete=error');

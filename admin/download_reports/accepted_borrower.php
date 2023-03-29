@@ -4,60 +4,58 @@
 
 include_once "../../includes/conn.php";
 
-$sql = 'SELECT * FROM borrower_table WHERE borrower_status="accepted"; ';
+$sql = 'SELECT * FROM borrower_table WHERE borrower_status = "accepted"';
 $statement = $pdo->prepare($sql);
 $statement->execute();
-$accepted_borrowers = $statement->fetchAll();
-
-
+$acceptedborrowers = $statement->fetchAll();
 
 date_default_timezone_set("Asia/Hong_Kong");
-$delimiter = ","; 
-$filename = "accepted-borrowers_" . date('Y-m-d') . ".csv"; 
-    
-// Create a file pointer 
-$f = fopen('php://memory', 'w'); 
-    
-// Set column headers 
-$fields = array(
-    'No.',
-    'Borrower Id',
-    'First Name',
-    'Last Name',
-    'Address',
-    'Contact',
-    'Email',
-    'Borrower Image Name'); 
-fputcsv($f, $fields, $delimiter); 
-    
-// Output each row of the data, format line as csv and write to file pointer 
-    
-$number = 0;
-foreach ($accepted_borrowers as $accepted){
-    $number++;
-    $lineData = array(
-        $number,
-        $accepted['borrower_id'],
-        $accepted['borrower_fname'],
-        $accepted['borrower_lname'],
-        $accepted['borrower_address'],
-        $accepted['borrower_contact'],
-        $accepted['borrower_email'],
-        $accepted['borrower_id_image_name']
-    );
-    fputcsv($f, $lineData, $delimiter);
-}
+$filename = "accepted_borrowers_" . date('Y-m-d') . ".xls"; 
 
-// Move back to beginning of file 
-fseek($f, 0); 
-    
-// Set headers to download file rather than displayed 
-header('Content-Type: text/csv'); 
-header('Content-Disposition: attachment; filename="' . $filename . '";'); 
-    
-//output all remaining data on a file pointer 
-fpassthru($f); 
-exit; 
+header('Content-Type: application/xls');
+header('Content-Disposition:attachment; filename='.$filename);
 
 
+    
 ?>
+<table>
+    <tr>
+        <th style="border: 1px solid black;">No.</th>
+        <th style="border: 1px solid black;">Borrower ID</th>
+        <th style="border: 1px solid black;">First Name</th>
+        <th style="border: 1px solid black;">Last Name</th>
+        <th style="border: 1px solid black;">Address</th>
+        <th style="border: 1px solid black;">Contact</th>
+        <th style="border: 1px solid black;">Email</th>
+        <th style="border: 1px solid black;">ID Image Name</th>
+        <th style="border: 1px solid black;">Status</th>
+    </tr>
+    <?php
+    $num_row = 1;
+    foreach($acceptedborrowers as $acceptedborrower){
+        echo '
+            <tr>
+                <td style="border: 1px solid black;">'.$num_row.' </td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_id'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_fname'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_lname'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_address'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_contact'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_email'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_id_image_name'].'</td>
+                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_status'].'</td>
+            </tr>
+        ';
+        $num_row++;
+    }
+    ?>
+</table>
+
+<?php
+
+
+exit();
+?>
+
+
+
