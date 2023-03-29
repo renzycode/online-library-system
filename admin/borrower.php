@@ -214,6 +214,25 @@ if(isset($_SESSION["authen"])){
             }
         }
 
+
+        
+        if(isset($_GET['edit'])){
+            if($_GET['edit']=='success'){
+                echo '
+                <div class="alert alert-success">
+                    Borrower has been successfully edited.
+                </div>
+                ';
+            }
+            if($_GET['edit']=='error'){
+                echo '
+                <div class="alert alert-danger">
+                    Error Accept, Please try again later.
+                </div>
+                ';
+            }
+        }
+
         if(isset($_GET['reject'])){
             if($_GET['reject']=='success'){
                 echo '
@@ -425,6 +444,7 @@ if(isset($_SESSION["authen"])){
                                 <th scope="col">Address</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -465,6 +485,71 @@ if(isset($_SESSION["authen"])){
                                     <td>'.$accepted['borrower_address'].'</td>
                                     <td>'.$accepted['borrower_contact'].'</td>
                                     <td>'.$accepted['borrower_email'].'</td>
+
+                                    <td>
+                                        <!-- reject modal button -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit'.$number.'">
+                                            Edit
+                                        </button>
+                                        
+
+                                        <div class="modal fade" id="modalEdit'.$number.'" tabindex="-1" aria-labelledby="registerModal"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="api/edit_accepted_borrower.php" method="POST" enctype="multipart/form-data">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="registerModal">Edit Accepted Borrower</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id" value="'.$accepted['borrower_id'].'">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">First Name</label>
+                                                                <input type="text" name="fname" class="form-control border-dark border" value="'.$accepted['borrower_fname'].'"
+                                                                    required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Last Name</label>
+                                                                <input type="text" name="lname" class="form-control border-dark border" value="'.$accepted['borrower_lname'].'"
+                                                                    required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Address</label>
+                                                                <input type="text" name="address" class="form-control border-dark border" value="'.$accepted['borrower_address'].'"
+                                                                    required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Contact</label>
+                                                                <input type="text" name="contact" class="form-control border-dark border" value="'.$accepted['borrower_contact'].'"
+                                                                    required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Email</label>
+                                                                <input type="email" name="email" class="form-control border-dark border" value="'.$accepted['borrower_email'].'"
+                                                                    required>
+                                                            </div>
+                                                            <!--div class="form-group">
+                                                                <label class="col-form-label">ID Picture</label>
+                                                                <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
+                                                                    class="form-control border-dark border">
+                                                            </div-->
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" name="edit_accepted_borrower" class="btn btn-success">Submit</button>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- end edit modal -->
+                                    </td>
+
                                     <td>
                                         <!-- reject modal button -->
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete'.$number.'">

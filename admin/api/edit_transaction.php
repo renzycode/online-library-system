@@ -46,7 +46,7 @@ try {
         if($hours<0){
             $string = 'No penalty';
         }else{
-            if($days==1){
+            if(ceil($days)==1 || floor($days)==1){
                 if($days<0){
                     $string = ceil($days). " day & ";
                 }else{
