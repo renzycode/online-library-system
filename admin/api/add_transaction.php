@@ -41,9 +41,11 @@ try {
                     $_POST['borrower_id'],
                     $_POST['book_id'],
                     $_POST['borrow_date'].' '.date("g:i a", strtotime($_POST['borrow_time'])),
-                    $_POST['return_date'].' '.date("g:i a", strtotime($_POST['return_time'])),
+                    $_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time'])),
                     '------',
                     '------',
+                    '----',
+                    '----',
                     'On Borrow',
                 );
                 $sql = 'INSERT INTO transaction_table(
@@ -51,12 +53,14 @@ try {
                     borrower_id,
                     book_id,
                     transaction_borrow_datetime,
-                    transaction_return_datetime,
+                    transaction_due_datetime,
                     transaction_datetime_return,
                     transaction_datetime_lapse,
+                    transaction_penalty,
+                    transaction_paid,
                     transaction_status
                     ) 
-                VALUES(?,?,?,?,?,?,?,?)';
+                VALUES(?,?,?,?,?,?,?,?,?,?)';
                 $statement = $pdo->prepare($sql);
                 $statement->execute($params);
                 printInConsole('Add Transaction Successfully!');

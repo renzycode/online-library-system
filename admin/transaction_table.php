@@ -130,7 +130,7 @@ if(isset($_SESSION["authen"])){
                                 <th scope="col">Borrowed Book</th>
 
                                 <th scope="col">Borrow Date&Time</th>
-                                <th scope="col">Return Date&Time</th>
+                                <th scope="col">Due Date&Time</th>
                                 
                                 
                                 
@@ -138,6 +138,10 @@ if(isset($_SESSION["authen"])){
                                 <th scope="col">Days&Hours Lapse</th>
                                 
                                 <th scope="col">Status</th>
+
+                                <th scope="col">Penalty</th>
+                                <th scope="col">Paid</th>
+
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -227,7 +231,7 @@ if(isset($_SESSION["authen"])){
                                     
                                     
                                     <td>'.$transaction['transaction_borrow_datetime'].'</td>
-                                    <td>'.$transaction['transaction_return_datetime'].'</td>
+                                    <td>'.$transaction['transaction_due_datetime'].'</td>
 
                                     <td>'.$transaction['transaction_datetime_return'].'</td>
                                     <td>'.$transaction['transaction_datetime_lapse'].'</td>
@@ -251,6 +255,10 @@ if(isset($_SESSION["authen"])){
                                         </td>';
                                     }
                                     echo '
+
+                                    <td>'.$transaction['transaction_penalty'].'</td>
+
+                                    <td>'.$transaction['transaction_paid'].'</td>
 
                                     <td>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -327,6 +335,10 @@ if(isset($_SESSION["authen"])){
                                 <th scope="col">Days&Hours Lapse</th>
                                 
                                 <th scope="col">Status</th>
+
+                                <th scope="col">Penalty</th>
+                                <th scope="col">Paid</th>
+
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -416,7 +428,7 @@ if(isset($_SESSION["authen"])){
                                     
                                     
                                     <td>'.$transaction['transaction_borrow_datetime'].'</td>
-                                    <td>'.$transaction['transaction_return_datetime'].'</td>
+                                    <td>'.$transaction['transaction_due_datetime'].'</td>
 
                                     <td>'.$transaction['transaction_datetime_return'].'</td>
                                     <td>'.$transaction['transaction_datetime_lapse'].'</td>
@@ -440,6 +452,38 @@ if(isset($_SESSION["authen"])){
                                         </td>';
                                     }
                                     echo '
+
+
+                                    <td>'.$transaction['transaction_penalty'].'</td>
+                                    <td>';
+                                    
+                                    if($transaction['transaction_paid']=='----'){
+                                        echo $transaction['transaction_paid'];
+                                    }elseif($transaction['transaction_paid']=='Yes'){
+                                        echo '
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Yes
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="api/edit_transaction_paid.php?transaction_id='.$transaction['transaction_id'].'&paid=no" class="dropdown-item" href="#">No</a></li>
+                                            </ul>
+                                        </div>
+                                        ';
+                                    }else{
+                                        echo '
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                No
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="api/edit_transaction_paid.php?transaction_id='.$transaction['transaction_id'].'&paid=yes" class="dropdown-item" href="#">Yes</a></li>
+                                            </ul>
+                                        </div>
+                                        ';
+                                    }
+
+                                    echo '</td>
 
                                     <td>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"

@@ -158,7 +158,7 @@ if($hours<0){
                                                 'publisher'=>$transaction['catalog_publisher'],
                                                 'year'=>$transaction['catalog_year'],
                                                 'borrow_datetime'=>$transaction['transaction_borrow_datetime'],
-                                                'return_datetime'=>$transaction['transaction_return_datetime']
+                                                'return_datetime'=>$transaction['transaction_due_datetime']
                                             );
                                         }
                                     }else{

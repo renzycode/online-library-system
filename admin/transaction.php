@@ -136,14 +136,14 @@ if(isset($_SESSION["authen"])){
                             </div>
                         </div>
                         <div class="form-group col-12 mb-1">
-                            <label for="author" class="col-form-label">Return Date & Time <span
+                            <label for="author" class="col-form-label">Due Date & Time <span
                                     class="text-danger">(required)</span></label>
                             <div class="row">
                                 <div class="col-6 col-lg-2">
-                                    <input type="date" name="return_date" class="form-control" required />
+                                    <input type="date" name="due_date" class="form-control" required />
                                 </div>
                                 <div class="col-6 col-lg-2">
-                                    <input type="time" name="return_time" class="form-control" required />
+                                    <input type="time" name="due_time" class="form-control" required />
                                 </div>
                             </div>
                         </div>

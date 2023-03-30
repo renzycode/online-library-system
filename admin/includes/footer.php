@@ -30,8 +30,8 @@
     <script src="../assets/vendor/dataTables/jquery.dataTables.min.js"></script>
     <script src="../assets/vendor/dataTables/dataTables.bootstrap5.min.js"></script>
 
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>

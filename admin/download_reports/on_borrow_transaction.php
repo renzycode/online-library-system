@@ -27,10 +27,12 @@ $filename = "on_borrow_transactions_" . date('Y-m-d') . ".xls";
         <th style="border: 1px solid black;">Catalog Number</th>
         <th style="border: 1px solid black;">Book Title</th>
         <th style="border: 1px solid black;">Borrow Date & Time</th>
-        <th style="border: 1px solid black;">Return Date & Time</th>
+        <th style="border: 1px solid black;">Due Date & Time</th>
         <th style="border: 1px solid black;">Date & Time Returned</th>
         <th style="border: 1px solid black;">Date & Time Lapse</th>
         <th style="border: 1px solid black;">Transaction Status</th>
+        <th style="border: 1px solid black;">Penalty</th>
+        <th style="border: 1px solid black;">Paid</th>
     </tr>
     <?php
     $num_row = 1;
@@ -45,10 +47,12 @@ $filename = "on_borrow_transactions_" . date('Y-m-d') . ".xls";
                 <td style="border: 1px solid black;">'.$transaction['catalog_number'].'</td>
                 <td style="border: 1px solid black;">'.$transaction['catalog_book_title'].'</td>
                 <td style="border: 1px solid black;">'.strval($transaction['transaction_borrow_datetime']).'</td>
-                <td style="border: 1px solid black;">'.strval($transaction['transaction_return_datetime']).'</td>
+                <td style="border: 1px solid black;">'.strval($transaction['transaction_due_datetime']).'</td>
                 <td style="border: 1px solid black;">'.strval($transaction['transaction_datetime_return']).'</td>
                 <td style="border: 1px solid black;">'.strval($transaction['transaction_datetime_lapse']).'</td>
                 <td style="border: 1px solid black;">'.$transaction['transaction_status'].'</td>
+                <td style="border: 1px solid black;">'.$transaction['transaction_penalty'].'</td>
+                <td style="border: 1px solid black;">'.$transaction['transaction_paid'].'</td>
             </tr>
         ';
         $num_row++;
