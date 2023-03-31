@@ -46,7 +46,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <!--li 
+            <li 
                 <?php
                     if($active == 'dashboard'){ 
                         echo 'class="nav-item active"';
@@ -59,7 +59,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
-            </li-->
+            </li>
 
             <!-- nav item borrower -->
             <li
@@ -139,6 +139,22 @@
                 <a class="nav-link" href="catalog.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Catalog Table</span>
+                </a>
+            </li>
+
+            <!-- nav item catalog -->
+            <li
+                <?php
+                    if($active == 'account-profile'){ 
+                        echo 'class="nav-item active"';
+                    }else{
+                        echo 'class="nav-item"';
+                    }
+                ?>
+            >
+                <a class="nav-link" href="account_profile.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Account Profile</span>
                 </a>
             </li>
 

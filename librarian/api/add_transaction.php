@@ -6,6 +6,16 @@ include_once "../../includes/functions.php";
 try {
     if(isset($_POST['add_transaction'])){
 
+        $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ? AND borrower_status = "rejected"';
+        $statement = $pdo->prepare($sql);
+        $statement->execute(array($_POST['borrower_id']));
+        $result = $statement->fetch();
+
+        if($result['borrower_id']==$_POST['borrower_id']){
+            redirectURL('../transaction.php?add=error&borrower=rejected');
+            exit();
+        }
+
         $params = array($_POST['borrower_id']);
         $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ?';
         $statement = $pdo->prepare($sql);
