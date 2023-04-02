@@ -3,21 +3,21 @@
 session_start();
 
 $active = 'borrower';
-include_once 'includes/header.php';
-
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
-
 
 if(isset($_SESSION["authen"])){
     if($_SESSION["authen"]!=TRUE){
         redirectURL('../login.php');
     }else{
         $uname = $_SESSION["uname"];
+        $librarian_id = $_SESSION["librarian_id"];
     }
 }else{
     redirectURL('login.php');
 }
+
+include_once 'includes/header.php';
 
     if(!isset($_GET['borrower'])){
         redirectURL('borrower.php?borrower=pending');
@@ -104,25 +104,31 @@ if(isset($_SESSION["authen"])){
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label class="col-form-label">First Name</label>
-                                <input type="text" name="fname" class="form-control border-dark border" required>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label class="col-form-label">First Name</label>
+                                    <input type="text" name="fname" class="form-control border-dark border" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="col-form-label">Last Name</label>
+                                    <input type="text" name="lname" class="form-control border-dark border" required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Last Name</label>
-                                <input type="text" name="lname" class="form-control border-dark border" required>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="col-form-label">Address</label>
+                                    <input type="text" name="address" class="form-control border-dark border" required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Address</label>
-                                <input type="text" name="address" class="form-control border-dark border" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Contact</label>
-                                <input type="text" name="contact" class="form-control border-dark border" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-form-label">Email</label>
-                                <input type="email" name="email" class="form-control border-dark border" required>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label class="col-form-label">Contact</label>
+                                    <input type="text" name="contact" class="form-control border-dark border" required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="col-form-label">Email</label>
+                                    <input type="email" name="email" class="form-control border-dark border" required>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">ID Picture</label>

@@ -3,10 +3,9 @@
 session_start();
 
 $active = 'librarian-table';
-include_once 'includes/header.php';
-
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
+include_once 'includes/header.php';
 
 
 if(isset($_SESSION["authen"])){

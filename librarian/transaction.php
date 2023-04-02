@@ -1,34 +1,34 @@
 <?php
 
-session_start();
+    session_start();
 
-$active = 'transaction';
-include_once 'includes/header.php';
-
-include_once "../includes/conn.php";
-include_once "../includes/functions.php";
+    $active = 'transaction';
+    include_once "../includes/conn.php";
+    include_once "../includes/functions.php";
 
 
-if(isset($_SESSION["authen"])){
-    if($_SESSION["authen"]!=TRUE){
-        redirectURL('../login.php');
+    if(isset($_SESSION["authen"])){
+        if($_SESSION["authen"]!=TRUE){
+            redirectURL('../login.php');
+        }else{
+            $uname = $_SESSION["uname"];
+            $librarian_id = $_SESSION["librarian_id"];
+        }
     }else{
-        $uname = $_SESSION["uname"];
-        $librarian_id = $_SESSION["librarian_id"];
+        redirectURL('login.php');
     }
-}else{
-    redirectURL('login.php');
-}
 
-        $sql = 'SELECT * FROM catalog_table ORDER BY catalog_book_title ASC';
-        $statement = $pdo->prepare($sql);
-        $statement->execute();
-        $catalogs = $statement->fetchAll();
+    include_once 'includes/header.php';
 
-        $sql2 = 'SELECT * FROM borrower_table WHERE borrower_status = "accepted" ORDER BY borrower_fname ASC';
-        $statement2 = $pdo->prepare($sql2);
-        $statement2->execute();
-        $borrowers = $statement2->fetchAll();
+    $sql = 'SELECT * FROM catalog_table ORDER BY catalog_book_title ASC';
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+    $catalogs = $statement->fetchAll();
+
+    $sql2 = 'SELECT * FROM borrower_table WHERE borrower_status = "accepted" ORDER BY borrower_fname ASC';
+    $statement2 = $pdo->prepare($sql2);
+    $statement2->execute();
+    $borrowers = $statement2->fetchAll();
     
 
 
@@ -98,16 +98,17 @@ if(isset($_SESSION["authen"])){
                                     </div>
                                     ';
                                 }
+                                else{
+                                    echo '
+                                    <div class="alert alert-danger">
+                                        Error, Please try again later.
+                                    </div>
+                                    ';
+                                
+                                }
                             }
                         }
-                        else{
-                            echo '
-                            <div class="alert alert-danger">
-                                Error, Please try again later.
-                            </div>
-                            ';
                         
-                        }
                     }
 
                     ?>

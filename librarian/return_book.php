@@ -3,11 +3,8 @@
 session_start();
 
 $active = 'return-book';
-include_once 'includes/header.php';
-
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
-
 
 if(isset($_SESSION["authen"])){
     if($_SESSION["authen"]!=TRUE){
@@ -19,6 +16,8 @@ if(isset($_SESSION["authen"])){
 }else{
     redirectURL('login.php');
 }
+
+include_once 'includes/header.php';
 
 $string = '';
 date_default_timezone_set("Asia/Hong_Kong");

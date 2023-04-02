@@ -3,11 +3,8 @@
 session_start();
 
 $active = 'transaction-table';
-include_once 'includes/header.php';
-
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
-
 
 if(isset($_SESSION["authen"])){
     if($_SESSION["authen"]!=TRUE){
@@ -19,6 +16,8 @@ if(isset($_SESSION["authen"])){
 }else{
     redirectURL('login.php');
 }
+
+include_once 'includes/header.php';
 
         $sql = 'SELECT * FROM transaction_table AS tt, borrower_table AS bt 
         WHERE tt.borrower_id = bt.borrower_id AND tt.transaction_status = "On Borrow" ';

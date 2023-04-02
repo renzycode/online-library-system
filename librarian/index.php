@@ -3,9 +3,8 @@
 session_start();
 
 $active = 'dashboard';
-include_once 'includes/header.php';
-include_once '../includes/conn.php';
-include_once '../includes/functions.php';
+include_once "../includes/conn.php";
+include_once "../includes/functions.php";
 
 //redirectURL('borrower.php');
 
@@ -14,10 +13,13 @@ if(isset($_SESSION["authen"])){
         redirectURL('../login.php');
     }else{
         $uname = $_SESSION["uname"];
+        $librarian_id = $_SESSION["librarian_id"];
     }
 }else{
     redirectURL('login.php');
 }
+
+include_once 'includes/header.php';
 
 //sql for select all borrowers with pending status
 $sql = 'SELECT * FROM borrower_table WHERE borrower_status = "pending"';

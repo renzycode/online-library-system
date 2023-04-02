@@ -45,7 +45,7 @@ try {
         $hours=($hours % 24);
         
 
-        if(floor($days)==1){
+        if(floor($days)==1 || floor($days)==-1){
             $string = floor($days). " day & ";
         }else{
             $string = floor($days). " days & ";

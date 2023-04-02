@@ -8,7 +8,6 @@ try {
 
         if(empty($_POST['rfid_code'])){
             $sql = 'INSERT INTO catalog_table(
-                librarian_id,
                 rfid_code,
                 catalog_number,
                 catalog_book_title,
@@ -28,7 +27,6 @@ try {
                 catalog_status
                 ) 
             VALUES(
-                :librarian_id,
                 :rfid_code,
                 :catalog_number,
                 :catalog_book_title,
@@ -51,7 +49,6 @@ try {
             $statement = $pdo->prepare($sql);
         
             $statement->execute([
-                ':librarian_id' => $_POST['librarian_id'],
                 ':rfid_code' => $_POST['rfid_code'],
                 ':catalog_number' => $_POST['catalog_number'],
                 ':catalog_number' => $_POST['catalog_number'],
@@ -84,7 +81,6 @@ try {
             redirectURL('../catalog.php?add=error&rfid=existing');
         }else{
             $sql = 'INSERT INTO catalog_table(
-                librarian_id,
                 rfid_code,
                 catalog_number,
                 catalog_book_title,
@@ -104,7 +100,6 @@ try {
                 catalog_status
                 ) 
             VALUES(
-                :librarian_id,
                 :rfid_code,
                 :catalog_number,
                 :catalog_book_title,
@@ -127,7 +122,6 @@ try {
             $statement = $pdo->prepare($sql);
         
             $statement->execute([
-                ':librarian_id' => $_POST['librarian_id'],
                 ':rfid_code' => $_POST['rfid_code'],
                 ':catalog_number' => $_POST['catalog_number'],
                 ':catalog_number' => $_POST['catalog_number'],

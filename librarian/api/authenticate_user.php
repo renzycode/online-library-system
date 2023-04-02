@@ -17,12 +17,12 @@ try{
             jsonResponse('no-uname-found');
         }else{
     
-            $sql = "SELECT librarian_pass FROM librarian_table WHERE librarian_uname = ?";
+            $sql = "SELECT librarian_password FROM librarian_table WHERE librarian_uname = ?";
             $statement = $pdo->prepare($sql);
             $statement->execute(array($uname));
             $pass_fetched = $statement->fetch();
     
-            if(password_verify($pass,$pass_fetched['librarian_pass'])){
+            if(password_verify($pass,$pass_fetched['librarian_password'])){
 
                 $sql = "SELECT librarian_id FROM librarian_table WHERE librarian_uname = ?";
                 $statement = $pdo->prepare($sql);

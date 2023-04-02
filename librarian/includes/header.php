@@ -188,15 +188,29 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         
-                        
+                        <?php
+                            if(isset($librarian_id)){
+                                //fetch librarian information
+                                $sql = 'SELECT * FROM librarian_table WHERE librarian_id = ?';
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($librarian_id));
+                                $librarian_data = $statement->fetch();
+                            }else{
+                                $librarian_data = array(
+                                    'librarian_image_name'=>'admin',
+                                    'librarian_uname'=>'admin'
+                                );
+                            }
+
+                        ?>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                            <span class="nav-link dropdown-toggle">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $librarian_data['librarian_uname'] ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="../assets/img/undraw_profile.svg">
-                            </a>
+                                    src="../assets/image/idpictures/<?php echo $librarian_data['librarian_image_name'] ?>">
+                            </span>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item">

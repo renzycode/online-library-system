@@ -3,8 +3,6 @@
 session_start();
 
 $active = 'catalog';
-include_once 'includes/header.php';
-
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
 
@@ -19,6 +17,8 @@ if(isset($_SESSION["authen"])){
 }else{
     redirectURL('login.php');
 }
+
+include_once 'includes/header.php';
 
         $sql = 'SELECT * FROM catalog_table';
         $statement = $pdo->prepare($sql);
