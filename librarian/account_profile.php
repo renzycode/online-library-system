@@ -2,7 +2,7 @@
 
 session_start();
 
-$active = 'account-profile';
+$active = 'librarian-table';
 include_once 'includes/header.php';
 
 include_once "../includes/conn.php";

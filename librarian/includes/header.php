@@ -145,16 +145,16 @@
             <!-- nav item catalog -->
             <li
                 <?php
-                    if($active == 'account-profile'){ 
+                    if($active == 'librarian-table'){ 
                         echo 'class="nav-item active"';
                     }else{
                         echo 'class="nav-item"';
                     }
                 ?>
             >
-                <a class="nav-link" href="account_profile.php">
+                <a class="nav-link" href="librarian_table.php">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Account Profile</span>
+                    <span>Librarian Table</span>
                 </a>
             </li>
 

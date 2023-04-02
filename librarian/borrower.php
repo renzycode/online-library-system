@@ -50,8 +50,8 @@ if(isset($_SESSION["authen"])){
 
 
 <div class="m-4">
-        <h2 class="mb-4 text-dark">
-            <span class="page-title">
+    <h2 class="mb-4 text-dark">
+        <span class="page-title">
             <?php 
                 if($borrower=="pending")
                     echo "Pending";
@@ -59,143 +59,130 @@ if(isset($_SESSION["authen"])){
                     echo "Accepted";
                 if($borrower=="rejected")
                     echo "Rejected";
-            ?> 
+            ?>
             Borrowers
-            </span>
-            <br>
-            <hr>
-            <a href="borrower.php?borrower=pending" type="button" 
-                <?php
+        </span>
+        <br>
+        <hr>
+        <a href="borrower.php?borrower=pending" type="button" <?php
                 if($borrower == "pending")
                     echo 'class="btn text-light btn-dark ml-1"';
                 else
                     echo 'class="btn text-light btn-secondary ml-1"';
-                ?>
-                >
-                Pending
-            </a>
-            <a href="borrower.php?borrower=accepted" type="button" 
-                <?php
+                ?>>
+            Pending
+        </a>
+        <a href="borrower.php?borrower=accepted" type="button" <?php
                 if($borrower == "accepted")
                     echo 'class="btn text-light btn-dark ml-1"';
                 else
                     echo 'class="btn text-light btn-secondary ml-1"';
-                ?>
-                >
-                Accepted
-            </a>
-            <a href="borrower.php?borrower=rejected" type="button" 
-                <?php
+                ?>>
+            Accepted
+        </a>
+        <a href="borrower.php?borrower=rejected" type="button" <?php
                 if($borrower == "rejected")
                     echo 'class="btn text-light btn-dark ml-1"';
                 else
                     echo 'class="btn text-light btn-secondary ml-1"';
-                ?>
-                >
-                Rejected
-            </a>   
-                <?php
+                ?>>
+            Rejected
+        </a>
+        <?php
                 if($borrower == "accepted"){
                 ?>
-                    <button type="button" class="btn btn-success mx-1 my-2" data-bs-toggle="modal"
-                        data-bs-target="#modalRegister">
-                        Add
-                    </button>
-                    <!-- register modal -->
-                    <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="api/add_accepted_borrower.php" method="POST" enctype="multipart/form-data">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="registerModal">Add Accepted Borrower</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label class="col-form-label">First Name</label>
-                                            <input type="text" name="fname" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Last Name</label>
-                                            <input type="text" name="lname" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Address</label>
-                                            <input type="text" name="address" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Contact</label>
-                                            <input type="text" name="contact" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Email</label>
-                                            <input type="email" name="email" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">ID Picture</label>
-                                            <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
-                                                class="form-control border-dark border">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" name="register" class="btn btn-success">Submit</button>
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </form>
+        <button type="button" class="btn btn-success mx-1 my-2" data-bs-toggle="modal" data-bs-target="#modalRegister">
+            Add
+        </button>
+        <!-- register modal -->
+        <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="api/add_accepted_borrower.php" method="POST" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="registerModal">Add Accepted Borrower</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-form-label">First Name</label>
+                                <input type="text" name="fname" class="form-control border-dark border" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Last Name</label>
+                                <input type="text" name="lname" class="form-control border-dark border" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Address</label>
+                                <input type="text" name="address" class="form-control border-dark border" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Contact</label>
+                                <input type="text" name="contact" class="form-control border-dark border" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Email</label>
+                                <input type="email" name="email" class="form-control border-dark border" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">ID Picture</label>
+                                <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
+                                    class="form-control border-dark border" required>
                             </div>
                         </div>
-                    </div>
-                    <!-- end edit modal -->
-                    <!-- view button if accepted section -->
-                    <a href="download_reports/accepted_borrower.php" type="button" class="btn btn-success">
-                        Download Report
-                    </a>
+                        <div class="modal-footer">
+                            <button type="submit" name="register" class="btn btn-success">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end edit modal -->
+        <!-- view button if accepted section -->
+        <a href="download_reports/accepted_borrower.php" type="button" class="btn btn-success">
+            Download Report
+        </a>
 
-                <?php
+        <?php
                 }elseif($borrower == "rejected"){
                 ?>
 
-                    <!-- view button if rejected section -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-all-rejected">
-                        Delete All
-                    </button>
+        <!-- view button if rejected section -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-all-rejected">
+            Delete All
+        </button>
 
-                    <!-- delete all modal -->
-                    <div class="modal fade" id="delete-all-rejected" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="api/delete_all_rejected_borrowers.php" method="POST">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Delete All Data</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete all rejected borrowers?
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="submit" name="delete_all_rejected_borrowers" class="btn btn-success">Yes</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
+        <!-- delete all modal -->
+        <div class="modal fade" id="delete-all-rejected" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="api/delete_all_rejected_borrowers.php" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete All Data</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    </div>
-                    <!-- end delete all modal -->
+                        <div class="modal-body">
+                            Are you sure you want to delete all rejected borrowers?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="delete_all_rejected_borrowers"
+                                class="btn btn-success">Yes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end delete all modal -->
 
-                <?php
+        <?php
                 }
                 ?>
-        </h2>
-        
-        <?php
+    </h2>
+
+    <?php
 
         if(isset($_GET['accept'])){
             if($_GET['accept']=='success'){
@@ -286,8 +273,8 @@ if(isset($_SESSION["authen"])){
 
         ?>
 
-        <!-- pending borrowers -->
-        <?php
+    <!-- pending borrowers -->
+    <?php
         if($borrower=='pending'){
             if ( count($pending_borrowers)<=0 ){
                 echo'
@@ -418,10 +405,10 @@ if(isset($_SESSION["authen"])){
             }
         }
         ?>
-        <!-- end pending borrowers -->
+    <!-- end pending borrowers -->
 
-        <!-- accepted borrowers -->
-        <?php
+    <!-- accepted borrowers -->
+    <?php
         if($borrower=='accepted'){
             if ( count($accepted_borrowers)<=0 ){
                 echo '
@@ -589,10 +576,10 @@ if(isset($_SESSION["authen"])){
             }   
         }
         ?>
-        <!-- end accepted borrowers -->
+    <!-- end accepted borrowers -->
 
-        <!-- rejected borrowers -->
-        <?php
+    <!-- rejected borrowers -->
+    <?php
         if($borrower=='rejected'){
             if ( count($rejected_borrowers)<=0 ){
                 echo'
@@ -694,9 +681,9 @@ if(isset($_SESSION["authen"])){
             }
         }
         ?>
-        <!-- end rejected borrowers -->
+    <!-- end rejected borrowers -->
 
-    </div>
+</div>
 
 
 <?php
