@@ -59,7 +59,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel = "icon" href="assets/image/logo.png" type = "image/x-icon">
+    <link rel="icon" href="assets/image/logo.png" type="image/x-icon">
     <title>Online Library System</title>
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
@@ -90,35 +90,54 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group">
-                                            <label class="col-form-label">First Name</label>
-                                            <input type="text" name="fname" class="form-control border-dark border"
-                                                required>
+
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label class="col-form-label">First Name
+                                                    <span class="text-danger"><em>(required)</em></span>
+                                                </label>
+                                                <input type="text" name="fname" class="form-control border-dark border"
+                                                    required>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="col-form-label">Last Name
+                                                    <span class="text-danger"><em>(required)</em></span>
+                                                </label>
+                                                <input type="text" name="lname" class="form-control border-dark border"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <label class="col-form-label">Address
+                                                    <span class="text-danger"><em>(required)</em></span>
+                                                </label>
+                                                <input type="text" name="address"
+                                                    class="form-control border-dark border" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <label class="col-form-label">Contact
+                                                    <span class="text-danger"><em>(required)</em></span>
+                                                </label>
+                                                <input type="text" name="contact"
+                                                    class="form-control border-dark border" required>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="col-form-label">Email
+                                                    <span class="text-danger"><em>(required)</em></span>
+                                                </label>
+                                                <input type="email" name="email" class="form-control border-dark border"
+                                                    required>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-form-label">Last Name</label>
-                                            <input type="text" name="lname" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Address</label>
-                                            <input type="text" name="address" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Contact</label>
-                                            <input type="text" name="contact" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">Email</label>
-                                            <input type="email" name="email" class="form-control border-dark border"
-                                                required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-form-label">ID Picture</label>
+                                            <label class="col-form-label">ID Picture
+                                                <span class="text-danger"><em>(required)</em></span>
+                                            </label>
                                             <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
-                                                class="form-control border-dark border">
+                                                class="form-control border-dark border" required>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

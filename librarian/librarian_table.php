@@ -52,43 +52,59 @@ if(isset($_SESSION["authen"])){
                         <div class="modal-body">
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label class="col-form-label">User Name</label>
+                                    <label class="col-form-label">User Name
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="uname" class="form-control border-dark border" required>
                                 </div>
                                 <div class="col-6">
                                     <label class="col-form-label">Password</label>
-                                    <input type="password" name="password" class="form-control border-dark border" required>
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    <input type="password" name="password" class="form-control border-dark border"
+                                        required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label class="col-form-label">First Name</label>
+                                    <label class="col-form-label">First Name
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="fname" class="form-control border-dark border" required>
                                 </div>
                                 <div class="col-6">
-                                    <label class="col-form-label">Last Name</label>
+                                    <label class="col-form-label">Last Name
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="lname" class="form-control border-dark border" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <label class="col-form-label">Address</label>
+                                    <label class="col-form-label">Address
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="address" class="form-control border-dark border" required>
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label class="col-form-label">Contact</label>
+                                    <label class="col-form-label">Contact
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="contact" class="form-control border-dark border" required>
                                 </div>
                                 <div class="col-6">
-                                    <label class="col-form-label">Email</label>
+                                    <label class="col-form-label">Email
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="email" name="email" class="form-control border-dark border" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">ID Picture</label>
+                                <label class="col-form-label">Profile Image
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
                                 <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
                                     class="form-control border-dark border" value="logo.png" required>
                             </div>
@@ -137,12 +153,30 @@ if(isset($_SESSION["authen"])){
             ';
         }
     }
+    if(isset($_GET['edit'])){
+        if($_GET['edit']=='success'){
+            echo '
+                <div class="alert alert-success">
+                    Librarian has been successfuly edited.
+                </div>
+            ';
+        }
+    }
+    if(isset($_GET['updatepassword'])){
+        if($_GET['updatepassword']=='success'){
+            echo '
+                <div class="alert alert-success">
+                    Librarian password has been successfuly updated.
+                </div>
+            ';
+        }
+    }
     if(isset($_GET['delete'])){
         if($_GET['delete']=='error'){
             if($_GET['account']=='you'){
                 echo '
                     <div class="alert alert-danger">
-                        Error, your own account cannot be deleted.
+                        Error, you cannot delete your own account.
                     </div>
                 ';
             }else{
@@ -220,14 +254,142 @@ if(isset($_SESSION["authen"])){
                                 <td>'.$librarian['librarian_contact'].'</td>
                                 <td>'.$librarian['librarian_email'].'</td>
                                 <td>********</td>
-                                <td><button class="btn btn-primary"> Edit </button></td>
-                                <td><button class="btn btn-primary"> Update Password </button></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#modalEdit'.$number.'"> Edit
+                                    </button>
+                                    <!-- edit modal -->
+                                    <div class="modal fade" id="modalEdit'.$number.'" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="api/edit_librarian.php" method="post" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Librarian</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <input type="hidden" name="librarian_id" value="'.$librarian['librarian_id'].'" required>
+                                                        <div class="form-group row">
+                                                            <div class="col-6">
+                                                                <label class="col-form-label">User Name
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="text" name="uname" class="form-control border-dark border" value="'.$librarian['librarian_uname'].'" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-6">
+                                                                <label class="col-form-label">First Name
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="text" name="fname" class="form-control border-dark border" value="'.$librarian['librarian_fname'].'" required>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="col-form-label">Last Name
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="text" name="lname" class="form-control border-dark border" value="'.$librarian['librarian_lname'].'" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-12">
+                                                                <label class="col-form-label">Address
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="text" name="address" class="form-control border-dark border" value="'.$librarian['librarian_address'].'" required>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-6">
+                                                                <label class="col-form-label">Contact
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="text" name="contact" class="form-control border-dark border" value="'.$librarian['librarian_contact'].'" required>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="col-form-label">Email
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="email" name="email" class="form-control border-dark border" value="'.$librarian['librarian_email'].'" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">ID Picture
+                                                                <span class="text-danger">
+                                                                    <em>
+                                                                        (optional) (leave blank if you dont want to change the profile image)
+                                                                    </em>
+                                                                </span>
+                                                            </label>
+                                                            <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
+                                                                class="form-control border-dark border">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="edit_librarian" class="btn btn-success">Submit</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end edit modal -->
+                                
+                                </td>
+                                <td>
+                                
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#modalUpdatePassword'.$number.'"> Update Password
+                                    </button>
+                                    <!-- update password modal -->
+                                    <div class="modal fade" id="modalUpdatePassword'.$number.'" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="api/edit_librarian.php" method="post" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Update Password</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="librarian_id" value="'.$librarian['librarian_id'].'" required>
+                                                        <div class="form-group row">
+                                                            <div class="col-6">
+                                                                <label class="col-form-label">New Password
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="password" name="new-password" class="form-control border-dark border" required>
+                                                            </div>
+                                                            <!--div class="col-6">
+                                                                <label class="col-form-label">Confirm New Password
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
+                                                                <input type="email" name="confirm-new-password" class="form-control border-dark border" required>
+                                                            </div-->
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="edit_librarian_password" class="btn btn-success">Submit</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end update password modal -->
+                                
+                                
+                                </td>
                                 <td>
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#modalDelete'.$number.'">
                                         Delete
                                     </button>
-                                <!-- delete modal -->
+                                    <!-- delete modal -->
                                     <div class="modal fade" id="modalDelete'.$number.'" tabindex="-1"
                                         aria-labelledby="" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -253,7 +415,7 @@ if(isset($_SESSION["authen"])){
                                             </div>
                                         </div>
                                     </div>
-                                <!-- end delete modal -->
+                                    <!-- end delete modal -->
                                 </td>
                             </tr>
                         ';

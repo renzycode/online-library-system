@@ -110,7 +110,7 @@ include_once 'includes/header.php';
             if ( count($onborrowtransactions)<=0 ) {
                 echo '
                 <div class="alert alert-warning">
-                    No transactions to be displayed
+                    No on borrow transactions to be displayed
                 </div>
                 ';
             }
@@ -307,7 +307,7 @@ include_once 'includes/header.php';
             if ( count($returnedtransactions)<=0 ) {
                 echo '
                 <div class="alert alert-warning">
-                    No transactions to be displayed
+                    No returned transactions to be displayed
                 </div>
                 ';
             }

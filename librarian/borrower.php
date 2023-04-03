@@ -106,32 +106,44 @@ include_once 'includes/header.php';
                         <div class="modal-body">
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label class="col-form-label">First Name</label>
+                                    <label class="col-form-label">First Name
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="fname" class="form-control border-dark border" required>
                                 </div>
                                 <div class="col-6">
-                                    <label class="col-form-label">Last Name</label>
+                                    <label class="col-form-label">Last Name
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="lname" class="form-control border-dark border" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <label class="col-form-label">Address</label>
+                                    <label class="col-form-label">Address
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="address" class="form-control border-dark border" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
-                                    <label class="col-form-label">Contact</label>
+                                    <label class="col-form-label">Contact
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="text" name="contact" class="form-control border-dark border" required>
                                 </div>
                                 <div class="col-6">
-                                    <label class="col-form-label">Email</label>
+                                    <label class="col-form-label">Email
+                                        <span class="text-danger"><em>(required)</em></span>
+                                    </label>
                                     <input type="email" name="email" class="form-control border-dark border" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label">ID Picture</label>
+                                <label class="col-form-label">ID Picture
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
                                 <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
                                     class="form-control border-dark border" required>
                             </div>
