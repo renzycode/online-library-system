@@ -106,7 +106,7 @@ try {
 
         redirectURL('../return_book.php?return=success');
     }else{
-        printInConsole('Edit Transaction Error!');
+        printInConsole('return error!');
         redirectURL('../return_book.php?return=error');
     }
 } catch (Exception $e) {

@@ -26,7 +26,7 @@ try {
             redirectURL('../transaction_table.php?transaction=returned&edit=error');
         }
     }else{
-        printInConsole('Edit Transaction Error!');
+        printInConsole('edit transaction error!');
         redirectURL('../transaction_table.php?transaction=returned&edit=error');
     }
 } catch (Exception $e) {

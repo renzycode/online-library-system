@@ -40,13 +40,13 @@ try {
                 ':id_image_name' => $filename,
                 ':status' => 'pending'
             ]);
-            //header('Location: index.php?register=success');
-            printInConsole('Borrower Registered Successfully!');
-            redirectURL('../index.php');
+            printInConsole('borrower registered successfully!');
+            redirectURL('../index.php?sort_by=title&register=success');
+            exit();
         }
     }else{
-        printInConsole('Registered Error!');
-        redirectURL('../index.php');
+        printInConsole('registered error!');
+        redirectURL('../index.php?sort_by=title&register=error');
     }
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";

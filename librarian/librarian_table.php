@@ -46,7 +46,7 @@ if(isset($_SESSION["authen"])){
                 <div class="modal-content">
                     <form action="api/add_librarian.php" method="POST" enctype="multipart/form-data">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="registerModal">Add Accepted Borrower</h5>
+                            <h5 class="modal-title" id="registerModal">Add Librarian</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -119,6 +119,8 @@ if(isset($_SESSION["authen"])){
         </div>
         <!-- end add librarian modal -->
     </h2>
+
+
 
     <?php
 

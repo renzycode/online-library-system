@@ -164,6 +164,23 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                 <a class="btn btn-secondary" href="index.php" role="button">Go back</a>
             </h2>';
             
+            if(isset($_GET['register'])){
+                if($_GET['register']=='success'){
+                    echo '
+                    <div class="alert alert-success">
+                        Request successfully submited.
+                    </div>
+                    ';
+                }
+                if($_GET['register']=='error'){
+                    echo '
+                    <div class="alert alert-danger">
+                        Request error.
+                    </div>
+                    ';
+                }
+            }
+
             if (!empty($search_catalogs)){
                 echo '
                 <div class="table-responsive">
@@ -231,8 +248,26 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
             <h2 class="mb-4 text-dark">
                 <span class="page-title">List of Books</span>
                 <hr>
-            </h2>
+            </h2>';
             
+            if(isset($_GET['register'])){
+                if($_GET['register']=='success'){
+                    echo '
+                    <div class="alert alert-success">
+                        Request successfully submited.
+                    </div>
+                    ';
+                }
+                if($_GET['register']=='error'){
+                    echo '
+                    <div class="alert alert-danger">
+                        Request error.
+                    </div>
+                    ';
+                }
+            }
+
+            echo'
             <div class="col-xl-3 col-lg-3 col-md-6">
                 <form action="index.php" method="GET">
                     <div class="input-group mb-3">

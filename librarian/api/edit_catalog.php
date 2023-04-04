@@ -111,11 +111,11 @@ try {
                 ':book_id' => $_POST['book_id']
             ]);
 
-            printInConsole('Borrower Registered Successfully!');
+            printInConsole('catalog edited successfully!');
             redirectURL('../catalog.php?edit=success');
         }
     }else{
-        printInConsole('Registered Error!');
+        printInConsole('edit error!');
         redirectURL('../catalog.php?edit=error');
     }
 } catch (Exception $e) {

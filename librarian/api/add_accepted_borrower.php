@@ -41,11 +41,11 @@ try {
                 ':status' => 'accepted'
             ]);
             //header('Location: index.php?register=success');
-            printInConsole('Borrower Registered Successfully!');
+            printInConsole('borrower accepted successfully!');
             redirectURL('../borrower.php?borrower=accepted&add=success');
         }
     }else{
-        printInConsole('Registered Error!');
+        printInConsole('accepted error!');
         redirectURL('../borrower.php?borrower=accepted&add=error');
     }
 } catch (Exception $e) {

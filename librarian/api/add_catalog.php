@@ -148,7 +148,7 @@ try {
     
         
     }else{
-        printInConsole('Registered Error!');
+        printInConsole('add error!');
         redirectURL('../catalog.php?add=error');
     }
 } catch (Exception $e) {

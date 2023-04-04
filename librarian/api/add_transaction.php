@@ -139,14 +139,14 @@ try {
         
         
         }else{
-            printInConsole('Add Transaction Error!');
+            printInConsole('add transaction error!');
             redirectURL('../transaction.php?add=error&error=borrower');
             exit();
         }
 
         
     }else{
-        printInConsole('Add Transaction Error!');
+        printInConsole('add transaction error!');
         redirectURL('../transaction.php?add=error');
         exit();
     }

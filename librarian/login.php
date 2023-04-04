@@ -38,7 +38,7 @@ if(isset($_SESSION["authen"]) && isset($_SESSION["uname"])){
 
 <body>
     <div class="d-flex justify-content-center mt-5">
-        <form action="api/authenticate_user.php" class="row mt-5 shadow col-6 p-0" method="post" id="form">
+        <form action="api/authenticate_user.php" class="row mt-5 shadow col-6 p-0" method="post">
             <div class="col-6 border bg-dark border-1 border-dark pb-5">
                 <h4 class="text-light mt-2 text-center mt-5" style="font-size: 1.5rem !important;">Online Library System
                 </h4>
@@ -50,29 +50,40 @@ if(isset($_SESSION["authen"]) && isset($_SESSION["uname"])){
             <div class="col-6 border border-1 border-dark">
                 <div class="my-3">
                     <label for="username" class="form-label">Username</label>
-                    <input id="uname" type="text" class="form-control border border-dark">
+                    <input type="text" name="uname" class="form-control border border-dark" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input id="password" type="password" class="form-control border border-dark">
+                    <input type="password" name="pass" class="form-control border border-dark" required>
                 </div>
                 <div class="mb-3">
-                    <button id="submit" class="btn btn-dark" type="submit">Log in</button>
+                    <button name="login" class="btn btn-dark" type="submit">Log in</button>
                 </div>
-                <div id="alert-msg">
-                    <!--div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Error, Please try again later.</p>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Wrong Username</p>
-                    </div>
+                    <?php
 
-                    <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Wrong Password</p>
-                    </div-->
-
-                </div>
+                    if(isset($_GET['error'])){
+                        if($_GET['error']=='wrongpassword'){
+                            echo '
+                            <div class="mb-3">
+                                <p class="alert alert-danger m-0 p-2">Wrong Password</p>
+                            </div>
+                            ';
+                        }elseif($_GET['error']=='nouserfound'){
+                            echo '
+                            <div class="mb-3">
+                                <p class="alert alert-danger m-0 p-2">Wrong Username</p>
+                            </div>
+                            ';
+                        }else{
+                            echo '
+                            <div class="mb-3">
+                                <p class="alert alert-danger m-0 p-2">Error, Please try again later.</p>
+                            </div>
+                            ';
+                        }
+                        
+                    }
+                    ?>
             </div>
         </form>
     </div>
@@ -86,86 +97,6 @@ if(isset($_SESSION["authen"]) && isset($_SESSION["uname"])){
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/vendor/sb-admin-2/sb-admin-2.min.js"></script>
-
-    <script>
-    $(document).ready(function() {
-
-        $('#submit').click(function(e) {
-            e.preventDefault();
-
-            var uname = $('#uname').val();
-            var pass = $('#password').val();
-            var login = true;
-
-            if (typeof uname === 'string' && uname.length === 0 && typeof password === 'string' && password.length === 0) {
-                $('#alert-msg').html(`
-                    <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Fields are empty!</p>
-                    </div>
-                `);
-                return;
-            }
-            if (typeof uname === 'string' && uname.length === 0) {
-                $('#alert-msg').html(`
-                    <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Username field empty</p>
-                    </div>
-                `);
-                return;
-            }
-            if (typeof pass === 'string' && pass.length === 0) {
-                $('#alert-msg').html(`
-                    <div class="mb-3">
-                        <p class="alert alert-danger m-0 p-2">Password field empty</p>
-                    </div>
-                `);
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "api/authenticate_user.php",
-                data: {
-                    uname: uname,
-                    pass: pass,
-                    login: login
-                },
-                success: function(data) {   
-                    if(data.res == "no-uname-found"){
-                        $('#alert-msg').html(`
-                        <div class="mb-3">
-                            <p class="alert alert-danger m-0 p-2">No Username Found</p>
-                        </div>
-                        `);
-                        return;
-                    }
-                    else if(data.res == "wrong-password"){
-                        $('#alert-msg').html(`
-                        <div class="mb-3">
-                            <p class="alert alert-danger m-0 p-2">Wrong Password</p>
-                        </div>
-                        `);
-                        return;
-                    }
-                    else if(data.res == "success"){
-                        window.location.href = "index.php";
-                    }
-                    else{
-                        $('#alert-msg').html(`
-                        <div class="mb-3">
-                            <p class="alert alert-danger m-0 p-2">Error, Please try again later</p>
-                        </div>
-                        `);
-                    }
-                },
-                error: function(data) {
-                    alert('error');
-                }
-            });
-
-        })
-    })
-    </script>
 
 </body>
 

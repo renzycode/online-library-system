@@ -12,16 +12,22 @@ try {
         $statement->execute(array($_POST['uname'],$_POST['email']));
         $librarian = $statement->fetch();
 
-        if($librarian['librarian_uname']==$_POST['uname']){
-            redirectURL('../librarian_table.php?add=error&error=unameexisting');
-            exit();
+        if(isset($librarian['librarian_uname'])){
+            if(!empty($librarian)){
+                if($librarian['librarian_uname']==$_POST['uname']){
+                    redirectURL('../librarian_table.php?add=error&error=unameexisting');
+                    exit();
+                }
+            }
         }
-
-        if($librarian['librarian_email']==$_POST['email']){
-            redirectURL('../librarian_table.php?add=error&error=emailexisting');
-            exit();
+        if(isset($librarian['librarian_email'])){
+            if(!empty($librarian)){
+                if($librarian['librarian_email']==$_POST['email']){
+                    redirectURL('../librarian_table.php?add=error&error=emailexisting');
+                    exit();
+                }
+            }
         }
-
 
         $filename=$_FILES["idpicture"]["name"];
         $tempname=$_FILES["idpicture"]["tmp_name"];

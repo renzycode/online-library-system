@@ -14,7 +14,8 @@ try{
         $librarian = $statement->fetchAll();
     
         if(!count($librarian)>0){
-            jsonResponse('no-uname-found');
+            redirectURL('../login.php?error=nouserfound');
+            exit();
         }else{
     
             $sql = "SELECT librarian_password FROM librarian_table WHERE librarian_uname = ?";
@@ -36,15 +37,17 @@ try{
                 $_SESSION["uname"] = $uname;
                 $_SESSION["librarian_id"] = $id_fetched['librarian_id'];
 
-                jsonResponse('success');
+                redirectURL('../index.php');
+                exit();
             }else{
-                jsonResponse('wrong-password');
+                redirectURL('../login.php?error=wrongpassword');
+                exit();
             }
         }
     }
-    redirectURL('../login.php');
+    redirectURL('../login.php?error=1');
 }catch (Exception $e) {
-    jsonResponse('Caught exception: '.$e->getMessage());
+    redirectURL('../login.php?error=1');
 }
 
 
