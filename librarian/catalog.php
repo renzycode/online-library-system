@@ -150,31 +150,31 @@ include_once 'includes/header.php';
 
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Catalog Number
-                                <span class="text-danger">(required)</span>
+                            <span class="text-danger"><em>(required)</em></span>
                             </label>
                             <input type="text" name="catalog_number" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Book Title
-                                <span class="text-danger">(required)</span>
+                            <span class="text-danger"><em>(required)</em></span>
                             </label>
                             <input type="text" name="catalog_book_title" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Author
-                                <span class="text-danger">(required)</span>
+                            <span class="text-danger"><em>(required)</em></span>
                             </label>
                             <input type="text" name="catalog_author" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Publisher
-                                <span class="text-danger">(required)</span>
+                            <span class="text-danger"><em>(required)</em></span>
                             </label>
                             <input type="text" name="catalog_publisher" class="form-control border-dark border" required/>
                         </div>
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">Year
-                                <span class="text-danger">(required)</span>
+                            <span class="text-danger"><em>(required)</em></span>
                             </label>
                             <input type="text" name="catalog_year" class="form-control border-dark border" required/>
                         </div>
@@ -380,35 +380,35 @@ include_once 'includes/header.php';
                                                     echo '
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Catalog Number
-                                                            <span class="text-danger">(required)</span>
+                                                        <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_number"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_number'].'" required/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Book Title
-                                                            <span class="text-danger">(required)</span>
+                                                        <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_book_title"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_book_title'].'" required/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Author
-                                                            <span class="text-danger">(required)</span>
+                                                        <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_author"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_author'].'" required/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Publisher
-                                                            <span class="text-danger">(required)</span>
+                                                        <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_publisher"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_publisher'].'" required/>
                                                     </div>
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Year
-                                                            <span class="text-danger">(required)</span>
+                                                        <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_year"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_year'].'" required/>

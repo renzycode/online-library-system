@@ -44,14 +44,14 @@ try {
                     
                 }
             }
-            
+            $due_date = $_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time']));
             if($runquery=="true"){
                 $params = array(
                     $_POST['librarian_id'],
                     $_POST['borrower_id'],
                     $_POST['book_id'],
                     $_POST['borrow_date'].' '.date("g:i a", strtotime($_POST['borrow_time'])),
-                    $_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time'])),
+                    $due_date,
                     '------',
                     '------',
                     '----',
@@ -87,9 +87,53 @@ try {
             
                 $statement->execute(array($_POST['book_id']));
                 
-    
+
+
+                $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ?';
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($_POST['borrower_id']));
+                $borrower = $statement->fetch();
+
+                include('../smtp/PHPMailerAutoload.php');
+                $senders_email="lgcgroup.biz";
+                $senders_email_pass="1grbHyDdmHiWJtic";
+                $senders_host="mail.smtp2go.com";
+                $mail = new PHPMailer(); 
+                //$mail->SMTPDebug = 3;
+                $mail->isSMTP();
+                $mail->Host = $senders_host;        //  smtp host
+                $mail->SMTPAuth = true;
+                $mail->Username = $senders_email; //  sender username
+                $mail->Password = $senders_email_pass;          // sender password
+                $mail->SMTPSecure = 'tls';                     // encryption - ssl/tls
+                $mail->Port = 587;                             // port - 587/465
+                $mail->setFrom("onlinelibrarysystem001@gmail.com","Online Library System");
+                $mail->addAddress($borrower['borrower_email']);//paolopabilona7@gmail.com
+                //$mail->addReplyTo($senders_email);
+                $mail->isHTML(true);                           // Set email content format to HTML
+                $mail->Subject ='You borrowed a book';
+                $mail->Body ='
+                Hello, '.$borrower['borrower_fname'].' You borrowed a book. Keep in mind that your due date is '.$due_date.'.
+                <br> 
+                Make sure you return the borrowed book on time, or else you have to pay a penalty.
+                <br> 
+                <br> 
+                <br> 
+                - Online Library System
+                <br> 
+                - onlinelibrarysystem001@gmail.com
+                ';
+                if($mail->send()){
+                    redirectURL('../transaction.php?add=success');
+                    exit();
+                }else{
+                    redirectURL('../transaction.php?add=error&mailer=error');
+                    exit();
+                }
+
     
                 redirectURL('../transaction.php?add=success');
+                exit();
             }
             
         
@@ -97,17 +141,17 @@ try {
         }else{
             printInConsole('Add Transaction Error!');
             redirectURL('../transaction.php?add=error&error=borrower');
+            exit();
         }
 
         
     }else{
         printInConsole('Add Transaction Error!');
         redirectURL('../transaction.php?add=error');
+        exit();
     }
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";
+    exit();
 }
-
-
-
-//header('Location: index.php?register=error');
+exit();

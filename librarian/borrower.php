@@ -449,6 +449,7 @@ include_once 'includes/header.php';
                                 <th scope="col">Address</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Email</th>
+                                <!--th scope="col">Borrowed Books</th-->
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
@@ -490,6 +491,7 @@ include_once 'includes/header.php';
                                     <td>'.$accepted['borrower_address'].'</td>
                                     <td>'.$accepted['borrower_contact'].'</td>
                                     <td>'.$accepted['borrower_email'].'</td>
+                                    <!--td>'.$accepted['borrowed_books'].'</td-->
 
                                     <td>
                                         <!-- reject modal button -->
@@ -535,6 +537,11 @@ include_once 'includes/header.php';
                                                                 <input type="email" name="email" class="form-control border-dark border" value="'.$accepted['borrower_email'].'"
                                                                     required>
                                                             </div>
+                                                            <!--div class="form-group">
+                                                                <label class="col-form-label">Borrowed Books</label>
+                                                                <input type="number" name="borrowed_books" pattern="[0-5]" class="form-control border-dark border" value="'.$accepted['borrowed_books'].'"
+                                                                    required>
+                                                            </div-->
                                                             <!--div class="form-group">
                                                                 <label class="col-form-label">ID Picture</label>
                                                                 <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"

@@ -40,19 +40,21 @@ CREATE TABLE catalog_table (
   CONSTRAINT catalog_table FOREIGN KEY (librarian_id) REFERENCES librarian_table(librarian_id)
 )
 
-CREATE TABLE transaction_table (
-  transaction_id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  librarian_id int(11) NOT NULL,
-  borrower_id int(11) NOT NULL,
-  book_id int(11) NOT NULL,
-  transaction_borrow_datetime varchar(100) DEFAULT NULL,
-  transaction_return_datetime varchar(100) DEFAULT NULL,
-  transaction_datetime_return varchar(100) DEFAULT NULL,
-  transaction_datetime_lapse varchar(100) DEFAULT NULL,
-  transaction_status varchar(100) DEFAULT NULL,
-  CONSTRAINT transaction_table FOREIGN KEY (borrower_id) REFERENCES borrower_table (borrower_id),
-  FOREIGN KEY (librarian_id) REFERENCES librarian_table (librarian_id),
-  FOREIGN KEY (book_id) REFERENCES catalog_table (book_id)
+CREATE TABLE `transaction_table` (
+  `transaction_id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `librarian_id` int(11) NOT NULL,
+  `borrower_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `transaction_borrow_datetime` varchar(100) DEFAULT NULL,
+  `transaction_due_datetime` varchar(100) DEFAULT NULL,
+  `transaction_datetime_return` varchar(100) DEFAULT NULL,
+  `transaction_datetime_lapse` varchar(100) DEFAULT NULL,
+  `transaction_penalty` varchar(50) DEFAULT NULL,
+  `transaction_paid` varchar(50) DEFAULT NULL,
+  `transaction_status` varchar(100) DEFAULT NULL,
+  CONSTRAINT `transaction_table` FOREIGN KEY (`borrower_id`) REFERENCES `borrower_table` (`borrower_id`),
+  FOREIGN KEY (`librarian_id`) REFERENCES `librarian_table` (`librarian_id`),
+  FOREIGN KEY (`book_id`) REFERENCES `catalog_table` (`book_id`)
 )
 
 
