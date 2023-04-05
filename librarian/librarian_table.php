@@ -124,6 +124,8 @@ if(isset($_SESSION["authen"])){
 
     <?php
 
+
+
     if(isset($_GET['add'])){
         if($_GET['add']=='error'){
             if($_GET['error']=='unameexisting'){

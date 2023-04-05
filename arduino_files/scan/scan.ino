@@ -19,11 +19,11 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);  //--> Create MFRC522 instance.
 //----------------------------------------SSID and Password of your WiFi router-------------------------------------------------------------------------------------------------------------//
 const char* ssid = "Sappy";
 const char* password = "Avrenim123";
-const char* urlpath = "http://onlinelibrarysystem001.000webhostapp.com/librarian/rfid/getRfidCode.php";
-//const char* urlpath = "http://192.168.1.108/online-library-system/librarian/rfid/getRfidCode.php";
+//const char* urlpath = "http://onlinelibrarysystem.epizy.com/librarian/rfid/getRfidCode.php";
+const char* urlpath = "http://192.168.1.106/online-library-system/librarian/rfid/getRfidCode.php";
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
-ESP8266WebServer server(80);  //--> Server on port 80
+//ESP8266WebServer server(80);  //--> Server on port 80
 
 int readsuccess;
 byte readcard[4];
