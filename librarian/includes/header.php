@@ -216,7 +216,7 @@
                         <li class="nav-item">
                             <button type="button" class="nav-link btn mr-4" data-bs-toggle="modal"
                                 data-bs-target="#modalLogout">
-                                <strong><i class="bi-box-arrow-right text-dark"></i></strong>
+                                Logout</strong>
                             </button>
                             <!-- logout modal -->
                             <div class="modal fade" id="modalLogout" tabindex="-1" aria-labelledby="exampleModalLabel"
