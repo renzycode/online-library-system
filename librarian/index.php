@@ -115,7 +115,7 @@ $unavailable_books = count($statement->fetchAll());
         </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
+    <!-- Earnings (Monthly) Card Example
     <div class="col-xl-6 col-md-6 mb-4">
         <div class="card border-left-danger shadow h-100">
             <a href="borrower.php?borrower=rejected" class="text-decoration-none">
@@ -136,7 +136,7 @@ $unavailable_books = count($statement->fetchAll());
                 </div>
             </a>
         </div>
-    </div>
+    </div-->
 
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-6 col-md-6 mb-4">
