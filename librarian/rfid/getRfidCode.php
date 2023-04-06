@@ -20,8 +20,8 @@ include_once "../../includes/functions.php";
 	$statement = $pdo->prepare($sql);
 	$statement->execute(array($rfidCode));
 	$fetched = $statement->fetch();
-
-	if($fetched['rfid_code']==$rfidCode){
+	
+	if(isset($fetched['rfid_code'])){
 		$Write2='
 		<div class="form-group mt-3">
 			<span class="alert alert-success py-3">
@@ -71,3 +71,5 @@ include_once "../../includes/functions.php";
 
 	
 	file_put_contents('codeForScan.php', $Write2);
+
+	echo 'sent data';

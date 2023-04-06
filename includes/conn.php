@@ -1,10 +1,10 @@
 <?php
 
 
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$db = 'onlinelibrarysystem';
+$host = 'b64jrih3qbsoq7z8qhd7-mysql.services.clever-cloud.com';
+$user = 'ubltee2psvzbkjll';
+$password = 'N8o0g8xlGV5l9IFVr9c0';
+$db = 'b64jrih3qbsoq7z8qhd7';
 
 try {
 	$pdo = new PDO("mysql:host=".$host.";dbname=".$db.";charset=UTF8", $user, $password);
