@@ -521,8 +521,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Borrower ID</th>
+                                                        <th scope="col">Borrower Name</th>
                                                         <th scope="col">Borrower Email</th>
-                                                        <th scope="col">Action</th>
+                                                        <!--th scope="col">Action</th-->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -533,12 +534,13 @@
                                     echo '
                                         <tr>
                                             <td class="">'.$borrower['borrower_id'].'</td>
+                                            <td class="">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
                                             <td>'.$borrower['borrower_email'].'</td>
-                                            <td>
+                                            <!--td>
                                                 <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
                                                     Copy ID
                                                 </button>
-                                            </td>
+                                            </td-->
                                         </tr>
 
                                     ';
@@ -560,7 +562,8 @@
                                                         <th scope="col">Book ID</th>
                                                         <th scope="col">Catalog Number</th>
                                                         <th scope="col">Book Title</th>
-                                                        <th scope="col">Action</th>
+                                                        <th scope="col">Book Status</th>
+                                                        <!--th scope="col">Action</th-->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -577,14 +580,17 @@
                                             ';
                                             if($catalog['catalog_status']=='Available'){
                                                 echo '
-                                                    <button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
+                                                    <!--button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
                                                         Copy ID
+                                                    </button-->
+                                                    <button type="button" class="btn btn-success p-1 " disabled>
+                                                        Available
                                                     </button>
                                                 ';
                                             }else{
                                                 echo '
                                                     
-                                                    <button type="button" class="btn btn-danger" disabled>
+                                                    <button type="button" class="btn btn-danger p-1" disabled>
                                                         Unavailable
                                                     </button>
                                                 ';
