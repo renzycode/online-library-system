@@ -95,9 +95,9 @@ try {
                 $borrower = $statement->fetch();
 
                 include('../smtp/PHPMailerAutoload.php');
-                $senders_email="lgcgroup.biz";
-                $senders_email_pass="1grbHyDdmHiWJtic";
-                $senders_host="mail.smtp2go.com";
+                $senders_email="onlinelibrarysystem001@gmail.com";
+                $senders_email_pass="uuehhyzvhhmsjysm";
+                $senders_host="msmtp.gmail.com";
                 $mail = new PHPMailer(); 
                 //$mail->SMTPDebug = 3;
                 $mail->isSMTP();

@@ -19,9 +19,9 @@ if(isset($_POST['accept_borrower'])){
 
         include('../smtp/PHPMailerAutoload.php');
 
-        $senders_email="lgcgroup.biz";
-        $senders_email_pass="1grbHyDdmHiWJtic";
-        $senders_host="mail.smtp2go.com";
+        $senders_email="onlinelibrarysystem001@gmail.com";
+        $senders_email_pass="uuehhyzvhhmsjysm";
+        $senders_host="smtp.gmail.com";
 
         $mail = new PHPMailer(); 
 
@@ -42,7 +42,7 @@ if(isset($_POST['accept_borrower'])){
         
         Hello, '.$borrower['borrower_fname'].' You\'ve been accepted as a borrower.
         <br> 
-        You can now borrow a maximum of five books from our physical library.
+        You can now borrow books from our physical library.
         <br> 
         <br> 
         <br> 
