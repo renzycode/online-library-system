@@ -173,7 +173,20 @@ if(isset($_SESSION["authen"])){
                     Librarian password has been successfuly updated.
                 </div>
             ';
+        }elseif($_GET['updatepassword']=='notmatch'){
+            echo '
+                <div class="alert alert-danger">
+                    Librarian password and confirm password didn\'t match.
+                </div>
+            ';
+        }else{
+            echo '
+                <div class="alert alert-danger">
+                    Error, please try again later.
+                </div>
+            ';
         }
+
     }
     if(isset($_GET['delete'])){
         if($_GET['delete']=='error'){
@@ -368,12 +381,12 @@ if(isset($_SESSION["authen"])){
                                                                 </label>
                                                                 <input type="password" name="new-password" class="form-control border-dark border" required>
                                                             </div>
-                                                            <!--div class="col-6">
+                                                            <div class="col-6">
                                                                 <label class="col-form-label">Confirm New Password
                                                                     <span class="text-danger"><em>(required)</em></span>
                                                                 </label>
-                                                                <input type="email" name="confirm-new-password" class="form-control border-dark border" required>
-                                                            </div-->
+                                                                <input type="password" name="confirm-new-password" class="form-control border-dark border" required>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

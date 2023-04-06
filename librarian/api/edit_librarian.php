@@ -73,6 +73,11 @@ try {
         
             $statement = $pdo->prepare($sql);
         
+            if($_POST['new-password']!=$_POST['confirm-new-password']){
+                redirectURL('../librarian_table.php?updatepassword=notmatch');
+                exit();
+            }
+
             $encrypted_password = password_hash($_POST['new-password'], PASSWORD_DEFAULT);
 
             $statement->execute(array(
