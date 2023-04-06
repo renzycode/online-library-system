@@ -9,6 +9,21 @@ try {
         $tempname=$_FILES["idpicture"]["tmp_name"];
         $folder='../assets/image/idpictures/'.$filename;
     
+        $sql = 'SELECT * FROM borrower_table 
+        WHERE borrower_email = ?';
+        $statement = $pdo->prepare($sql);
+        $statement->execute(array($_POST['email']));
+        $borrower = $statement->fetch();
+
+        if(isset($borrower['borrower_email'])){
+            if(!empty($borrower)){
+                if($borrower['borrower_email']==$_POST['email']){
+                    redirectURL('../index.php?sort_by=title&register=error&error=emailalreadyused');
+                    exit();
+                }
+            }
+        }
+
         $sql = 'INSERT INTO borrower_table(
             borrower_fname,
             borrower_lname,

@@ -173,11 +173,20 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                     ';
                 }
                 if($_GET['register']=='error'){
+                    if(isset($_GET['error'])){
+                        if($_GET['error']=='emailalreadyused')
+                        echo '
+                            <div class="alert alert-danger">
+                                Request error, email already used.
+                            </div>
+                        ';
+                    }else{
                     echo '
-                    <div class="alert alert-danger">
-                        Request error.
-                    </div>
+                        <div class="alert alert-danger">
+                            Request error.
+                        </div>
                     ';
+                    }
                 }
             }
 
@@ -259,11 +268,20 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                     ';
                 }
                 if($_GET['register']=='error'){
+                    if(isset($_GET['error'])){
+                        if($_GET['error']=='emailalreadyused')
+                        echo '
+                            <div class="alert alert-danger">
+                                Request error, email already used.
+                            </div>
+                        ';
+                    }else{
                     echo '
-                    <div class="alert alert-danger">
-                        Request error.
-                    </div>
+                        <div class="alert alert-danger">
+                            Request error.
+                        </div>
                     ';
+                    }
                 }
             }
 

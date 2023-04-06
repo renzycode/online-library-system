@@ -512,41 +512,50 @@ include_once 'includes/header.php';
                                                         </div>
                                                         <div class="modal-body">
                                                             <input type="hidden" name="id" value="'.$accepted['borrower_id'].'">
-                                                            <div class="form-group">
-                                                                <label class="col-form-label">First Name</label>
-                                                                <input type="text" name="fname" class="form-control border-dark border" value="'.$accepted['borrower_fname'].'"
-                                                                    required>
+                                                            <div class="form-group row">
+                                                                <div class="col-6">
+                                                                    <label class="col-form-label">First Name
+                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                    </label>
+                                                                    <input type="text" name="fname" class="form-control border-dark border"  value="'.$accepted['borrower_fname'].'" required>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label class="col-form-label">Last Name
+                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                    </label>
+                                                                    <input type="text" name="lname" class="form-control border-dark border" value="'.$accepted['borrower_lname'].'" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-12">
+                                                                    <label class="col-form-label">Address
+                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                    </label>
+                                                                    <input type="text" name="address" class="form-control border-dark border" value="'.$accepted['borrower_address'].'" required>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-6">
+                                                                    <label class="col-form-label">Contact
+                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                    </label>
+                                                                    <input type="text" name="contact" class="form-control border-dark border" value="'.$accepted['borrower_contact'].'" required>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label class="col-form-label">Email
+                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                    </label>
+                                                                    <input type="email" name="email" class="form-control border-dark border" value="'.$accepted['borrower_email'].'" required>
+                                                                </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="col-form-label">Last Name</label>
-                                                                <input type="text" name="lname" class="form-control border-dark border" value="'.$accepted['borrower_lname'].'"
-                                                                    required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="col-form-label">Address</label>
-                                                                <input type="text" name="address" class="form-control border-dark border" value="'.$accepted['borrower_address'].'"
-                                                                    required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="col-form-label">Contact</label>
-                                                                <input type="text" name="contact" class="form-control border-dark border" value="'.$accepted['borrower_contact'].'"
-                                                                    required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="col-form-label">Email</label>
-                                                                <input type="email" name="email" class="form-control border-dark border" value="'.$accepted['borrower_email'].'"
-                                                                    required>
-                                                            </div>
-                                                            <!--div class="form-group">
-                                                                <label class="col-form-label">Borrowed Books</label>
-                                                                <input type="number" name="borrowed_books" pattern="[0-5]" class="form-control border-dark border" value="'.$accepted['borrowed_books'].'"
-                                                                    required>
-                                                            </div-->
-                                                            <!--div class="form-group">
-                                                                <label class="col-form-label">ID Picture</label>
+                                                                <label class="col-form-label">Profile Image
+                                                                    <span class="text-danger"><em>(required)</em></span>
+                                                                </label>
                                                                 <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
-                                                                    class="form-control border-dark border">
-                                                            </div-->
+                                                                    class="form-control border-dark border" value="logo.png">
+                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" name="edit_accepted_borrower" class="btn btn-success">Submit</button>
