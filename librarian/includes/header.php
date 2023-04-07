@@ -176,7 +176,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-dark topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-light d-md-none mx-2 ">
@@ -207,17 +207,19 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <span class="nav-link dropdown-toggle">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $librarian_data['librarian_uname'] ?></span>
-                                <img class="img-profile rounded-circle"
+                                <span class="mr-2 d-none d-lg-inline text-white">
+                                    <h5 class="mb-0 mr-2"><?php echo $librarian_data['librarian_uname'] ?></h5>
+                                </span>
+                                <img class="img-profile rounded-circle m-0 p-0"
                                     src="../assets/image/idpictures/<?php echo $librarian_data['librarian_image_name'] ?>">
                             </span>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        <a type="button" class="btn btn-success py-2 my-3" href="https://onlinelibrarysystem001.000webhostapp.com/index.php?sort_by=title" target="_blank">
+                        <a type="button" class="btn btn-light py-2 my-3" href="https://onlinelibrarysystem001.000webhostapp.com/index.php?sort_by=title" target="_blank">
                                 Visit Public Viewing
                         </a>
                         <li class="nav-item">
-                            <button type="button" class="btn btn-dark py-2 my-3 mx-2" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-light py-2 my-3 mx-2" data-bs-toggle="modal"
                                 data-bs-target="#modalLogout">
                                 Logout
                             </button>

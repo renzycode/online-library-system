@@ -40,8 +40,11 @@ if(isset($_SESSION["authen"])){
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegister">
             Add
         </button>
-        <!-- add librarian modal -->
-        <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+    
+    </h2>
+
+    <!-- add librarian modal -->
+    <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="api/add_librarian.php" method="POST" enctype="multipart/form-data">
@@ -118,8 +121,6 @@ if(isset($_SESSION["authen"])){
             </div>
         </div>
         <!-- end add librarian modal -->
-    </h2>
-
 
 
     <?php

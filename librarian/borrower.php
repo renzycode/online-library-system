@@ -94,69 +94,7 @@ include_once 'includes/header.php';
         <button type="button" class="btn btn-success mx-1 my-2" data-bs-toggle="modal" data-bs-target="#modalRegister">
             Add
         </button>
-        <!-- register modal -->
-        <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="api/add_accepted_borrower.php" method="POST" enctype="multipart/form-data">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="registerModal">Add Accepted Borrower</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group row">
-                                <div class="col-6">
-                                    <label class="col-form-label">First Name
-                                        <span class="text-danger"><em>(required)</em></span>
-                                    </label>
-                                    <input type="text" name="fname" class="form-control border-dark border" required>
-                                </div>
-                                <div class="col-6">
-                                    <label class="col-form-label">Last Name
-                                        <span class="text-danger"><em>(required)</em></span>
-                                    </label>
-                                    <input type="text" name="lname" class="form-control border-dark border" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="col-form-label">Address
-                                        <span class="text-danger"><em>(required)</em></span>
-                                    </label>
-                                    <input type="text" name="address" class="form-control border-dark border" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-6">
-                                    <label class="col-form-label">Contact
-                                        <span class="text-danger"><em>(required)</em></span>
-                                    </label>
-                                    <input type="text" name="contact" class="form-control border-dark border" required>
-                                </div>
-                                <div class="col-6">
-                                    <label class="col-form-label">Email
-                                        <span class="text-danger"><em>(required)</em></span>
-                                    </label>
-                                    <input type="email" name="email" class="form-control border-dark border" required>
-                                </div>
-                            </div>
-                            <!--div class="form-group">
-                                <label class="col-form-label">ID Picture
-                                    <span class="text-danger"><em>(required)</em></span>
-                                </label>
-                                <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
-                                    class="form-control border-dark border" required>
-                            </div-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" name="register" class="btn btn-success">Submit</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- end edit modal -->
+
         <!-- view button if accepted section -->
         <a href="download_reports/accepted_borrower.php" type="button" class="btn btn-success">
             Download Report
@@ -171,34 +109,98 @@ include_once 'includes/header.php';
             Delete All
         </button>
 
-        <!-- delete all modal -->
-        <div class="modal fade" id="delete-all-rejected" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="api/delete_all_rejected_borrowers.php" method="POST">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete All Data</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete all rejected borrowers?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" name="delete_all_rejected_borrowers"
-                                class="btn btn-success">Yes</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- end delete all modal -->
 
         <?php
                 }
                 ?>
     </h2>
+
+    <!-- register modal -->
+    <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="api/add_accepted_borrower.php" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModal">Add Accepted Borrower</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label class="col-form-label">First Name
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="text" name="fname" class="form-control border-dark border" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="col-form-label">Last Name
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="text" name="lname" class="form-control border-dark border" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label class="col-form-label">Address
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="text" name="address" class="form-control border-dark border" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-6">
+                                <label class="col-form-label">Contact
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="text" name="contact" class="form-control border-dark border" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="col-form-label">Email
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="email" name="email" class="form-control border-dark border" required>
+                            </div>
+                        </div>
+                        <!--div class="form-group">
+                                <label class="col-form-label">ID Picture
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
+                                    class="form-control border-dark border" required>
+                            </div-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="register" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end edit modal -->
+
+    <!-- delete all modal -->
+    <div class="modal fade" id="delete-all-rejected" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="api/delete_all_rejected_borrowers.php" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete All Data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete all rejected borrowers?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" name="delete_all_rejected_borrowers" class="btn btn-success">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end delete all modal -->
 
     <?php
 
