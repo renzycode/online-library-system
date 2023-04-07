@@ -5,9 +5,6 @@ include_once "../includes/functions.php";
 
 try {
     if(isset($_POST['register'])){
-        $filename=$_FILES["idpicture"]["name"];
-        $tempname=$_FILES["idpicture"]["tmp_name"];
-        $folder='../assets/image/idpictures/'.$filename;
     
         $sql = 'SELECT * FROM borrower_table 
         WHERE borrower_email = ?';
@@ -30,7 +27,6 @@ try {
             borrower_address,
             borrower_contact,
             borrower_email,
-            borrower_id_image_name,
             borrower_status
             ) 
         VALUES(
@@ -39,26 +35,22 @@ try {
             :address,
             :contact,
             :email,
-            :id_image_name,
             :status
             )';
     
         $statement = $pdo->prepare($sql);
     
-        if(move_uploaded_file($tempname,$folder)){
-            $statement->execute([
-                ':fname' => $_POST['fname'],
-                ':lname' => $_POST['lname'],
-                ':address' => $_POST['address'],
-                ':contact' => $_POST['contact'],
-                ':email' => $_POST['email'],
-                ':id_image_name' => $filename,
-                ':status' => 'pending'
-            ]);
-            printInConsole('borrower registered successfully!');
-            redirectURL('../index.php?sort_by=title&register=success');
-            exit();
-        }
+        $statement->execute([
+            ':fname' => $_POST['fname'],
+            ':lname' => $_POST['lname'],
+            ':address' => $_POST['address'],
+            ':contact' => $_POST['contact'],
+            ':email' => $_POST['email'],
+            ':status' => 'pending'
+        ]);
+        printInConsole('borrower registered successfully!');
+        redirectURL('../index.php?sort_by=title&register=success');
+        exit();
     }else{
         printInConsole('registered error!');
         redirectURL('../index.php?sort_by=title&register=error');

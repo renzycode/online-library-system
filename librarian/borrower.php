@@ -140,13 +140,13 @@ include_once 'includes/header.php';
                                     <input type="email" name="email" class="form-control border-dark border" required>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!--div class="form-group">
                                 <label class="col-form-label">ID Picture
                                     <span class="text-danger"><em>(required)</em></span>
                                 </label>
                                 <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
                                     class="form-control border-dark border" required>
-                            </div>
+                            </div-->
                         </div>
                         <div class="modal-footer">
                             <button type="submit" name="register" class="btn btn-success">Submit</button>
@@ -308,7 +308,7 @@ include_once 'includes/header.php';
                         <thead class="border">
                             <tr>
                                 <th scope="col">No.</th>
-                                <th scope="col">Id Picture</th>
+                                <!--th scope="col">Id Picture</th-->
                                 <th scope="col">Borrower Id</th>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
@@ -327,28 +327,6 @@ include_once 'includes/header.php';
                                 echo '
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>
-                                        <button type="button" class="btn p-0 rounded border border-secondary" data-bs-toggle="modal" data-bs-target="#modalView'.$number.'">
-                                            <!--i class="bi-eye"></i--> 
-                                            <img class="p-0 rounded" src="../assets/image/idpictures/'.$pending['borrower_id_image_name'].'" width="40" height="40">
-                                        </button>
-                                        <!-- view pic modal -->
-                                        <div class="modal fade" id="modalView'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">'.$pending['borrower_fname'].'\'s ID Picture</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="d-flex justify-content-center m-2">
-                                                        <img src="../assets/image/idpictures/'.$pending['borrower_id_image_name'].'" width="300">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end view pic modal -->
-                                    </td>
                                     <td>'.$pending['borrower_id'].'</td>
                                     <td>'.$pending['borrower_fname'].'</td>
                                     <td>'.$pending['borrower_lname'].'</td>
@@ -442,7 +420,6 @@ include_once 'includes/header.php';
                         <thead class="border">
                             <tr>
                                 <th scope="col">No.</th>
-                                <th scope="col">Id Picture</th>
                                 <th scope="col">Borrower Id</th>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
@@ -462,29 +439,6 @@ include_once 'includes/header.php';
                                 echo '
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>
-                                        <button type="button" class="btn p-0 rounded border border-secondary" data-bs-toggle="modal" data-bs-target="#modalView'.$number.'">
-                                            <!--i class="bi-eye"></i--> 
-                                            <img class="p-0 rounded" src="../assets/image/idpictures/'.$accepted['borrower_id_image_name'].'" width="40" height="40">
-                                        </button>
-                                        <!-- view pic modal -->
-                                        <div class="modal fade" id="modalView'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">'.$accepted['borrower_fname'].'\'s ID Picture</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="d-flex justify-content-center m-2">
-                                                        <img src="../assets/image/idpictures/'.$accepted['borrower_id_image_name'].'" width="300">
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end view pic modal -->
-                                    </td>
                                     <td>'.$accepted['borrower_id'].'</td>
                                     <td>'.$accepted['borrower_fname'].'</td>
                                     <td>'.$accepted['borrower_lname'].'</td>
@@ -549,13 +503,13 @@ include_once 'includes/header.php';
                                                                     <input type="email" name="email" class="form-control border-dark border" value="'.$accepted['borrower_email'].'" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
+                                                            <!--div class="form-group">
                                                                 <label class="col-form-label">Profile Image
                                                                     <span class="text-danger"><em>(required)</em></span>
                                                                 </label>
                                                                 <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
                                                                     class="form-control border-dark border" value="logo.png">
-                                                            </div>
+                                                            </div-->
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="submit" name="edit_accepted_borrower" class="btn btn-success">Submit</button>
@@ -629,7 +583,6 @@ include_once 'includes/header.php';
                         <thead class="table-bordered">
                             <tr>
                                 <th scope="col">No.</th>
-                                <th scope="col">Id Picture</th>
                                 <th scope="col">Borrower Id</th>
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
@@ -647,29 +600,6 @@ include_once 'includes/header.php';
                                 echo'
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>
-                                        <button type="button" class="btn p-0 rounded border border-secondary" data-bs-toggle="modal" data-bs-target="#modalView'.$number.'">
-                                            <!--i class="bi-eye"></i--> 
-                                            <img class="p-0 rounded" src="../assets/image/idpictures/'.$rejected['borrower_id_image_name'].'" width="40" height="40">
-                                        </button>
-                                        <!-- view pic modal -->
-                                        <div class="modal fade" id="modalView'.$number.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">'.$rejected['borrower_fname'].'\'s ID Picture</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="d-flex justify-content-center m-2">
-                                                        <img src="../assets/image/idpictures/'.$rejected['borrower_id_image_name'].'" width="300">
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end view pic modal -->
-                                    </td>
                                     <td>'.$rejected['borrower_id'].'</td>
                                     <td>'.$rejected['borrower_fname'].'</td>
                                     <td>'.$rejected['borrower_lname'].'</td>

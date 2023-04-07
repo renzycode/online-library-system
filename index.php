@@ -134,13 +134,13 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <!--div class="form-group">
                                             <label class="col-form-label">ID Picture
                                                 <span class="text-danger"><em>(required)</em></span>
                                             </label>
                                             <input type="file" name="idpicture" accept=".png, .jpg, .jpeg"
                                                 class="form-control border-dark border" required>
-                                        </div>
+                                        </div-->
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" name="register" class="btn btn-success">Submit</button>
