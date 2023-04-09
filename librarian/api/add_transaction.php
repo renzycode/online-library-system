@@ -101,7 +101,7 @@ try {
                 include('../smtp/PHPMailerAutoload.php');
                 $senders_email="onlinelibrarysystem001@gmail.com";
                 $senders_email_pass="uuehhyzvhhmsjysm";
-                $senders_host="msmtp.gmail.com";
+                $senders_host="smtp.gmail.com";
                 $mail = new PHPMailer(); 
                 //$mail->SMTPDebug = 3;
                 $mail->isSMTP();

@@ -330,7 +330,13 @@
                                 }
                                     
                             }
-
+                            if(isset($_GET['mailer'])){
+                                echo '
+                                    <div class="alert alert-danger">
+                                        Transaction added, but we were unable to send an email at this time; please check your internet connection.
+                                    </div>
+                                    ';
+                            }
                             if(isset($_GET['error'])){
                                 if($_GET['error']=='book1'){
                                     echo '
