@@ -11,13 +11,14 @@ try {
         $statement->execute(array($_POST['borrower_id']));
         $result = $statement->fetch();
 
-        if(!empty($result)){
-            if($result['borrower_id']==$_POST['borrower_id']){
-                redirectURL('../transaction.php?add=error&borrower=rejected');
-                exit();
+        if(isset($result['borrower_id'])){
+            if(!empty($result)){
+                if($result['borrower_id']==$_POST['borrower_id']){
+                    redirectURL('../transaction.php?add=error&borrower=rejected');
+                    exit();
+                }
             }
         }
-        
 
         $params = array($_POST['borrower_id']);
         $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ?';

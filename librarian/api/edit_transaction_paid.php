@@ -12,8 +12,10 @@ try {
 
             if($statement->execute(array($_GET['transaction_id']))){
                 redirectURL('../transaction_table.php?transaction=returned&edit=success');
+                exit();
             }
             redirectURL('../transaction_table.php?transaction=returned&edit=error');
+            exit();
 
         }elseif($_GET['paid']=='no'){
             $sql = 'UPDATE transaction_table SET 
@@ -22,12 +24,15 @@ try {
 
             if($statement->execute(array($_GET['transaction_id']))){
                 redirectURL('../transaction_table.php?transaction=returned&edit=success');
+                exit();
             }
             redirectURL('../transaction_table.php?transaction=returned&edit=error');
+            exit();
         }
     }else{
         printInConsole('edit transaction error!');
         redirectURL('../transaction_table.php?transaction=returned&edit=error');
+        exit();
     }
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage();

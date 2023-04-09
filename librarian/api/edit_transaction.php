@@ -105,9 +105,11 @@ try {
 
 
         redirectURL('../return_book.php?return=success');
+        exit();
     }else{
         printInConsole('return error!');
         redirectURL('../return_book.php?return=error');
+        exit();
     }
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage();

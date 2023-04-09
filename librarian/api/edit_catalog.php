@@ -53,7 +53,7 @@ try {
 
             printInConsole('Borrower Registered Successfully!');
             redirectURL('../catalog.php?edit=success');
-        
+            exit();
         }
 
         $sql = "SELECT * FROM catalog_table WHERE rfid_code = ?";
@@ -63,6 +63,7 @@ try {
 
         if($fetched['rfid_code']==$_POST['rfid_code']){
             redirectURL('../catalog.php?edit=error&rfid=existing');
+            exit();
         }else{
 
 
@@ -113,10 +114,12 @@ try {
 
             printInConsole('catalog edited successfully!');
             redirectURL('../catalog.php?edit=success');
+            exit();
         }
     }else{
         printInConsole('edit error!');
         redirectURL('../catalog.php?edit=error');
+        exit();
     }
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage();
