@@ -91,7 +91,10 @@ try {
             
                 $statement->execute(array($_POST['book_id']));
                 
-
+                $sql = 'SELECT * FROM catalog_table WHERE book_id = ?';
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($_POST['book_id']));
+                $book = $statement->fetch();
 
                 $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ?';
                 $statement = $pdo->prepare($sql);
@@ -117,7 +120,7 @@ try {
                 $mail->isHTML(true);                           // Set email content format to HTML
                 $mail->Subject ='You borrowed a book';
                 $mail->Body ='
-                Hello, '.$borrower['borrower_fname'].' You borrowed a book. Keep in mind that your due date is '.$due_date.'.
+                Hello, '.$borrower['borrower_fname'].' You borrowed a book titled '.$book['catalog_book_title'].'. Keep in mind that your due date is '.$due_date.'.
                 <br> 
                 Make sure you return the borrowed book on time, or else you have to pay a penalty.
                 <br> 

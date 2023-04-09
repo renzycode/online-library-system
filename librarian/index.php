@@ -57,6 +57,16 @@ $statement = $pdo->prepare($sql);
 $statement->execute();
 $unavailable_books = count($statement->fetchAll());
 
+$sql = 'SELECT * FROM transaction_table WHERE transaction_status = "On Borrow"';
+$statement = $pdo->prepare($sql);
+$statement->execute();
+$on_borrow_books = count($statement->fetchAll());
+
+$sql = 'SELECT * FROM transaction_table WHERE transaction_status = "Returned"';
+$statement = $pdo->prepare($sql);
+$statement->execute();
+$returned_books = count($statement->fetchAll());
+
 ?>
 
 <!---------------->
@@ -164,14 +174,14 @@ $unavailable_books = count($statement->fetchAll());
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-6 col-md-6 mb-4">
         <div class="card border-left-warning shadow h-100">
-            <a href="catalog.php" class="text-decoration-none">
+            <a href="transaction_table.php?transaction=returned" class="text-decoration-none">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col-10 d-flex justify-content-center row">
                             <div class="ml-4">
                                 <div class="col-12 font-weight-bold text-warning text-uppercase mb-1"
-                                    style="font-size: 1.3rem !important;">Available Books</div>
-                                <div class="col-12 font-weight-bold text-gray-800" style="font-size: 1.2rem !important;"><?php echo $available_books ?>
+                                    style="font-size: 1.3rem !important;">Returned Books</div>
+                                <div class="col-12 font-weight-bold text-gray-800" style="font-size: 1.2rem !important;"><?php echo $returned_books ?>
                                 </div>
                             </div>
                         </div>
@@ -187,14 +197,14 @@ $unavailable_books = count($statement->fetchAll());
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-6 col-md-6 mb-4">
         <div class="card border-left-secondary shadow h-100">
-            <a href="catalog.php" class="text-decoration-none">
+            <a href="transaction_table.php?transaction=on borrow" class="text-decoration-none">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col-10 d-flex justify-content-center row">
                             <div class="ml-4">
                                 <div class="col-12 font-weight-bold text-secondary text-uppercase mb-1"
-                                    style="font-size: 1.3rem !important;">Unavailable Books</div>
-                                <div class="col-12 font-weight-bold text-gray-800" style="font-size: 1.2rem !important;"><?php echo $unavailable_books ?>
+                                    style="font-size: 1.3rem !important;">On Borrow Books</div>
+                                <div class="col-12 font-weight-bold text-gray-800" style="font-size: 1.2rem !important;"><?php echo $on_borrow_books ?>
                                 </div>
                             </div>
                         </div>
