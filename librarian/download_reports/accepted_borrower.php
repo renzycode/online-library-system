@@ -27,7 +27,6 @@ header('Content-Disposition:attachment; filename='.$filename);
         <th style="border: 1px solid black;">Address</th>
         <th style="border: 1px solid black;">Contact</th>
         <th style="border: 1px solid black;">Email</th>
-        <th style="border: 1px solid black;">ID Image Name</th>
         <th style="border: 1px solid black;">Status</th>
     </tr>
     <?php
@@ -42,7 +41,6 @@ header('Content-Disposition:attachment; filename='.$filename);
                 <td style="border: 1px solid black;">'.$acceptedborrower['borrower_address'].'</td>
                 <td style="border: 1px solid black;">'.$acceptedborrower['borrower_contact'].'</td>
                 <td style="border: 1px solid black;">'.$acceptedborrower['borrower_email'].'</td>
-                <td style="border: 1px solid black;">'.$acceptedborrower['borrower_id_image_name'].'</td>
                 <td style="border: 1px solid black;">'.$acceptedborrower['borrower_status'].'</td>
             </tr>
         ';
