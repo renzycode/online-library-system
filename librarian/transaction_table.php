@@ -123,18 +123,17 @@ include_once 'includes/header.php';
                                 <th scope="col">#</th>
                                 <th scope="col">Transaction ID</th>
                                 <th scope="col">Borrower ID</th>
-                                <!--th scope="col">Borrower Full Name</th-->
-                                <th scope="col">Borrower Email</th>
+                                <th scope="col">Borrower Full Name</th>
+                                <!--th scope="col">Borrower Email</th-->
 
                                 <th scope="col">Borrowed Book</th>
 
-                                <th scope="col">Borrow Date&Time</th>
-                                <th scope="col">Due Date&Time</th>
+                                <th scope="col">Borrow Date</th>
+                                <th scope="col">Due Date</th>
                                 
                                 
-                                
-                                <th scope="col">Date&Time Returned</th>
-                                <th scope="col">Days&Hours Lapse</th>
+                                <th scope="col">Date Returned</th>
+                                <th scope="col">Days Lapse</th>
                                 
                                 <th scope="col">Status</th>
 
@@ -154,8 +153,8 @@ include_once 'includes/header.php';
                                     <td>'.$number.'</td>
                                     <td>'.$transaction['transaction_id'].'</td>
                                     <td>'.$transaction['borrower_id'].'</td>
-                                    <!--td>'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td-->
-                                    <td>'.$transaction['borrower_email'].'</td>
+                                    <td>'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td>
+                                    <!--td>'.$transaction['borrower_email'].'</td-->
                                     
                                     <td>
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -325,13 +324,13 @@ include_once 'includes/header.php';
 
                                 <th scope="col">Borrowed Book</th>
 
-                                <th scope="col">Borrow Date&Time</th>
-                                <th scope="col">Return Date&Time</th>
+                                <th scope="col">Borrow Date</th>
+                                <th scope="col">Due Date</th>
                                 
                                 
                                 
-                                <th scope="col">Date&Time Returned</th>
-                                <th scope="col">Days&Hours Lapse</th>
+                                <th scope="col">Date Returned</th>
+                                <th scope="col">Days Lapse</th>
                                 
                                 <th scope="col">Status</th>
 

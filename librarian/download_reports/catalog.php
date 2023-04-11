@@ -14,6 +14,12 @@ $catalogs = $statement->fetchAll();
 date_default_timezone_set("Asia/Hong_Kong");
 $filename = "catalogs_" . date('Y-m-d') . ".xls"; 
     
+
+
+header('Content-Type: application/xls');
+header('Content-Disposition:attachment; filename='.$filename);
+
+
 ?>
 <table>
     <tr>
@@ -71,11 +77,8 @@ $filename = "catalogs_" . date('Y-m-d') . ".xls";
 </table>
 
 <?php
-header('Content-Type: application/xls');
-header('Content-Disposition:attachment; filename='.$filename);
+
 
 exit();
 ?>
-
-
 

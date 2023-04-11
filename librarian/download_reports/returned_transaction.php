@@ -16,6 +16,9 @@ $transactions = $statement->fetchAll();
 date_default_timezone_set("Asia/Hong_Kong");
 $filename = "returned_transactions_" . date('Y-m-d') . ".xls"; 
     
+header('Content-Type: application/xls');
+header('Content-Disposition:attachment; filename='.$filename);
+
 ?>
 <table>
     <tr>
@@ -26,10 +29,10 @@ $filename = "returned_transactions_" . date('Y-m-d') . ".xls";
         <th style="border: 1px solid black;">Book ID</th>
         <th style="border: 1px solid black;">Catalog Number</th>
         <th style="border: 1px solid black;">Book Title</th>
-        <th style="border: 1px solid black;">Borrow Date & Time</th>
-        <th style="border: 1px solid black;">Due Date & Time</th>
-        <th style="border: 1px solid black;">Date & Time Returned</th>
-        <th style="border: 1px solid black;">Date & Time Lapse</th>
+        <th style="border: 1px solid black;">Borrow Date</th>
+        <th style="border: 1px solid black;">Due Date</th>
+        <th style="border: 1px solid black;">Date Returned</th>
+        <th style="border: 1px solid black;">Days Lapse</th>
         <th style="border: 1px solid black;">Transaction Status</th>
         <th style="border: 1px solid black;">Penalty</th>
         <th style="border: 1px solid black;">Paid</th>
@@ -62,8 +65,6 @@ $filename = "returned_transactions_" . date('Y-m-d') . ".xls";
 </table>
 
 <?php
-header('Content-Type: application/xls');
-header('Content-Disposition:attachment; filename='.$filename);
 
 exit();
 ?>
