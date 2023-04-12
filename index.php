@@ -3,7 +3,7 @@
 include_once "includes/conn.php";
 include_once "includes/functions.php";
 
-//redirectURL('librarian/');
+redirectURL('librarian/');
 
 if(isset( $_GET['search']) && isset($_GET['search_by'])){
     $search = $_GET['search'];
