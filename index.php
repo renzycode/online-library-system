@@ -84,6 +84,9 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link href="assets/vendor/dataTables/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
 </head>
 
 <body>
@@ -179,7 +182,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
 
     if (!empty($search)){
         echo '
-        <div class="m-4">
+        <!--div class="m-4">
             <h2 class="mb-4 text-dark">Result for '.$echo_search_by.' \''.$search.'\'
                 <a class="btn btn-secondary" href="index.php" role="button">Go back</a>
             </h2>';
@@ -270,9 +273,9 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                 </div>';
             }
 
-        echo '</div>';
+        echo '</div-->';
     }
-    else{
+    //else{
         echo '
         <div class="m-4">
             <h2 class="mb-4 text-dark">
@@ -307,7 +310,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
             }
 
             echo'
-            <div class="col-xl-3 col-lg-3 col-md-6">
+            <!--div class="col-xl-3 col-lg-3 col-md-6">
                 <form action="index.php" method="GET">
                     <div class="input-group mb-3">
                         <input type="text" name="search" class="form-control" placeholder="Search Book" required>
@@ -320,62 +323,19 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         </ul>
                     </div>
                 </form>
-            </div>
+            </div-->
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered myDataTable">
                     <thead class="border">
-                        <!--tr>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">#</div>
-                                </div>
-                            </th>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Book No.</div>
-                                </div>
-                            </th>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Book Title</div>
-                                    <a type="button" href="index.php?sort_by=title" class="float-right">
-                                        <i class="'.$titleSortIconStatus.' bi bi-chevron-expand"></i>
-                                    </a>
-                                </div>
-                            </th>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Author</div>
-                                    <a type="button" href="index.php?sort_by=author" class="float-right">
-                                        <i class="'.$authorSortIconStatus.' bi bi-chevron-expand"></i>
-                                    </a>
-                                </div>
-                            </th>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Publisher</div>
-                                </div>
-                            </th>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Date Published</div>
-                                </div>
-                            </th>
-                            <th scope="col">
-                                <div class="d-flex justify-content-between">
-                                    <div class="text-dark">Status</div>
-                                </div>
-                            </th>
-                        </tr-->
                         <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Catalog Number</th>
-                                <th scope="col">Book Title</th>
-                                <th scope="col">Author</th>
-                                <th scope="col">Publisher</th>
-                                <th scope="col">Year</th>
-                                <th scope="col">Available</th>
-                            </tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Catalog Number</th>
+                            <th scope="col">Book Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Publisher</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Available</th>
+                        </tr>
                     </thead>
                     <tbody class="border">';
                         $number = 1;
@@ -414,12 +374,20 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                 </table>
             </div>
         </div>';
-        }
+        //}
     ?>
 
-    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="assets/vendor/dataTables/jquery.dataTables.min.js"></script>
+    <script src="assets/vendor/dataTables/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.myDataTable').DataTable();
+        });
+    </script>
 </body>
 
 
