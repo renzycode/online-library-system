@@ -3,7 +3,7 @@
 include_once "includes/conn.php";
 include_once "includes/functions.php";
 
-redirectURL('librarian/');
+//redirectURL('librarian/');
 
 if(isset( $_GET['search']) && isset($_GET['search_by'])){
     $search = $_GET['search'];
@@ -45,11 +45,29 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     }
 
 
+    $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
     $statement = $pdo->prepare($sql1);
-
     $statement->execute();
-
     $catalogs = $statement->fetchAll();
+
+    $myArrays = array();
+    $num = 0;
+    $tempSelectedTitle = '';
+    foreach($catalogs as $catalog){
+        if($tempSelectedTitle!=$catalog['catalog_book_title']){
+            $myArrays[$num] = [
+                'catalog_number'=>$catalog['catalog_number'],
+                'catalog_book_title'=>$catalog['catalog_book_title'],
+                'catalog_author'=>$catalog['catalog_author'],
+                'catalog_publisher'=>$catalog['catalog_publisher'],
+                'catalog_year'=>$catalog['catalog_year']
+                ];
+        }
+        $tempSelectedTitle=$catalog['catalog_book_title'];
+        $num++;
+    }
+
+
 }
 
 
@@ -199,45 +217,46 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         <thead class="border">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Book No.</th>
+                                <th scope="col">Catalog Number</th>
                                 <th scope="col">Book Title</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Publisher</th>
-                                <th scope="col">Date Published</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Available</th>
                             </tr>
                         </thead>
                         <tbody class="border">';
+                        
                             $number = 1;
-                            foreach ($search_catalogs as $search_catalog){
-                                $book_status = "";
+
+                            foreach($myArrays as $myArray){
+                        
+                                $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($myArray['catalog_book_title']));
+                                $catalogs = $statement->fetchAll();
+                                $all = count($catalogs);
+
+                                $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($myArray['catalog_book_title']));
+                                $catalogs = $statement->fetchAll();
+                                $available = count($catalogs);
+
                                 echo '
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>'.$search_catalog["catalog_number"].'</td>
-                                    <td>'.$search_catalog["catalog_book_title"].'</td>
-                                    <td>'.$search_catalog["catalog_author"].'</td>
-                                    <td>'.$search_catalog["catalog_publisher"].'</td>
-                                    <td>'.$search_catalog["catalog_year"].'</td>';
-                                    if($search_catalog["catalog_status"]=="Available"){
-                                        echo '
-                                        <td>'.$search_catalog["catalog_status"].' 
-                                            <span class="text-success">
-                                                <i class="bi bi-check-circle-fill"></i>
-                                            </span>
-                                        </td>';
-                                    }else{
-                                        echo '
-                                        <td>'.$search_catalog["catalog_status"].' 
-                                            <span class="text-danger">
-                                                <i class="bi bi-check-circle-fill"></i>
-                                            </span>
-                                        </td>';
-                                    }
-                                echo '
+                                    <td>'.$myArray["catalog_number"].'</td>
+                                    <td>'.$myArray["catalog_book_title"].'</td>
+                                    <td>'.$myArray["catalog_author"].'</td>
+                                    <td>'.$myArray["catalog_publisher"].'</td>
+                                    <td>'.$myArray["catalog_year"].'</td>
+                                    <td>'.$available.'/'.$all.'</td>
                                 </tr>
                                 ';
                                 $number++;
+
+
                             }
                         echo '
                         </tbody>
@@ -305,7 +324,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead class="border">
-                        <tr>
+                        <!--tr>
                             <th scope="col">
                                 <div class="d-flex justify-content-between">
                                     <div class="text-dark">#</div>
@@ -347,41 +366,48 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                     <div class="text-dark">Status</div>
                                 </div>
                             </th>
-                        </tr>
+                        </tr-->
+                        <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Catalog Number</th>
+                                <th scope="col">Book Title</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Available</th>
+                            </tr>
                     </thead>
                     <tbody class="border">';
                         $number = 1;
-                        foreach ($catalogs as $catalog){
-                            $book_status = '';
+
+                        foreach($myArrays as $myArray){
+                    
+                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($myArray['catalog_book_title']));
+                            $catalogs = $statement->fetchAll();
+                            $all = count($catalogs);
+
+                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($myArray['catalog_book_title']));
+                            $catalogs = $statement->fetchAll();
+                            $available = count($catalogs);
+
                             echo '
                             <tr>
                                 <td>'.$number.'</td>
-                                <td>'.$catalog["catalog_number"].'</td>
-                                <td>'.$catalog["catalog_book_title"].'</td>
-                                <td>'.$catalog["catalog_author"].'</td>
-                                <td>'.$catalog["catalog_publisher"].'</td>
-                                <td>'.$catalog["catalog_year"].'</td>';
-                                if($catalog["catalog_status"]=="Available"){
-                                    echo '
-                                    <td>
-                                        <span class="text-success">
-                                            <i class="bi bi-check-circle-fill"></i>
-                                        </span>
-                                        '.$catalog["catalog_status"].' 
-                                    </td>';
-                                }else{
-                                    echo '
-                                    <td>
-                                        <span class="text-danger">
-                                            <i class="bi bi-x-circle-fill"></i>
-                                        </span>
-                                        '.$catalog["catalog_status"].' 
-                                    </td>';
-                                }
-                            echo '
+                                <td>'.$myArray["catalog_number"].'</td>
+                                <td>'.$myArray["catalog_book_title"].'</td>
+                                <td>'.$myArray["catalog_author"].'</td>
+                                <td>'.$myArray["catalog_publisher"].'</td>
+                                <td>'.$myArray["catalog_year"].'</td>
+                                <td>'.$available.'/'.$all.'</td>
                             </tr>
                             ';
                             $number++;
+
+
                         }
                     echo '
                     </tbody>
