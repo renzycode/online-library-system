@@ -3,7 +3,7 @@
 include_once "includes/conn.php";
 include_once "includes/functions.php";
 
-redirectURL('librarian/');
+//redirectURL('librarian/');
 
 if(isset( $_GET['search']) && isset($_GET['search_by'])){
     $search = $_GET['search'];
@@ -28,7 +28,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     foreach($search_catalogs as $catalog){
         if($tempSelectedTitle!=$catalog['catalog_book_title']){
             $myArrays[$num] = [
-                'catalog_number'=>$catalog['catalog_number'],
                 'catalog_book_title'=>$catalog['catalog_book_title'],
                 'catalog_author'=>$catalog['catalog_author'],
                 'catalog_publisher'=>$catalog['catalog_publisher'],
@@ -61,8 +60,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
         $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
     }
 
-
-    $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
     $statement = $pdo->prepare($sql1);
     $statement->execute();
     $catalogs = $statement->fetchAll();
@@ -73,7 +70,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     foreach($catalogs as $catalog){
         if($tempSelectedTitle!=$catalog['catalog_book_title']){
             $myArrays[$num] = [
-                'catalog_number'=>$catalog['catalog_number'],
                 'catalog_book_title'=>$catalog['catalog_book_title'],
                 'catalog_author'=>$catalog['catalog_author'],
                 'catalog_publisher'=>$catalog['catalog_publisher'],
@@ -237,7 +233,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         <thead class="border">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Catalog Number</th>
                                 <th scope="col">Book Title</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Publisher</th>
@@ -266,7 +261,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                 echo '
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>'.$myArray["catalog_number"].'</td>
                                     <td>'.$myArray["catalog_book_title"].'</td>
                                     <td>'.$myArray["catalog_author"].'</td>
                                     <td>'.$myArray["catalog_publisher"].'</td>
@@ -344,15 +338,45 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead class="border">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Catalog Number</th>
-                            <th scope="col">Book Title</th>
-                            <th scope="col">Author</th>
-                            <th scope="col">Publisher</th>
-                            <th scope="col">Year</th>
-                            <th scope="col">Available</th>
-                        </tr>
+
+                    <!tr>
+                        <th scope="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="text-dark">#</div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="text-dark">Book Title</div>
+                                <a type="button" href="index.php?sort_by=title" class="float-right">
+                                    <i class="'.$titleSortIconStatus.' bi bi-chevron-expand"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="text-dark">Author</div>
+                                <a type="button" href="index.php?sort_by=author" class="float-right">
+                                    <i class="'.$authorSortIconStatus.' bi bi-chevron-expand"></i>
+                                </a>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="text-dark">Publisher</div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="text-dark">Year</div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="d-flex justify-content-between">
+                                <div class="text-dark">Available</div>
+                            </div>
+                        </th>
+                    </tr>
                     </thead>
                     <tbody class="border">';
                         $number = 1;
@@ -374,7 +398,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                             echo '
                             <tr>
                                 <td>'.$number.'</td>
-                                <td>'.$myArray["catalog_number"].'</td>
                                 <td>'.$myArray["catalog_book_title"].'</td>
                                 <td>'.$myArray["catalog_author"].'</td>
                                 <td>'.$myArray["catalog_publisher"].'</td>
