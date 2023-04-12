@@ -22,6 +22,23 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     $search_catalogs = $statement->fetchAll();
     
 
+    $myArrays = array();
+    $num = 0;
+    $tempSelectedTitle = '';
+    foreach($search_catalogs as $catalog){
+        if($tempSelectedTitle!=$catalog['catalog_book_title']){
+            $myArrays[$num] = [
+                'catalog_number'=>$catalog['catalog_number'],
+                'catalog_book_title'=>$catalog['catalog_book_title'],
+                'catalog_author'=>$catalog['catalog_author'],
+                'catalog_publisher'=>$catalog['catalog_publisher'],
+                'catalog_year'=>$catalog['catalog_year']
+                ];
+        }
+        $tempSelectedTitle=$catalog['catalog_book_title'];
+        $num++;
+    }
+
 }else{
     $search = '';
 
@@ -182,7 +199,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
 
     if (!empty($search)){
         echo '
-        <!--div class="m-4">
+        <div class="m-4">
             <h2 class="mb-4 text-dark">Result for '.$echo_search_by.' \''.$search.'\'
                 <a class="btn btn-secondary" href="index.php" role="button">Go back</a>
             </h2>';
@@ -273,9 +290,9 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                 </div>';
             }
 
-        echo '</div-->';
+        echo '</div>';
     }
-    //else{
+    else{
         echo '
         <div class="m-4">
             <h2 class="mb-4 text-dark">
@@ -310,7 +327,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
             }
 
             echo'
-            <!--div class="col-xl-3 col-lg-3 col-md-6">
+            <div class="col-xl-3 col-lg-3 col-md-6">
                 <form action="index.php" method="GET">
                     <div class="input-group mb-3">
                         <input type="text" name="search" class="form-control" placeholder="Search Book" required>
@@ -323,9 +340,9 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         </ul>
                     </div>
                 </form>
-            </div-->
+            </div>
             <div class="table-responsive">
-                <table class="table table-bordered myDataTable">
+                <table class="table table-bordered">
                     <thead class="border">
                         <tr>
                             <th scope="col">#</th>
@@ -374,7 +391,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                 </table>
             </div>
         </div>';
-        //}
+        }
     ?>
 
 
