@@ -40,6 +40,9 @@ include_once 'includes/header.php';
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd" onclick="clearRFID()">
             Add
         </button>
+        <a type="button" href="add_book_copy.php" class="btn btn-secondary">
+            Add Book Copy
+        </a>
         <a type="button" class="btn btn-success" href="download_reports/catalog.php">
             Download Report
         </a>
@@ -240,6 +243,7 @@ include_once 'includes/header.php';
     </div>
 
     <!-- end add modal -->
+
     <?php
     if ( count($catalogs)<=0 ) {
         echo '
@@ -250,8 +254,8 @@ include_once 'includes/header.php';
     }
     else{
         echo '
-        <div class="table-responsive">
-            <table class="table table-bordered border-secondary">
+        <div class="">
+            <table class="table table-bordered border-secondary myDataTable table-responsive">
                 <thead class="border">
                     <tr>
                         <th scope="col">#</th>
@@ -285,26 +289,26 @@ include_once 'includes/header.php';
                         $number++;
                         echo '
                         <tr>
-                            <td>'.$number.'</td>
-                            <td>'.$catalog['book_id'].'</td>
-                            <td>'.$catalog['rfid_code'].'</td>
-                            <td>'.$catalog['catalog_number'].'</td>
-                            <td>'.$catalog['catalog_book_title'].'</td>
-                            <td>'.$catalog['catalog_author'].'</td>
-                            <td>'.$catalog['catalog_publisher'].'</td>
-                            <td>'.$catalog['catalog_year'].'</td>
-                            <td>'.$catalog['catalog_date_received'].'</td>
-                            <td>'.$catalog['catalog_class'].'</td>
-                            <td>'.$catalog['catalog_edition'].'</td>
-                            <td>'.$catalog['catalog_volumes'].'</td>
-                            <td>'.$catalog['catalog_pages'].'</td>
-                            <td>'.$catalog['catalog_source_of_fund'].'</td>
-                            <td>'.$catalog['catalog_cost_price'].'</td>
-                            <td>'.$catalog['catalog_location_symbol'].'</td>
-                            <td>'.$catalog['catalog_class_number'].'</td>
-                            <td>'.$catalog['catalog_author_number'].'</td>
-                            <td>'.$catalog['catalog_copyright_date'].'</td>
-                            <td>';
+                            <td class="border-tr">'.$number.'</td>
+                            <td class="border-tr">'.$catalog['book_id'].'</td>
+                            <td class="border-tr">'.$catalog['rfid_code'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_number'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_book_title'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_author'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_publisher'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_year'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_date_received'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_class'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_edition'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_volumes'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_pages'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_source_of_fund'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_cost_price'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_location_symbol'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_class_number'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_author_number'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_copyright_date'].'</td>
+                            <td class="border-tr">';
                             if($catalog["catalog_status"]=="Available"){
                                 echo '
                                     <span class="text-success">
@@ -320,7 +324,7 @@ include_once 'includes/header.php';
                             }
                             echo '
                             </td>
-                            <td>
+                            <td class="border-tr">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalEdit'.$number.'" onclick="clearRFID2()">
                                     Edit
@@ -500,7 +504,7 @@ include_once 'includes/header.php';
                                 </div>
                                 <!-- end edit modal -->
                             </td>
-                            <td>
+                            <td class="border-tr">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                     data-bs-target="#modalDelete'.$number.'">
                                     Delete

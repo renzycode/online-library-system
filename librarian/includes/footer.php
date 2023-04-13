@@ -25,11 +25,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../assets/vendor/jquery/jquery.min.js"></script>
-    <script src="../assets/vendor/dataTables/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendor/dataTables/dataTables.bootstrap5.min.js"></script>
-
     <script src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

@@ -271,24 +271,19 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                $number = 0;
-                                foreach ($borrowers as $borrower){
-                                    $number++;
-                                    echo '
-                                        <tr>
-                                            <td class="">'.$borrower['borrower_id'].'</td>
-                                            <td class="">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
-                                            <td>'.$borrower['borrower_email'].'</td>
-                                            <!--td>
-                                                <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
-                                                    Copy ID
-                                                </button>
-                                            </td-->
-                                        </tr>
+                                                    $number = 0;
+                                                    foreach ($borrowers as $borrower){
+                                                        $number++;
+                                                        echo '
+                                                            <tr>
+                                                                <td class="border-tr">'.$borrower['borrower_id'].'</td>
+                                                                <td class="border-tr">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
+                                                                <td class="border-tr">'.$borrower['borrower_email'].'</td>
+                                                            </tr>
 
-                                    ';
-                                }
-                                ?>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -296,7 +291,7 @@
 
                                     <div class="book-table col-6 ">
                                         <div
-                                            class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
+                                            class=" p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
                                             <h5 class="modal-title" id="exampleModalLabel">List of Books </h5>
                                             <hr>
                                             <table class="table table-bordered myDataTable">
@@ -311,39 +306,36 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                $number = 0;
-                                foreach ($catalogs as $catalog){
-                                    $number++;
-                                    echo '
-                                        <tr>
-                                            <td>'.$catalog['book_id'].'</td>
-                                            <td>'.$catalog['catalog_number'].'</td>
-                                            <td>'.$catalog['catalog_book_title'].'</td>
-                                            <td>
-                                            ';
-                                            if($catalog['catalog_status']=='Available'){
-                                                echo '
-                                                    <!--button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
-                                                        Copy ID
-                                                    </button-->
-                                                    <button type="button" class="btn btn-success p-1 " disabled>
-                                                        Available
-                                                    </button>
-                                                ';
-                                            }else{
-                                                echo '
-                                                    
-                                                    <button type="button" class="btn btn-danger p-1" disabled>
-                                                        Unavailable
-                                                    </button>
-                                                ';
-                                            }
-                                            echo'
-                                            </td>
-                                        </tr>
-                                    ';
-                                }
-                                ?>
+                                                    $number = 0;
+                                                    foreach ($catalogs as $catalog){
+                                                        $number++;
+                                                        echo '
+                                                            <tr>
+                                                                <td class="border-tr">'.$catalog['book_id'].'</td>
+                                                                <td class="border-tr">'.$catalog['catalog_number'].'</td>
+                                                                <td class="border-tr">'.$catalog['catalog_book_title'].'</td>
+                                                                <td class="border-tr">
+                                                                ';
+                                                                if($catalog['catalog_status']=='Available'){
+                                                                    echo '
+                                                                        <button type="button" class="btn btn-success p-1 " disabled>
+                                                                            Available
+                                                                        </button>
+                                                                    ';
+                                                                }else{
+                                                                    echo '
+                                                                        
+                                                                        <button type="button" class="btn btn-danger p-1" disabled>
+                                                                            Unavailable
+                                                                        </button>
+                                                                    ';
+                                                                }
+                                                                echo'
+                                                                </td>
+                                                            </tr>
+                                                        ';
+                                                    }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>

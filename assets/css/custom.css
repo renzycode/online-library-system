@@ -9,6 +9,9 @@
     color: black;
 }
 
+.border-tr{
+    border: 1px solid #d6d6d6 !important;
+}
 /*
 *{
     font-size: 13px !important;

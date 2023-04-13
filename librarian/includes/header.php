@@ -23,9 +23,12 @@
     <link href="../assets/css/custom.css" rel="stylesheet"> 
     <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="../assets/vendor/dataTables/dataTables.bootstrap5.min.css" rel="stylesheet">
-
+    
     <script src="../assets/vendor/jquery/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="../assets/vendor/datatables/jquery.dataTables.css" />
+    <script src="../assets/vendor/datatables/jquery.dataTables.min.js"></script>
+
 
 </head>
 

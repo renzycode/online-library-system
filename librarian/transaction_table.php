@@ -116,30 +116,22 @@ include_once 'includes/header.php';
             }
             else{
                 echo '
-                <div class="table-responsive">
-                    <table class="table table-bordered border-secondary">
+                <div class="">
+                    <table class="table table-bordered border-secondary myDataTable table-responsive">
                         <thead class="border">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Transaction ID</th>
                                 <th scope="col">Borrower ID</th>
-                                <th scope="col">Borrower Full Name</th>
-                                <!--th scope="col">Borrower Email</th-->
-
+                                <th scope="col">Borrower Name</th>
                                 <th scope="col">Borrowed Book</th>
-
                                 <th scope="col">Borrow Date</th>
                                 <th scope="col">Due Date</th>
-                                
-                                
                                 <th scope="col">Date Returned</th>
                                 <th scope="col">Days Lapse</th>
-                                
                                 <th scope="col">Status</th>
-
                                 <th scope="col">Penalty</th>
                                 <th scope="col">Paid</th>
-
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -150,13 +142,11 @@ include_once 'includes/header.php';
                                 $number++;
                                 echo '
                                 <tr>
-                                    <td>'.$number.'</td>
-                                    <td>'.$transaction['transaction_id'].'</td>
-                                    <td>'.$transaction['borrower_id'].'</td>
-                                    <td>'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td>
-                                    <!--td>'.$transaction['borrower_email'].'</td-->
-                                    
-                                    <td>
+                                    <td class="border-tr">'.$number.'</td>
+                                    <td class="border-tr">'.$transaction['transaction_id'].'</td>
+                                    <td class="border-tr">'.$transaction['borrower_id'].'</td>
+                                    <td class="border-tr">'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td>
+                                    <td class="border-tr">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#modalView'.$number.'">
                                             View Book Info
@@ -226,39 +216,32 @@ include_once 'includes/header.php';
                                         </div>
                                         <!-- end delete modal -->
                                     </td>
-                                    
-                                    
-                                    <td>'.$transaction['transaction_borrow_datetime'].'</td>
-                                    <td>'.$transaction['transaction_due_datetime'].'</td>
-
-                                    <td>'.$transaction['transaction_datetime_return'].'</td>
-                                    <td>'.$transaction['transaction_datetime_lapse'].'</td>
-
+                                    <td class="border-tr">'.$transaction['transaction_borrow_datetime'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_due_datetime'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_datetime_return'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_datetime_lapse'].'</td>
+                                    <td class="border-tr">
                                     ';
                                     if($transaction["transaction_status"]=="On Borrow"){
                                         echo '
-                                        <td>
                                             <span class="text-danger">
                                                 <i class="bi bi-exclamation-circle-fill"></i>
                                             </span>
                                             '.$transaction["transaction_status"].' 
-                                        </td>';
+                                        ';
                                     }else{
                                         echo '
-                                        <td>
                                             <span class="text-success">
                                                 <i class="bi bi-check-circle-fill"></i>
                                             </span>
                                             '.$transaction["transaction_status"].' 
-                                        </td>';
+                                        ';
                                     }
                                     echo '
-
-                                    <td>'.$transaction['transaction_penalty'].'</td>
-
-                                    <td>'.$transaction['transaction_paid'].'</td>
-
-                                    <td>
+                                    </td>
+                                    <td class="border-tr">'.$transaction['transaction_penalty'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_paid'].'</td>
+                                    <td class="border-tr">
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#modalDelete'.$number.'">
                                             Delete
@@ -312,31 +295,22 @@ include_once 'includes/header.php';
             }
             else{
                 echo '
-                <div class="table-responsive">
-                    <table class="table table-bordered border-secondary">
+                <div class="">
+                    <table class="table table-bordered border-secondary myDataTable table-responsive">
                         <thead class="border">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Transaction ID</th>
                                 <th scope="col">Borrower ID</th>
-                                <!--th scope="col">Borrower Full Name</th-->
-                                <th scope="col">Borrower Email</th>
-
+                                <th scope="col">Borrower Name</th>
                                 <th scope="col">Borrowed Book</th>
-
                                 <th scope="col">Borrow Date</th>
                                 <th scope="col">Due Date</th>
-                                
-                                
-                                
                                 <th scope="col">Date Returned</th>
                                 <th scope="col">Days Lapse</th>
-                                
                                 <th scope="col">Status</th>
-
                                 <th scope="col">Penalty</th>
                                 <th scope="col">Paid</th>
-
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -347,13 +321,11 @@ include_once 'includes/header.php';
                                 $number++;
                                 echo '
                                 <tr>
-                                    <td>'.$number.'</td>
-                                    <td>'.$transaction['transaction_id'].'</td>
-                                    <td>'.$transaction['borrower_id'].'</td>
-                                    <!--td>'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td-->
-                                    <td>'.$transaction['borrower_email'].'</td>
-                                    
-                                    <td>
+                                    <td class="border-tr">'.$number.'</td>
+                                    <td class="border-tr">'.$transaction['transaction_id'].'</td>
+                                    <td class="border-tr">'.$transaction['borrower_id'].'</td>
+                                    <td class="border-tr">'.$transaction['borrower_fname'].' '.$transaction['borrower_lname'].'</td>
+                                    <td class="border-tr">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#modalView'.$number.'">
                                             View Book Info
@@ -423,38 +395,31 @@ include_once 'includes/header.php';
                                         </div>
                                         <!-- end delete modal -->
                                     </td>
-                                    
-                                    
-                                    <td>'.$transaction['transaction_borrow_datetime'].'</td>
-                                    <td>'.$transaction['transaction_due_datetime'].'</td>
-
-                                    <td>'.$transaction['transaction_datetime_return'].'</td>
-                                    <td>'.$transaction['transaction_datetime_lapse'].'</td>
-
+                                    <td class="border-tr">'.$transaction['transaction_borrow_datetime'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_due_datetime'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_datetime_return'].'</td>
+                                    <td class="border-tr">'.$transaction['transaction_datetime_lapse'].'</td>
+                                    <td class="border-tr">
                                     ';
                                     if($transaction["transaction_status"]=="On Borrow"){
                                         echo '
-                                        <td>
                                             <span class="text-danger">
                                                 <i class="bi bi-exclamation-circle-fill"></i>
                                             </span>
                                             '.$transaction["transaction_status"].' 
-                                        </td>';
+                                        ';
                                     }else{
                                         echo '
-                                        <td>
                                             <span class="text-success">
                                                 <i class="bi bi-check-circle-fill"></i>
                                             </span>
                                             '.$transaction["transaction_status"].' 
-                                        </td>';
+                                        ';
                                     }
                                     echo '
-
-
-                                    <td>'.$transaction['transaction_penalty'].'</td>
-                                    <td>';
-                                    
+                                    </td>
+                                    <td class="border-tr">'.$transaction['transaction_penalty'].'</td>
+                                    <td class="border-tr">';
                                     if($transaction['transaction_paid']=='----'){
                                         echo $transaction['transaction_paid'];
                                     }elseif($transaction['transaction_paid']=='Yes'){
@@ -483,7 +448,7 @@ include_once 'includes/header.php';
 
                                     echo '</td>
 
-                                    <td>
+                                    <td class="border-tr">
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#modalDelete'.$number.'">
                                             Delete
