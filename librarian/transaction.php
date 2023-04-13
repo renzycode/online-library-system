@@ -32,20 +32,19 @@
     
 ?>
 
-                    <!---------------->
-                    <!-- START BODY -->
-                    <!---------------->
+<!---------------->
+<!-- START BODY -->
+<!---------------->
 
-                    <div class="m-4">
-                        <div class="row">
-                            <div class="form col-12 mb-4">
-                                <div
-                                    class="border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                                    <form action="api/add_transaction.php" method="POST">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
-                                        <hr>
+<div class="m-4">
+    <div class="row">
+        <div class="form col-12 mb-4">
+            <div class="border-left-primary border-top border-right border-bottom p-3 shadow rounded">
+                <form action="api/add_transaction.php" method="POST">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+                    <hr>
 
-                                        <?php
+                    <?php
 
                     if(isset($_GET['add'])){
                         if($_GET['add']=='success'){
@@ -118,62 +117,54 @@
 
                     ?>
 
-                                        <div class="row">
-                                            <?php
+                    <div class="row">
+                        <?php
                             echo '<input type="hidden" name="librarian_id" value="'.$librarian_id.'">';
                         ?>
 
-                                            <div class="form-group col-12 mb-1">
-                                                <div class="row">
-                                                    <div class="col-6 col-lg-2">
-                                                        <label for="bookNumber" class="col-form-label">
-                                                            Borrower ID <span
-                                                                class="text-danger">(required)</span></label>
-                                                        <input type="text" name="borrower_id" class="form-control"
-                                                            required />
-                                                    </div>
-                                                    <div class="col-6 col-lg-2">
-                                                        <label for="bookNumber" class="col-form-label">
-                                                            Book ID <span class="text-danger">(required)</span></label>
-                                                        <input type="text" name="book_id" class="form-control"
-                                                            id="book1" required />
-                                                        <!-- triggers modal and refresh rfid code -->
-                                                        <button type="button" class="btn btn-primary mt-2"
-                                                            data-bs-toggle="modal" data-bs-target="#book1modal"
-                                                            onclick="clearRFID1()">Scan RFID</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="form-group col-12 mb-1">
+                            <div class="row">
+                                <div class="col-6 col-lg-2">
+                                    <label for="bookNumber" class="col-form-label">
+                                        Borrower ID <span class="text-danger">(required)</span></label>
+                                    <input type="text" name="borrower_id" class="form-control" required />
+                                </div>
+                                <div class="col-6 col-lg-2">
+                                    <label for="bookNumber" class="col-form-label">
+                                        Book ID <span class="text-danger">(required)</span></label>
+                                    <input type="text" name="book_id" class="form-control" id="book1" required />
+                                    <!-- triggers modal and refresh rfid code -->
+                                    <button type="button" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#book1modal" onclick="clearRFID1()">Scan RFID</button>
+                                </div>
+                            </div>
+                        </div>
 
-                                            <div class="form-group col-12 mb-1">
-                                                <label for="author" class="col-form-label">Borrow Date & Time <span
-                                                        class="text-danger">(required)</span></label>
-                                                <div class="row">
-                                                    <div class="col-6 col-lg-2">
-                                                        <input type="date" name="borrow_date" class="form-control"
-                                                            required />
-                                                    </div>
-                                                    <div class="col-6 col-lg-2">
-                                                        <input type="time" name="borrow_time" class="form-control"
-                                                            required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-12 mb-1">
-                                                <label for="author" class="col-form-label">Due Date & Time <span
-                                                        class="text-danger">(required)</span></label>
-                                                <div class="row">
-                                                    <div class="col-6 col-lg-2">
-                                                        <input type="date" name="due_date" class="form-control"
-                                                            required />
-                                                    </div>
-                                                    <div class="col-6 col-lg-2">
-                                                        <input type="time" name="due_time" class="form-control"
-                                                            required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- div class="form-group">
+                        <div class="form-group col-12 mb-1">
+                            <label for="author" class="col-form-label">Borrow Date & Time <span
+                                    class="text-danger">(required)</span></label>
+                            <div class="row">
+                                <div class="col-6 col-lg-2">
+                                    <input type="date" name="borrow_date" class="form-control" required />
+                                </div>
+                                <div class="col-6 col-lg-2">
+                                    <input type="time" name="borrow_time" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-12 mb-1">
+                            <label for="author" class="col-form-label">Due Date & Time <span
+                                    class="text-danger">(required)</span></label>
+                            <div class="row">
+                                <div class="col-6 col-lg-2">
+                                    <input type="date" name="due_date" class="form-control" required />
+                                </div>
+                                <div class="col-6 col-lg-2">
+                                    <input type="time" name="due_time" class="form-control" required />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- div class="form-group">
                     <label for="author" class="col-form-label">Return Date Time</label>
                         <div class="row">
                             <div class="col-6">
@@ -184,76 +175,59 @@
                             </div>
                         </div>
                     </div-->
-                                            <input type="hidden" name="librarian_id" class="form-control"
-                                                value="<?php echo $librarian_id ?>" />
-                                            <div class="form-group col-12">
-                                                <div class="mt-3">
-                                                    <button type="submit" class="btn btn-success"
-                                                        name="add_transaction">Submit</button>
-                                                    <a href="transaction.php" type="button"
-                                                        class="btn btn-secondary">Cancel</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                        <input type="hidden" name="librarian_id" class="form-control"
+                            value="<?php echo $librarian_id ?>" />
+                        <div class="form-group col-12">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-success" name="add_transaction">Submit</button>
+                                <a href="transaction.php" type="button" class="btn btn-secondary">Cancel</a>
                             </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 
-                            <!-- Modal 1-->
-                            <div class="modal fade" id="book1modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Scan Book 1</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- for refreshing rfid code -->
-                                            <div id="refresh-rfid-code"></div>
-                                            <script>
-                                            function clearRFID1() {
-                                                $(document).ready(function() {
-                                                    $.post("rfid/refresh.php",
-                                                        function(data, status) {
-                                                            console.log("rfid cleared");
-                                                        });
-                                                });
-                                            }
-
-                                            function submitBookID1() {
-                                                console.log("boom id submitted");
-                                                $(document).ready(function() {
-                                                    var bookid = $('#bookid').val();
-                                                    $('#book1').val(bookid);
-                                                });
-                                            }
-                                            </script>
-                                            <div class="render"></div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                                                onclick="submitBookID1()">Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <script>
+        <!-- Modal 1-->
+        <div class="modal fade" id="book1modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Scan Book 1</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- for refreshing rfid code -->
+                        <div id="refresh-rfid-code"></div>
+                        <script>
+                        function clearRFID1() {
                             $(document).ready(function() {
-                                setInterval(() => {
-                                    $('.render').load('rfid/codeForScan.php').fadeIn("fast");
-                                }, 500);
+                                $.post("rfid/refresh.php",
+                                    function(data, status) {
+                                        console.log("rfid cleared");
+                                    });
                             });
-                            </script>
+                        }
 
-                            <div class="tables col-12">
-                                <div class="row">
+                        function submitBookID1() {
+                            console.log("boom id submitted");
+                            $(document).ready(function() {
+                                var bookid = $('#bookid').val();
+                                $('#book1').val(bookid);
+                            });
+                        }
+                        </script>
+                        <div class="render"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="submitBookID1()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
                                     <div class="borrower-table col-6">
                                         <div
@@ -344,26 +318,135 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <!---------------->
-                    <!---- END BODY -->
-                    <!---------------->
+        <script>
+        $(document).ready(function() {
+            setInterval(() => {
+                $('.render').load('rfid/codeForScan.php').fadeIn("fast");
+            }, 500);
+        });
+        </script>
+
+        <div class="tables col-12">
+            <div class="row">
+
+                <div class="borrower-table col-6">
+                    <div
+                        class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
+                        <h5 class="modal-title" id="exampleModalLabel">List of Borrowers </h5>
+                        <hr>
+                        <table class="table table-bordered myDataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Borrower ID</th>
+                                    <th scope="col">Borrower Name</th>
+                                    <th scope="col">Borrower Email</th>
+                                    <!--th scope="col">Action</th-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $number = 0;
+                                foreach ($borrowers as $borrower){
+                                    $number++;
+                                    echo '
+                                        <tr>
+                                            <td class="">'.$borrower['borrower_id'].'</td>
+                                            <td class="">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
+                                            <td>'.$borrower['borrower_email'].'</td>
+                                            <!--td>
+                                                <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
+                                                    Copy ID
+                                                </button>
+                                            </td-->
+                                        </tr>
+
+                                    ';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="book-table col-6 ">
+                    <div
+                        class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
+                        <h5 class="modal-title" id="exampleModalLabel">List of Books </h5>
+                        <hr>
+                        <table class="table table-bordered myDataTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Book ID</th>
+                                    <th scope="col">Catalog Number</th>
+                                    <th scope="col">Book Title</th>
+                                    <th scope="col">Book Status</th>
+                                    <!--th scope="col">Action</th-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $number = 0;
+                                foreach ($catalogs as $catalog){
+                                    $number++;
+                                    echo '
+                                        <tr>
+                                            <td>'.$catalog['book_id'].'</td>
+                                            <td>'.$catalog['catalog_number'].'</td>
+                                            <td>'.$catalog['catalog_book_title'].'</td>
+                                            <td>
+                                            ';
+                                            if($catalog['catalog_status']=='Available'){
+                                                echo '
+                                                    <!--button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
+                                                        Copy ID
+                                                    </button-->
+                                                    <button type="button" class="btn btn-success p-1 " disabled>
+                                                        Available
+                                                    </button>
+                                                ';
+                                            }else{
+                                                echo '
+                                                    
+                                                    <button type="button" class="btn btn-danger p-1" disabled>
+                                                        Unavailable
+                                                    </button>
+                                                ';
+                                            }
+                                            echo'
+                                            </td>
+                                        </tr>
+                                    ';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!---------------->
+<!---- END BODY -->
+<!---------------->
 
 <?php
 include_once 'includes/footer.php';
