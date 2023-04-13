@@ -316,7 +316,6 @@
 
     </div>
 </div>
-</div>
 
 <script>
 $(document).ready(function() {
@@ -325,108 +324,6 @@ $(document).ready(function() {
     }, 500);
 });
 </script>
-
-<div class="tables col-12">
-    <div class="row">
-
-        <div class="borrower-table col-6">
-            <div
-                class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                <h5 class="modal-title" id="exampleModalLabel">List of Borrowers </h5>
-                <hr>
-                <table class="table table-bordered myDataTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Borrower ID</th>
-                            <th scope="col">Borrower Name</th>
-                            <th scope="col">Borrower Email</th>
-                            <!--th scope="col">Action</th-->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                                $number = 0;
-                                foreach ($borrowers as $borrower){
-                                    $number++;
-                                    echo '
-                                        <tr>
-                                            <td class="">'.$borrower['borrower_id'].'</td>
-                                            <td class="">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
-                                            <td>'.$borrower['borrower_email'].'</td>
-                                            <!--td>
-                                                <button type="button" class="btn btn-primary" onclick="copyBorrowerId('.$borrower['borrower_id'].')">
-                                                    Copy ID
-                                                </button>
-                                            </td-->
-                                        </tr>
-
-                                    ';
-                                }
-                                ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="book-table col-6 ">
-            <div
-                class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
-                <h5 class="modal-title" id="exampleModalLabel">List of Books </h5>
-                <hr>
-                <table class="table table-bordered myDataTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Book ID</th>
-                            <th scope="col">Catalog Number</th>
-                            <th scope="col">Book Title</th>
-                            <th scope="col">Book Status</th>
-                            <!--th scope="col">Action</th-->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                                $number = 0;
-                                foreach ($catalogs as $catalog){
-                                    $number++;
-                                    echo '
-                                        <tr>
-                                            <td>'.$catalog['book_id'].'</td>
-                                            <td>'.$catalog['catalog_number'].'</td>
-                                            <td>'.$catalog['catalog_book_title'].'</td>
-                                            <td>
-                                            ';
-                                            if($catalog['catalog_status']=='Available'){
-                                                echo '
-                                                    <!--button type="button" class="btn btn-primary" onclick="copyCatalogId('.$catalog['book_id'].')">
-                                                        Copy ID
-                                                    </button-->
-                                                    <button type="button" class="btn btn-success p-1 " disabled>
-                                                        Available
-                                                    </button>
-                                                ';
-                                            }else{
-                                                echo '
-                                                    
-                                                    <button type="button" class="btn btn-danger p-1" disabled>
-                                                        Unavailable
-                                                    </button>
-                                                ';
-                                            }
-                                            echo'
-                                            </td>
-                                        </tr>
-                                    ';
-                                }
-                                ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-</div>
-</div>
-</div>
 
 <br>
 <br>
