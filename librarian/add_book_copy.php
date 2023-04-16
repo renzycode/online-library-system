@@ -2,7 +2,7 @@
 
 session_start();
 
-$active = 'return-book';
+$active = 'catalog';
 include_once "../includes/conn.php";
 include_once "../includes/functions.php";
 
@@ -65,6 +65,13 @@ if($hours<0){
 
 
 <div class="m-4">
+    <h2 class="mb-4 text-dark">
+        <span class="page-title">Catalog Table</span>
+        <hr>
+        <a type="button" class="btn btn-secondary" href="catalog.php">
+            Go Back
+        </a>
+    </h2>
 
     <?php
 
@@ -108,7 +115,8 @@ if($hours<0){
                                     <div class="row">
                                         <div class="col-12">
                                             <label for="bookNumber" class="col-form-label">
-                                                Book ID <span class="text-danger"><em>(book to be copied) (required)</em></span></label>
+                                                Book ID <span class="text-danger"><em>(book to be copied)
+                                                        (required)</em></span></label>
                                             <input type="text" name="book_id" class="form-control col-6" id="book1"
                                                 required />
                                             <button type="submit" class="btn btn-success mt-2">Submit</button>
@@ -120,39 +128,50 @@ if($hours<0){
                             <form action="api/edit_transaction.php" method="post">
                                 <?php
                                 $data = array(
-                                    'transaction_id'=>'----------',
-                                    'borrower_id'=>'----------',
-                                    'borrower_email'=>'----------',
                                     'book_id'=>'----------',
-                                    'catalog_number'=>'----------',
-                                    'book_title'=>'----------',
-                                    'author'=>'----------',
-                                    'publisher'=>'----------',
-                                    'year'=>'----------',
-                                    'borrow_datetime'=>'----------',
-                                    'return_datetime'=>'----------'
+                                    'catalog_book_title'=>'----------',
+                                    'catalog_author'=>'----------',
+                                    'catalog_publisher'=>'----------',
+                                    'catalog_year'=>'----------',
+                                    'catalog_date_received'=>'----------',
+                                    'catalog_class'=>'----------',
+                                    'catalog_edition'=>'----------',
+                                    'catalog_volumes'=>'----------',
+                                    'catalog_pages'=>'----------',
+                                    'catalog_source_of_fund'=>'----------',
+                                    'catalog_cost_price'=>'----------',
+                                    'catalog_location_symbol'=>'----------',
+                                    'catalog_class_number'=>'----------',
+                                    'catalog_author_number'=>'----------',
+                                    'catalog_copyright_date'=>'----------',
+
                                 );
                                 if(isset($_GET['book_id'])){
-                                    $sql = 'SELECT * FROM transaction_table as tt, catalog_table as ct, borrower_table as bt
-                                    WHERE tt.book_id = ? AND ct.book_id = ? AND bt.borrower_id = tt.borrower_id AND transaction_status = "On Borrow"';
+                                    $sql = 'SELECT * FROM catalog_table
+                                    WHERE book_id = ?';
                                     $statement = $pdo->prepare($sql);
-                                    $statement->execute(array($_GET['book_id'],$_GET['book_id']));
-                                    $transaction = $statement->fetch();
-                                    if(!empty($transaction)){
-                                        if($transaction['book_id']==$_GET['book_id']){
+                                    $statement->execute(array($_GET['book_id']));
+                                    $catalog = $statement->fetch();
+                                    if(!empty($catalog)){
+                                        if($catalog['book_id']==$_GET['book_id']){
                                             $data = array();
                                             $data = array(
-                                                'transaction_id'=>$transaction['transaction_id'],
-                                                'borrower_id'=>$transaction['borrower_id'],
-                                                'borrower_email'=>$transaction['borrower_email'],
-                                                'book_id'=>$transaction['book_id'],
-                                                'catalog_number'=>$transaction['catalog_number'],
-                                                'book_title'=>$transaction['catalog_book_title'],
-                                                'author'=>$transaction['catalog_author'],
-                                                'publisher'=>$transaction['catalog_publisher'],
-                                                'year'=>$transaction['catalog_year'],
-                                                'borrow_datetime'=>$transaction['transaction_borrow_datetime'],
-                                                'return_datetime'=>$transaction['transaction_due_datetime']
+                                                'book_id'=>$catalog['book_id'],
+                                                'catalog_book_title'=>$catalog['catalog_book_title'],
+                                                'catalog_author'=>$catalog['catalog_author'],
+                                                'catalog_publisher'=>$catalog['catalog_publisher'],
+                                                'catalog_year'=>$catalog['catalog_year'],
+                                                'catalog_date_received'=>$catalog['catalog_date_received'],
+                                                'catalog_class'=>$catalog['catalog_class'],
+                                                'catalog_edition'=>$catalog['catalog_edition'],
+                                                'catalog_volumes'=>$catalog['catalog_volumes'],
+                                                'catalog_pages'=>$catalog['catalog_pages'],
+                                                'catalog_source_of_fund'=>$catalog['catalog_source_of_fund'],
+                                                'catalog_cost_price'=>$catalog['catalog_cost_price'],
+                                                'catalog_location_symbol'=>$catalog['catalog_location_symbol'],
+                                                'catalog_class_number'=>$catalog['catalog_class_number'],
+                                                'catalog_author_number'=>$catalog['catalog_author_number'],
+                                                'catalog_copyright_date'=>$catalog['catalog_copyright_date'],
                                             );
                                         }
                                     }else{
@@ -164,156 +183,156 @@ if($hours<0){
                                         </div>
                                         ';
                                     }
-                                    
                                 }
+                                ?>
 
-                            ?>
 
                                 
-                                <div class="row mx-1">
-                                    <div class="col-6">
-                                    <label class="col-form-label">RFID Code <span class="text-danger"><em>(must be new)</em></span></label>
-                                    <input type="text" class="form-control"
-                                            value="<?php echo $data['borrower_id'] ?>" required>
-                                    <span class="renderrfidcode">
-                                        
-                                    </span>
-                                    <!-- triggers modal and refresh rfid code -->
-                                    <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()">Scan New</button>
-
-                                    <script>
-                                        function clearRFID() {
-                                            $(document).ready(function() {
-                                                $.post("rfid/refreshreg.php",
-                                                function(data, status){
-                                                    console.log("rfid cleared");
-                                                });
-                                            });
-                                        }
-                                    </script>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <label class="col-form-label"> Catalog Number <span class="text-danger"><em>(must be new) (required)</em></span></label>
-                                        <input type="text" class="form-control"
-                                            value="<?php echo $data['borrower_id'] ?>" required>
-                                    </div>
-                                </div>
-                                <br>
-
 
 
                                 <div class="col-12">
                                     <label class="col-form-label"> Catalog Info </label>
                                     <div class="form-group col-12 mb-1 border pb-3">
                                         <div class="row">
+                                            <input type="hidden" name="book_id" value="<?php echo $data['book_id'] ?>">
+                                            <div class="col-12">
+                                                <label class="col-form-label">RFID Code <span class="text-danger"><em>(must be
+                                                            new)</em></span></label>
+                                                <span class="renderrfidcode">
+
+                                                </span>
+                                                <!-- triggers modal and refresh rfid code -->
+                                                <button type="button" class="btn btn-primary mt-2" onclick="clearRFID()">Scan
+                                                    New</button>
+
+                                                <script>
+                                                function clearRFID() {
+                                                    $(document).ready(function() {
+                                                        $.post("rfid/refreshreg.php",
+                                                            function(data, status) {
+                                                                console.log("rfid cleared");
+                                                            });
+                                                    });
+                                                }
+                                                </script>
+                                                <script>
+                                                    $(document).ready(function() {
+                                                        setInterval(() => {
+                                                            $('.renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
+                                                        }, 500);
+                                                    });
+                                                </script>
+                                            </div>
+                                            <div class="col-6">
+                                                <label class="col-form-label"> Catalog Number <span
+                                                        class="text-danger"><em>(must be new) (required)</em></span></label>
+                                                <input type="text" class="form-control" name="catalog_number" required>
+                                            </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Book Title</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_number'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_book_title'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Author</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_title'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_author'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Publisher</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['author'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_publisher'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Year</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['publisher'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_year'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Date Received</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_date_received'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Class</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
-                                            </div>
-                                            <div class="col-6">
-                                                <label class="col-form-label">
-                                                    Date Received</label>
-                                                <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
-                                            </div>
-                                            <div class="col-6">
-                                                <label class="col-form-label">
-                                                    Class</label>
-                                                <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_class'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Edition</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_edition'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Volumes</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_volumes'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Pages</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_pages'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Source of Fund</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_source_of_fund'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Cost Price</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_cost_price'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Location Symbol</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_location_symbol'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Class Number</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_class_number'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Author Number</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_author_number'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Copyright Date</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['book_id'] ?>" readonly disabled />
+                                                    value="<?php echo $data['catalog_copyright_date'] ?>" readonly
+                                                    disabled />
                                             </div>
                                             <div class="col-6">
-                                                <label class="col-form-label">
-                                                    Status</label>
-                                                <input type="text" class="form-control"
-                                                    value="Available" readonly disabled />
+                                                <label class="col-form-label">Status</label>
+                                                <select class="form-select" aria-label="" name="catalog_status">
+                                                    <option selected value="Available">Available</option>
+                                                    <option value="Unavailable">Unavailable</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -321,7 +340,8 @@ if($hours<0){
 
 
                                 <div class="mt-4 text-right">
-                                    <button type="submit" class="btn btn-success" name="edit_transaction">Submit</button>
+                                    <button type="submit" class="btn btn-success"
+                                        name="edit_transaction">Submit</button>
                                     <a href="#" type="button" class="btn btn-secondary">Cancel</a>
                                 </div>
 

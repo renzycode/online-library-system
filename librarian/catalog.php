@@ -237,8 +237,8 @@ include_once 'includes/header.php';
                         <button type="submit" name="add_catalog" class="btn btn-success">Submit</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 
