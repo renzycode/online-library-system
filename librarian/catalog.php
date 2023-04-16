@@ -59,10 +59,16 @@ include_once 'includes/header.php';
             ';
         }
         if($_GET['add']=='error'){
-            if($_GET['rfid']=='existing'){
+            if($_GET['error']=='rfidexisting'){
                 echo '
                 <div class="alert alert-danger">
                     Error Add, RFID already used.
+                </div>
+                ';
+            }elseif($_GET['error']=='catalognumberexisting'){
+                echo '
+                <div class="alert alert-danger">
+                    Error Add, Catalog number already used.
                 </div>
                 ';
             }else{
@@ -254,16 +260,16 @@ include_once 'includes/header.php';
     }
     else{
         echo '
-        <div class="">
-            <table class="table table-bordered border-secondary myDataTable table-responsive">
+        <div class="table-responsive">
+            <table class="table table-bordered border-secondary myDataTable">
                 <thead class="border">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Book ID</th>
-                        <th scope="col">RFID Code</th>
+                        <!--th scope="col">Book ID</th>
+                        <th scope="col">RFID Code</th-->
                         <th scope="col">Catalog Number</th>
                         <th scope="col">Book Title</th>
-                        <th scope="col">Author</th>
+                        <!--th scope="col">Author</th>
                         <th scope="col">Publisher</th>
                         <th scope="col">Year</th>
                         <th scope="col">Date Received</th>
@@ -276,9 +282,11 @@ include_once 'includes/header.php';
                         <th scope="col">Location Symbol</th>
                         <th scope="col">Class Number</th>
                         <th scope="col">Author Number</th>
-                        <th scope="col">Copyright Date</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Copyright Date</th-->
+                        <th scope="col">View More Info</th>
+                        <!--th scope="col">Status</th-->
                         <th scope="col">Edit</th>
+                        <th scope="col">Edit All Copies</th>
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
@@ -290,11 +298,11 @@ include_once 'includes/header.php';
                         echo '
                         <tr>
                             <td class="border-tr">'.$number.'</td>
-                            <td class="border-tr">'.$catalog['book_id'].'</td>
-                            <td class="border-tr">'.$catalog['rfid_code'].'</td>
+                            <!--td class="border-tr">'.$catalog['book_id'].'</td-->
+                            <!--td class="border-tr">'.$catalog['rfid_code'].'</td-->
                             <td class="border-tr">'.$catalog['catalog_number'].'</td>
                             <td class="border-tr">'.$catalog['catalog_book_title'].'</td>
-                            <td class="border-tr">'.$catalog['catalog_author'].'</td>
+                            <!--td class="border-tr">'.$catalog['catalog_author'].'</td>
                             <td class="border-tr">'.$catalog['catalog_publisher'].'</td>
                             <td class="border-tr">'.$catalog['catalog_year'].'</td>
                             <td class="border-tr">'.$catalog['catalog_date_received'].'</td>
@@ -307,7 +315,133 @@ include_once 'includes/header.php';
                             <td class="border-tr">'.$catalog['catalog_location_symbol'].'</td>
                             <td class="border-tr">'.$catalog['catalog_class_number'].'</td>
                             <td class="border-tr">'.$catalog['catalog_author_number'].'</td>
-                            <td class="border-tr">'.$catalog['catalog_copyright_date'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_copyright_date'].'</td-->
+                            <td class="border-tr">
+                            
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target="#modalViewInfo'.$number.'">
+                                    View More Info
+                                </button>
+                                <!-- edit modal -->
+                                <div class="modal fade" id="modalViewInfo'.$number.'" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="api/edit_catalog.php" method="post">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Catalog</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body row">
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">RFID code
+                                                        </label>
+                                                        <input type="text" name="catalog_number"
+                                                            class="form-control border-dark border" value="'.$catalog['rfid_code'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Catalog Number
+                                                        </label>
+                                                        <input type="text" name="catalog_number"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_number'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Book Title
+                                                        </label>
+                                                        <input type="text" name="catalog_book_title"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_book_title'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Author
+                                                        </label>
+                                                        <input type="text" name="catalog_author"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_author'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Publisher
+                                                        </label>
+                                                        <input type="text" name="catalog_publisher"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_publisher'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Year
+                                                        </label>
+                                                        <input type="text" name="catalog_year"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_year'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Date Received</label>
+                                                        <input type="text" name="catalog_date_received"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_date_received'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Class</label>
+                                                        <input type="text" name="catalog_class"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_class'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Edition</label>
+                                                        <input type="text" name="catalog_edition"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_edition'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Volumes</label>
+                                                        <input type="text" name="catalog_volumes"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_volumes'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Pages</label>
+                                                        <input type="text" name="catalog_pages"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_pages'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Source of Fund</label>
+                                                        <input type="text" name="catalog_source_of_fund"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_source_of_fund'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Cost Price</label>
+                                                        <input type="text" name="catalog_cost_price"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_cost_price'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Location Symbol</label>
+                                                        <input type="text" name="catalog_location_symbol"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_location_symbol'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Class Number</label>
+                                                        <input type="text" name="catalog_class_number"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_class_number'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Author Number</label>
+                                                        <input type="text" name="catalog_author_number"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_author_number'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Copyright Date</label>
+                                                        <input type="text" name="catalog_copyright_date"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_copyright_date'].'" disabled/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Status</label>
+                                                        <input type="text" name="catalog_copyright_date"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_status'].'" disabled/>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end edit modal -->
+                            
+                            <!--/td>
                             <td class="border-tr">';
                             if($catalog["catalog_status"]=="Available"){
                                 echo '
@@ -323,7 +457,7 @@ include_once 'includes/header.php';
                                     '.$catalog["catalog_status"];
                             }
                             echo '
-                            </td>
+                            </td-->
                             <td class="border-tr">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalEdit'.$number.'" onclick="clearRFID2()">
@@ -503,6 +637,14 @@ include_once 'includes/header.php';
                                     </div>
                                 </div>
                                 <!-- end edit modal -->
+                            </td>
+                            <td class="border-tr">
+                            
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditAllCopies'.$number.'">
+                                    Edit all copies
+                                </button>
+                            
                             </td>
                             <td class="border-tr">
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"

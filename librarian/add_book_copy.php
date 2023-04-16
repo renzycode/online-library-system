@@ -73,40 +73,51 @@ if($hours<0){
         </a>
     </h2>
 
-    <?php
-
-    if(isset($_GET['return'])){
-        if($_GET['return']=='success'){
-            echo '
-            <div class="alert alert-success">
-                Transaction has been successfully updated.
-            </div>
-            ';
-        }
-        if($_GET['return']=='error'){
-            if($_GET['id']=='empty'){
-                echo '
-                <div class="alert alert-danger">
-                    Error, There is no book to be returned.
-                </div>
-                ';
-            }else{
-                echo '
-                <div class="alert alert-danger">
-                    Error Add, Please try again later.
-                </div>
-                ';
-            }
-        }
-    }
-
-    ?>
     <div class="col-12">
         <div class="row">
             <div class=" col-lg-12 col-12 col-md-12">
                 <div class=" p-3 border-left-primary border-top border-right border-bottom shadow rounded">
                     <h5 id="exampleModalLabel">Add Book Copy</h5>
                     <hr>
+                    <?php
+
+                        if(isset($_GET['clone'])){
+                            if($_GET['clone']=='error'){
+                                if($_GET['error']=='allempty'){
+                                    echo '
+                                    <div class="alert alert-danger">
+                                        Error, No catalog info inputed.
+                                    </div>
+                                    ';
+                                }elseif($_GET['error']=='catalognumberexisting'){
+                                    echo '
+                                    <div class="alert alert-danger">
+                                        Error, Catalog number already exist.
+                                    </div>
+                                    ';
+                                }elseif($_GET['error']=='rfidexisting'){
+                                    echo '
+                                    <div class="alert alert-danger">
+                                        Error, RFID code already exist.
+                                    </div>
+                                    ';
+                                }else{
+                                    echo '
+                                    <div class="alert alert-danger">
+                                        Error, Please try again later.
+                                    </div>
+                                    ';
+                                }
+                            }elseif($_GET['clone']=='success'){
+                                echo '
+                                    <div class="alert alert-success">
+                                        Book has been successfully added.
+                                    </div>
+                                    ';
+                            }
+                        }
+                    ?>
+
                     <div class="form-group col-12 mb-1">
                         <div class="row">
 
@@ -125,7 +136,7 @@ if($hours<0){
                                 </div>
                             </form>
 
-                            <form action="api/edit_transaction.php" method="post">
+                            <form action="api/clone_catalog.php" method="post">
                                 <?php
                                 $data = array(
                                     'book_id'=>'----------',
@@ -341,7 +352,7 @@ if($hours<0){
 
                                 <div class="mt-4 text-right">
                                     <button type="submit" class="btn btn-success"
-                                        name="edit_transaction">Submit</button>
+                                        name="clone_catalog">Submit</button>
                                     <a href="#" type="button" class="btn btn-secondary">Cancel</a>
                                 </div>
 
