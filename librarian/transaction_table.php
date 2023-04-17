@@ -492,6 +492,13 @@ include_once 'includes/header.php';
     ?>
 </div>
 
+<script>
+$(document).ready(function () {
+    $('.myDataTable').DataTable({
+        "order": [[ 3, 'asc' ]]
+    });
+});
+</script>
 <!---------------->
 <!---- END BODY -->
 <!---------------->

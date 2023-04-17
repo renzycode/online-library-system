@@ -20,7 +20,7 @@ if(isset($_SESSION["authen"])){
 
 include_once 'includes/header.php';
 
-        $sql = 'SELECT * FROM catalog_table';
+        $sql = 'SELECT * FROM catalog_table ORDER BY catalog_book_title';
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $catalogs = $statement->fetchAll();
@@ -264,9 +264,9 @@ include_once 'includes/header.php';
             <table class="table table-bordered border-secondary myDataTable">
                 <thead class="border">
                     <tr>
-                        <th scope="col">#</th>
-                        <!--th scope="col">Book ID</th>
-                        <th scope="col">RFID Code</th-->
+                        <!--th scope="col">#</th-->
+                        <th scope="col">Book ID</th>
+                        <!--th scope="col">RFID Code</th-->
                         <th scope="col">Catalog Number</th>
                         <th scope="col">Book Title</th>
                         <!--th scope="col">Author</th>
@@ -297,8 +297,8 @@ include_once 'includes/header.php';
                         $number++;
                         echo '
                         <tr>
-                            <td class="border-tr">'.$number.'</td>
-                            <!--td class="border-tr">'.$catalog['book_id'].'</td-->
+                            <!--td class="border-tr">'.$number.'</td-->
+                            <td class="border-tr">'.$catalog['book_id'].'</td>
                             <!--td class="border-tr">'.$catalog['rfid_code'].'</td-->
                             <td class="border-tr">'.$catalog['catalog_number'].'</td>
                             <td class="border-tr">'.$catalog['catalog_book_title'].'</td>
@@ -523,6 +523,141 @@ include_once 'includes/header.php';
                                                         <input type="text" name="catalog_number"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_number'].'" required/>
                                                     </div>
+                                                    <!--div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Book Title
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_book_title"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_book_title'].'" required/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Author
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_author"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_author'].'" required/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Publisher
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_publisher"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_publisher'].'" required/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Year
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_year"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_year'].'" required/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Date Received</label>
+                                                        <input type="text" name="catalog_date_received"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_date_received'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Class</label>
+                                                        <input type="text" name="catalog_class"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_class'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Edition</label>
+                                                        <input type="text" name="catalog_edition"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_edition'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Volumes</label>
+                                                        <input type="text" name="catalog_volumes"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_volumes'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Pages</label>
+                                                        <input type="text" name="catalog_pages"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_pages'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Source of Fund</label>
+                                                        <input type="text" name="catalog_source_of_fund"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_source_of_fund'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Cost Price</label>
+                                                        <input type="text" name="catalog_cost_price"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_cost_price'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Location Symbol</label>
+                                                        <input type="text" name="catalog_location_symbol"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_location_symbol'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Class Number</label>
+                                                        <input type="text" name="catalog_class_number"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_class_number'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Author Number</label>
+                                                        <input type="text" name="catalog_author_number"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_author_number'].'"/>
+                                                    </div>
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Copyright Date</label>
+                                                        <input type="text" name="catalog_copyright_date"
+                                                            class="form-control border-dark border" value="'.$catalog['catalog_copyright_date'].'"/>
+                                                    </div-->
+                                                    <div class="form-group col-6 mb-0">
+                                                        <label class="col-form-label">Status</label>
+                                                        ';
+                                                        if($catalog['catalog_status'] == "Available"){
+                                                            echo '
+                                                            <select class="form-select" aria-label="" name="catalog_status">
+                                                                <option selected value="Available">Available</option>
+                                                                <option value="Unavailable">Unavailable</option>
+                                                            </select>
+                                                            ';
+                                                        }else{
+                                                            echo '
+                                                            <select class="form-select" aria-label="" name="catalog_status">
+                                                                <option selected value="Unavailable">Unavailable</option>
+                                                                <option value="Available">Available</option>
+                                                            </select>
+                                                            ';
+                                                        }
+                                                    echo '
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="edit_catalog" class="btn btn-success">Submit</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end edit modal -->
+                            </td>
+                            <td class="border-tr">
+                            
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditAllCopies'.$number.'">
+                                    Edit all copies
+                                </button>
+
+                                <!-- edit modal -->
+                                <div class="modal fade" id="modalEditAllCopies'.$number.'" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="api/edit_all_catalog_copies.php" method="post">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit All Catalog Copies</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body row">
+                                                    <input type="hidden" name="book_id" value="'.$catalog['book_id'].'">
                                                     <div class="form-group col-6 mb-0">
                                                         <label class="col-form-label">Book Title
                                                         <span class="text-danger"><em>(required)</em></span>
@@ -606,29 +741,9 @@ include_once 'includes/header.php';
                                                         <input type="text" name="catalog_copyright_date"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_copyright_date'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
-                                                        <label class="col-form-label">Status</label>
-                                                        ';
-                                                        if($catalog['catalog_status'] == "Available"){
-                                                            echo '
-                                                            <select class="form-select" aria-label="" name="catalog_status">
-                                                                <option selected value="Available">Available</option>
-                                                                <option value="Unavailable">Unavailable</option>
-                                                            </select>
-                                                            ';
-                                                        }else{
-                                                            echo '
-                                                            <select class="form-select" aria-label="" name="catalog_status">
-                                                                <option selected value="Unavailable">Unavailable</option>
-                                                                <option value="Available">Available</option>
-                                                            </select>
-                                                            ';
-                                                        }
-                                                    echo '
-                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" name="edit_catalog" class="btn btn-success">Submit</button>
+                                                    <button type="submit" name="edit_all_catalog_copies" class="btn btn-success">Submit</button>
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Cancel</button>
                                                 </div>
@@ -637,13 +752,6 @@ include_once 'includes/header.php';
                                     </div>
                                 </div>
                                 <!-- end edit modal -->
-                            </td>
-                            <td class="border-tr">
-                            
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalEditAllCopies'.$number.'">
-                                    Edit all copies
-                                </button>
                             
                             </td>
                             <td class="border-tr">
@@ -694,6 +802,13 @@ include_once 'includes/header.php';
                 $('.renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
             }, 500);
         });
+    </script>
+    <script>
+    $(document).ready(function () {
+        $('.myDataTable').DataTable({
+            "order": [[ 2, 'asc' ]]
+        });
+    });
     </script>
 
     <!---------------->

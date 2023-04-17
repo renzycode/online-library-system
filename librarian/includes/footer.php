@@ -35,9 +35,6 @@
     <script src="../assets/vendor/sb-admin-2/sb-admin-2.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-            $('.myDataTable').DataTable();
-        });
 
         function copyCatalogId(value) {
             var tempInput = document.createElement("input");

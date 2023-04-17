@@ -340,6 +340,14 @@ $(document).ready(function() {
 <br>
 <br>
 <br>
+
+<script>
+    $(document).ready(function () {
+        $('.myDataTable').DataTable({
+            "order": [[ 2, 'asc' ]]
+        });
+    });
+    </script>
 <!---------------->
 <!---- END BODY -->
 <!---------------->
