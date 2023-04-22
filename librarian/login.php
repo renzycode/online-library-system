@@ -74,6 +74,12 @@ if(isset($_SESSION["authen"]) && isset($_SESSION["uname"])){
                                 <p class="alert alert-danger m-0 p-2">Wrong Username</p>
                             </div>
                             ';
+                        }elseif($_GET['error']=='accountdeactivated'){
+                            echo '
+                            <div class="mb-3">
+                                <p class="alert alert-danger m-0 p-2">That account is deactivated</p>
+                            </div>
+                            ';
                         }else{
                             echo '
                             <div class="mb-3">

@@ -41,9 +41,10 @@ try {
             librarian_address,
             librarian_contact,
             librarian_email,
-            librarian_image_name
+            librarian_image_name,
+            librarian_status
             ) 
-        VALUES(?,?,?,?,?,?,?,?)';
+        VALUES(?,?,?,?,?,?,?,?,?)';
     
         $statement = $pdo->prepare($sql);
         
@@ -58,7 +59,8 @@ try {
                 $_POST['address'],
                 $_POST['contact'],
                 $_POST['email'],
-                $filename
+                $filename,
+                'Activated'
             ));
             printInConsole('librarian added successfully!');
             redirectURL('../librarian_table.php?add=success');

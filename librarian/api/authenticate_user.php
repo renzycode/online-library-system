@@ -25,6 +25,17 @@ try{
     
             if(password_verify($pass,$pass_fetched['librarian_password'])){
 
+
+                $sql = "SELECT librarian_status FROM librarian_table WHERE librarian_uname = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($uname));
+                $fetched = $statement->fetch();
+
+                if($fetched['librarian_status']=='Deactivated'){
+                    redirectURL('../login.php?error=accountdeactivated');
+                    exit();
+                }
+
                 $sql = "SELECT librarian_id FROM librarian_table WHERE librarian_uname = ?";
                 $statement = $pdo->prepare($sql);
                 $statement->execute(array($uname));

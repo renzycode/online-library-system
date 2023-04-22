@@ -141,7 +141,8 @@ if(isset($_SESSION["authen"])){
                         Email already exist.
                     </div>
                 ';
-            }else{
+            }
+            else{
                 echo '
                 <div class="alert alert-danger">
                     Error Delete, Please try again later.
@@ -163,6 +164,30 @@ if(isset($_SESSION["authen"])){
             echo '
                 <div class="alert alert-success">
                     Librarian has been successfuly edited.
+                </div>
+            ';
+        }
+    }
+    if(isset($_GET['editstatusactivate'])){
+        if($_GET['editstatusactivate']=='success'){
+            echo '
+                <div class="alert alert-success">
+                    Librarian has been successfuly Activated.
+                </div>
+            ';
+        }
+    }
+    if(isset($_GET['editstatusdeactivate'])){
+        if($_GET['editstatusdeactivate']=='success'){
+            echo '
+                <div class="alert alert-success">
+                    Librarian has been successfuly Deactivated.
+                </div>
+            ';
+        }if($_GET['editstatusdeactivate']=='ownaccount'){
+            echo '
+                <div class="alert alert-danger">
+                There is at least one managing librarian panel, and you cannot deactivate your own account.
                 </div>
             ';
         }
@@ -230,8 +255,10 @@ if(isset($_SESSION["authen"])){
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
                     <th scope="col">Edit</th>
-                    <th scope="col">Update Password</th>
-                    <th scope="col">Delete</th>
+                    <!--th scope="col">Update Password</th-->
+                    <!--th scope="col">Delete</th-->
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody class="border">
@@ -271,7 +298,7 @@ if(isset($_SESSION["authen"])){
                                 <td>'.$librarian['librarian_address'].'</td>
                                 <td>'.$librarian['librarian_contact'].'</td>
                                 <td>'.$librarian['librarian_email'].'</td>
-                                <td>********</td>
+                                <!--td>********</td-->
                                 <td>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#modalEdit'.$number.'"> Edit
@@ -402,7 +429,20 @@ if(isset($_SESSION["authen"])){
                                 
                                 
                                 </td>
-                                <td>
+                                <td>'.$librarian['librarian_status'].'</td>
+                                <td>';
+                                if($librarian['librarian_status']=='Activated'){
+                                    echo    '<a type="button" class="btn btn-danger" href="api/edit_librarian_status.php?submit=yes&id='.$librarian['librarian_id'].'&status=deactivate&librarian_id='.$librarian_id.'">
+                                                Deactivate
+                                            </a>';
+                                }else{
+                                    echo    '<a type="button" class="btn btn-success" href="api/edit_librarian_status.php?submit=yes&id='.$librarian['librarian_id'].'&status=activate&librarian_id='.$librarian_id.'">
+                                                Activate
+                                            </a>';
+                                }
+                                echo '
+                                </td>
+                                <!--td>
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#modalDelete'.$number.'">
                                         Delete
@@ -434,7 +474,7 @@ if(isset($_SESSION["authen"])){
                                         </div>
                                     </div>
                                     <!-- end delete modal -->
-                                </td>
+                                </td-->
                             </tr>
                         ';
                     }
