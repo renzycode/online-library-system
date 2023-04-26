@@ -432,13 +432,63 @@ if(isset($_SESSION["authen"])){
                                 <td>'.$librarian['librarian_status'].'</td>
                                 <td>';
                                 if($librarian['librarian_status']=='Activated'){
-                                    echo    '<a type="button" class="btn btn-danger" href="api/edit_librarian_status.php?submit=yes&id='.$librarian['librarian_id'].'&status=deactivate&librarian_id='.$librarian_id.'">
+                                    echo    '
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modalDeactivate'.$number.'">
                                                 Deactivate
-                                            </a>';
+                                            </button>
+                                            <!-- delete modal -->
+                                            <div class="modal fade" id="modalDeactivate'.$number.'" tabindex="-1"
+                                                aria-labelledby="" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="">Deactivate Librarian</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to deactivate this librarian?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a type="submit" href="api/edit_librarian_status.php?submit=yes&id='.$librarian['librarian_id'].'&status=deactivate&librarian_id='.$librarian_id.'" class="btn btn-success">Yes</a>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            ';
                                 }else{
-                                    echo    '<a type="button" class="btn btn-success" href="api/edit_librarian_status.php?submit=yes&id='.$librarian['librarian_id'].'&status=activate&librarian_id='.$librarian_id.'">
+                                    echo    '
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#modalActivate'.$number.'">
                                                 Activate
-                                            </a>';
+                                            </button>
+                                            <!-- delete modal -->
+                                            <div class="modal fade" id="modalActivate'.$number.'" tabindex="-1"
+                                                aria-labelledby="" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="">Activate Librarian</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to activate this librarian?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a type="submit" href="api/edit_librarian_status.php?submit=yes&id='.$librarian['librarian_id'].'&status=activate&librarian_id='.$librarian_id.'" class="btn btn-success">Yes</a>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            ';
                                 }
                                 echo '
                                 </td>

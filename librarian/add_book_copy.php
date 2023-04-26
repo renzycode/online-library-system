@@ -213,8 +213,7 @@ if($hours<0){
 
                                                 </span>
                                                 <!-- triggers modal and refresh rfid code -->
-                                                <button type="button" class="btn btn-primary mt-2" onclick="clearRFID()">Scan
-                                                    New</button>
+                                                <button type="button" class="btn btn-primary mt-2" onclick="clearRFID()">Clear / Scan New</button>
 
                                                 <script>
                                                 function clearRFID() {

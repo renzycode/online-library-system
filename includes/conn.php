@@ -2,19 +2,20 @@
 
 //online db 1
 
-//$host = 'bpoks2m9vgtiyskrronx-mysql.services.clever-cloud.com';
-//$user = 'u4y7dmqjbvkykhsr';
-//$password = 'JX2fJND5b2Ztt0i9bqL0';
-//$db = 'bpoks2m9vgtiyskrronx';
+$host = 'bpoks2m9vgtiyskrronx-mysql.services.clever-cloud.com';
+$user = 'u4y7dmqjbvkykhsr';
+$password = 'JX2fJND5b2Ztt0i9bqL0';
+$db = 'bpoks2m9vgtiyskrronx';
 
 
+//dapat islan man ang sa public viewing kung islan modi ang database
 
 //online db 2
 
-$host = 'b2hqvttkuzvtui0fat1z-mysql.services.clever-cloud.com';
-$user = 'u80tegkgvgyqohka';
-$password = 'tIeOIgfgsNLfzTi8OJ1V';
-$db = 'b2hqvttkuzvtui0fat1z';
+//$host = 'b2hqvttkuzvtui0fat1z-mysql.services.clever-cloud.com';
+//$user = 'u80tegkgvgyqohka';
+//$password = 'tIeOIgfgsNLfzTi8OJ1V';
+//$db = 'b2hqvttkuzvtui0fat1z';
 
 
 

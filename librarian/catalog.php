@@ -142,7 +142,7 @@ include_once 'includes/header.php';
                                 
                             </span>
                             <!-- triggers modal and refresh rfid code -->
-                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()">Scan New</button>
+                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()">Clear / Scan New</button>
 
                             <script>
                                 function clearRFID() {
@@ -498,7 +498,7 @@ include_once 'includes/header.php';
                                                                 
                                                             </span>
                                                             <!-- triggers modal and refresh rfid code -->
-                                                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()2">Scan New</button>
+                                                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()2">Clear / Scan New</button>
 
                                                             <script>
                                                                 function clearRFID2() {
