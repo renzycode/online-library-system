@@ -101,10 +101,18 @@ try {
         $statement->execute(array($_POST['rfid_code']));
         $fetched = $statement->fetch();
 
-        if($fetched['rfid_code']==$_POST['rfid_code']){
-            redirectURL('../add_book_copy.php?clone=error&error=rfidexisting');
-            exit();
+        if(!empty($fetched['rfid_code'])){
+            if($fetched['rfid_code']==$_POST['rfid_code']){
+                redirectURL('../add_book_copy.php?clone=error&error=rfidexisting');
+                exit();
+            }
         }else{
+
+            $sql = 'SELECT * FROM catalog_table WHERE book_id = ?';
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array($_POST['book_id']));
+            $catalog = $statement->fetch();
+
             $sql = 'INSERT INTO catalog_table(
                 rfid_code,
                 catalog_number,

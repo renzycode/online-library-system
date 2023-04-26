@@ -102,6 +102,20 @@
                                     </div>
                                     ';
                                 }
+                                elseif($_GET['error']=='duedatetime'){
+                                    echo '
+                                    <div class="alert alert-danger">
+                                    Error, due date must be ahead of current date.
+                                    </div>
+                                    ';
+                                }
+                                elseif($_GET['error']=='duedatetime2'){
+                                    echo '
+                                    <div class="alert alert-danger">
+                                    Error, due date must be ahead of borrow date.
+                                    </div>
+                                    ';
+                                }
                                 else{
                                     echo '
                                     <div class="alert alert-danger">

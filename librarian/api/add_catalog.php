@@ -89,9 +89,11 @@ try {
         $statement->execute(array($_POST['rfid_code']));
         $fetched = $statement->fetch();
 
-        if($fetched['rfid_code']==$_POST['rfid_code']){
-            redirectURL('../catalog.php?add=error&error=rfidexisting');
-            exit();
+        if(!empty($fetched['rfid_code'])){
+            if($fetched['rfid_code']==$_POST['rfid_code']){
+                redirectURL('../catalog.php?add=error&error=rfidexisting');
+                exit();
+            }
         }else{
             $sql = 'INSERT INTO catalog_table(
                 rfid_code,

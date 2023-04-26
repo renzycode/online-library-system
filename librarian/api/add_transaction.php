@@ -6,6 +6,48 @@ include_once "../../includes/functions.php";
 try {
     if(isset($_POST['add_transaction'])){
 
+
+        date_default_timezone_set("Asia/Hong_Kong");
+
+        $dueDateTime = strtotime($_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time'])));
+        
+        $dueDateTimeConverted = date("Y-m-d H:i", $dueDateTime);
+        $currentDateTimeConverted = date("Y-m-d H:i");
+        
+        $due_date_time=strtotime($dueDateTimeConverted);
+        $current_date_time=strtotime($currentDateTimeConverted);
+        
+        $difference=$current_date_time-$due_date_time;
+        
+        $hours=($difference / 3600);
+        $days=($hours/24);
+
+        if($days>=0){
+            redirectURL('../transaction.php?add=error&error=duedatetime');
+            exit();
+        }
+
+        date_default_timezone_set("Asia/Hong_Kong");
+
+        $dueDateTime = strtotime($_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time'])));
+        $borrowDateTime = strtotime($_POST['borrow_date'].' '.date("g:i a", strtotime($_POST['borrow_time'])));
+        
+        $dueDateTimeConverted = date("Y-m-d H:i", $dueDateTime);
+        $borrowDateTimeConverted = date("Y-m-d H:i", $borrowDateTime);
+        
+        $due_date_time=strtotime($dueDateTimeConverted);
+        $borrow_date_time=strtotime($borrowDateTimeConverted);
+        
+        $difference=$borrow_date_time-$due_date_time;
+        
+        $hours=($difference / 3600);
+        $days=($hours/24);
+
+        if($days>=0){
+            redirectURL('../transaction.php?add=error&error=duedatetime2');
+            exit();
+        }
+
         $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ? AND borrower_status = "rejected"';
         $statement = $pdo->prepare($sql);
         $statement->execute(array($_POST['borrower_id']));

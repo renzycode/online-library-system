@@ -31,34 +31,32 @@ try {
         $statement->execute(array($_POST['rfid_code']));
         $fetched = $statement->fetch();
 
-        if(isset($fetched['rfid_code'])){
-            if(!empty($fetched)){
-                if($fetched['rfid_code']==$_POST['rfid_code']){
-                    redirectURL('../catalog.php?edit=error&rfid=existing');
-                    exit();
-                }else{
-        
-        
-                    $sql = 'UPDATE catalog_table SET 
-                    rfid_code = :rfid_code,
-                    catalog_number = :catalog_number,
-                    catalog_status = :catalog_status
-                    WHERE book_id = :book_id ';
-                
-                    $statement = $pdo->prepare($sql);
-                
-                    $statement->execute([
-                        ':rfid_code' => $_POST['rfid_code'],
-                        ':catalog_number' => $_POST['catalog_number'],
-                        ':catalog_status' => $_POST['catalog_status'],
-                        ':book_id' => $_POST['book_id']
-                    ]);
-        
-                    printInConsole('catalog edited successfully!');
-                    redirectURL('../catalog.php?edit=success');
-                    exit();
-                }
+        if(!empty($fetched)){
+            if($fetched['rfid_code']==$_POST['rfid_code']){
+                redirectURL('../catalog.php?edit=error&rfid=existing');
+                exit();
             }
+        }else{
+    
+    
+            $sql = 'UPDATE catalog_table SET 
+            rfid_code = :rfid_code,
+            catalog_number = :catalog_number,
+            catalog_status = :catalog_status
+            WHERE book_id = :book_id ';
+        
+            $statement = $pdo->prepare($sql);
+        
+            $statement->execute([
+                ':rfid_code' => $_POST['rfid_code'],
+                ':catalog_number' => $_POST['catalog_number'],
+                ':catalog_status' => $_POST['catalog_status'],
+                ':book_id' => $_POST['book_id']
+            ]);
+
+            printInConsole('catalog edited successfully!');
+            redirectURL('../catalog.php?edit=success');
+            exit();
         }
         
     }else{
