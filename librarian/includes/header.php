@@ -145,6 +145,23 @@
                 </a>
             </li>
 
+
+            <!-- nav item catalog -->
+            <li
+                <?php
+                    if($active == 'author'){ 
+                        echo 'class="nav-item active"';
+                    }else{
+                        echo 'class="nav-item"';
+                    }
+                ?>
+            >
+                <a class="nav-link" href="author_table.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Author Table</span>
+                </a>
+            </li>
+
             <!-- nav item catalog -->
             <li
                 <?php

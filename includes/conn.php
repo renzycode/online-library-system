@@ -2,10 +2,10 @@
 
 //online db 1
 
-$host = 'bpoks2m9vgtiyskrronx-mysql.services.clever-cloud.com';
-$user = 'u4y7dmqjbvkykhsr';
-$password = 'JX2fJND5b2Ztt0i9bqL0';
-$db = 'bpoks2m9vgtiyskrronx';
+//$host = 'bpoks2m9vgtiyskrronx-mysql.services.clever-cloud.com';
+//$user = 'u4y7dmqjbvkykhsr';
+//$password = 'JX2fJND5b2Ztt0i9bqL0';
+//$db = 'bpoks2m9vgtiyskrronx';
 
 
 //dapat islan man ang sa public viewing kung islan modi ang database
@@ -19,10 +19,10 @@ $db = 'bpoks2m9vgtiyskrronx';
 
 
 
-//$host = 'localhost';
-//$user = 'root';
-//$password = '';
-//$db = 'onlinelibrarysystem';
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$db = 'onlinelibrarysystem';
 
 try {
 	$pdo = new PDO("mysql:host=".$host.";dbname=".$db.";charset=UTF8", $user, $password);

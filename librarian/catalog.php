@@ -36,8 +36,9 @@ include_once 'includes/header.php';
 <div class="m-4">
     <h2 class="mb-4 text-dark">
         <span class="page-title">Catalog Table</span>
-        <hr>    
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd" onclick="clearRFID()">
+        <hr>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd"
+            onclick="clearRFID()">
             Add
         </button>
         <a type="button" href="add_book_copy.php" class="btn btn-secondary">
@@ -125,7 +126,7 @@ include_once 'includes/header.php';
     ?>
     <!-- add modal -->
     <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <form action="api/add_catalog.php" method="POST">
                     <div class="modal-header">
@@ -137,97 +138,215 @@ include_once 'includes/header.php';
 
                         <div class="form-group col-12 mb-1">
                             <label class="col-form-label">RFID Code</label>
-                            
+
                             <span class="renderrfidcode">
-                                
+
                             </span>
                             <!-- triggers modal and refresh rfid code -->
-                            <button type="button"  class="btn btn-primary mt-2" onclick="clearRFID()">Clear / Scan New</button>
+                            <button type="button" class="btn btn-primary mt-2" onclick="clearRFID()">Clear / Scan
+                                New</button>
 
                             <script>
-                                function clearRFID() {
-                                    $(document).ready(function() {
-                                        $.post("rfid/refreshreg.php",
-                                        function(data, status){
+                            function clearRFID() {
+                                $(document).ready(function() {
+                                    $.post("rfid/refreshreg.php",
+                                        function(data, status) {
                                             console.log("rfid cleared");
                                         });
-                                    });
-                                }
+                                });
+                            }
                             </script>
 
                         </div>
 
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Catalog Number
-                            <span class="text-danger"><em>(required)</em></span>
+                                <span class="text-danger"><em>(required)</em></span>
                             </label>
-                            <input type="text" name="catalog_number" class="form-control border-dark border" required/>
+                            <input type="text" name="catalog_number" class="form-control border-dark border" required />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Book Title
-                            <span class="text-danger"><em>(required)</em></span>
+                                <span class="text-danger"><em>(required)</em></span>
                             </label>
-                            <input type="text" name="catalog_book_title" class="form-control border-dark border" required/>
+                            <input type="text" name="catalog_book_title" class="form-control border-dark border"
+                                required />
                         </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Author
-                            <span class="text-danger"><em>(required)</em></span>
+
+                        <div class="form-group col-12 m-0">
+                            <hr />
+                        </div>
+
+                        <?php
+                            $sql = 'SELECT * FROM author_table ORDER BY author_fname';
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute();
+                            $authors = $statement->fetchAll();
+                        ?>
+
+                        <div class="form-group col-12 mb-0">
+                            <label class="col-form-label">Number of Authors
+                                <span class="text-danger"><em>(required)</em></span>
                             </label>
-                            <input type="text" name="catalog_author" class="form-control border-dark border" required/>
+                            <select class="form-select col-2" aria-label="select example" id="no_of_authors">
+                                <?php
+                                    for($num = 1; $num <= 20; $num++){
+                                        echo '
+                                            <option value="'.$num.'">'.$num.'</option>
+                                        ';
+                                    }
+                                    
+                                ?>
+                            </select>
                         </div>
-                        <div class="form-group col-6 mb-0">
+
+                        <div class="row" id="rendered_authors">
+
+                        </div>
+
+                        <script>
+                        $(document).ready(function() {
+                            <?php
+                                $options = '';
+                                foreach($authors as $author){
+                                    $author_full_name = $author['author_fname'].' '.$author['author_lname'];
+                                    $options = $options.'<option value="'.$author_full_name.'">'.$author_full_name.'</option>';
+                                    
+                                }
+
+                                echo '
+                                $("#no_of_authors")
+                                    .on("change", function() {
+                                        var str = "";
+                                        $("#no_of_authors option:selected").each(function() {
+                                            str += $(this).text() + " ";
+                                        });
+                                        if(str==1){
+                                            $("#rendered_authors").html(`
+                                                <div class="form-group col-2 mb-0">
+                                                    <label class="col-form-label">Author 1
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                    </label>
+                                                    <select class="form-select" size="3" aria-label="size 3 select example">
+                                                        '.$options.'
+                                                    </select>
+                                                </div>
+                                            `);
+                                        }else if(str==2){
+                                            $("#rendered_authors").html(`
+                                                <div class="form-group col-2 mb-0">
+                                                    <label class="col-form-label">Author 1
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                    </label>
+                                                    <select class="form-select" size="3" aria-label="size 3 select example">
+                                                        '.$options.'
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-2 mb-0">
+                                                    <label class="col-form-label">Author 2
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                    </label>
+                                                    <select class="form-select" size="3" aria-label="size 3 select example">
+                                                        '.$options.'
+                                                    </select>
+                                                </div>
+                                            `);
+                                        }else if(str==3){
+                                            $("#rendered_authors").html(`
+                                                <div class="form-group col-2 mb-0">
+                                                    <label class="col-form-label">Author 1
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                    </label>
+                                                    <select class="form-select" size="3" aria-label="size 3 select example">
+                                                        '.$options.'
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-2 mb-0">
+                                                    <label class="col-form-label">Author 2
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                    </label>
+                                                    <select class="form-select" size="3" aria-label="size 3 select example">
+                                                        '.$options.'
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-2 mb-0">
+                                                    <label class="col-form-label">Author 3
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                    </label>
+                                                    <select class="form-select" size="3" aria-label="size 3 select example">
+                                                        '.$options.'
+                                                    </select>
+                                                </div>
+                                            `);
+                                        }else{
+                                            $("#rendered_authors").html(``);
+                                        }
+                                        
+                                    })
+                                    .trigger("change");';
+                            ?>
+                        });
+                        </script>
+
+
+                        <div class="form-group col-12 m-0">
+                            <hr />
+                        </div>
+
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Publisher
-                            <span class="text-danger"><em>(required)</em></span>
+                                <span class="text-danger"><em>(required)</em></span>
                             </label>
-                            <input type="text" name="catalog_publisher" class="form-control border-dark border" required/>
+                            <input type="text" name="catalog_publisher" class="form-control border-dark border"
+                                required />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Year
-                            <span class="text-danger"><em>(required)</em></span>
+                                <span class="text-danger"><em>(required)</em></span>
                             </label>
-                            <input type="text" name="catalog_year" class="form-control border-dark border" required/>
+                            <input type="text" name="catalog_year" class="form-control border-dark border" required />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Date Received</label>
                             <input type="text" name="catalog_date_received" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Class</label>
                             <input type="text" name="catalog_class" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Edition</label>
                             <input type="text" name="catalog_edition" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Volumes</label>
                             <input type="text" name="catalog_volumes" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Pages</label>
                             <input type="text" name="catalog_pages" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Source of Fund</label>
                             <input type="text" name="catalog_source_of_fund" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Cost Price</label>
                             <input type="text" name="catalog_cost_price" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Location Symbol</label>
                             <input type="text" name="catalog_location_symbol" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Class Number</label>
                             <input type="text" name="catalog_class_number" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Author Number</label>
                             <input type="text" name="catalog_author_number" class="form-control border-dark border" />
                         </div>
-                        <div class="form-group col-6 mb-0">
+                        <div class="form-group col-3 mb-0">
                             <label class="col-form-label">Copyright Date</label>
                             <input type="text" name="catalog_copyright_date" class="form-control border-dark border" />
                         </div>
@@ -329,7 +448,7 @@ include_once 'includes/header.php';
                                         <div class="modal-content">
                                             <form action="api/edit_catalog.php" method="post">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Catalog</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">View More Catalog Info</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -648,7 +767,7 @@ include_once 'includes/header.php';
                                 <!-- edit modal -->
                                 <div class="modal fade" id="modalEditAllCopies'.$number.'" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
                                             <form action="api/edit_all_catalog_copies.php" method="post">
                                                 <div class="modal-header">
@@ -658,85 +777,128 @@ include_once 'includes/header.php';
                                                 </div>
                                                 <div class="modal-body row">
                                                     <input type="hidden" name="book_id" value="'.$catalog['book_id'].'">
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Book Title
                                                         <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_book_title"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_book_title'].'" required/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+
+                                                    <!--div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Author
                                                         <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_author"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_author'].'" required/>
+                                                    </div-->
+
+                                                    <div class="form-group col-12 m-0">
+                                                        <hr/>
+                                                    </div>';
+                                                    
+                                                    $authors = preg_split("/\,/", $catalog['catalog_author']);
+
+                                                    echo '
+                                                    
+                                                    <div class="form-group col-3 mb-0">
+                                                        <label class="col-form-label">Author 1
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_author"
+                                                            class="form-control border-dark border" value="'.$authors[0].'" required/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
+                                                        <label class="col-form-label">Author 2
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_author"
+                                                            class="form-control border-dark border" value="'.$authors[1].'" required/>
+                                                    </div>
+                                                    <div class="form-group col-3 mb-0">
+                                                        <label class="col-form-label">Author 3
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_author"
+                                                            class="form-control border-dark border" value="'.$authors[2].'" required/>
+                                                    </div>
+                                                    <div class="form-group col-3 mb-0">
+                                                        <label class="col-form-label">Author 4
+                                                        <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" name="catalog_author"
+                                                            class="form-control border-dark border" value="'.$authors[3].'" required/>
+                                                    </div>
+
+                                                    <div class="form-group col-12 m-0">
+                                                        <hr/>
+                                                    </div>
+
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Publisher
                                                         <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_publisher"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_publisher'].'" required/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Year
                                                         <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <input type="text" name="catalog_year"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_year'].'" required/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Date Received</label>
                                                         <input type="text" name="catalog_date_received"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_date_received'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Class</label>
                                                         <input type="text" name="catalog_class"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_class'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Edition</label>
                                                         <input type="text" name="catalog_edition"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_edition'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Volumes</label>
                                                         <input type="text" name="catalog_volumes"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_volumes'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Pages</label>
                                                         <input type="text" name="catalog_pages"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_pages'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Source of Fund</label>
                                                         <input type="text" name="catalog_source_of_fund"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_source_of_fund'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Cost Price</label>
                                                         <input type="text" name="catalog_cost_price"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_cost_price'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Location Symbol</label>
                                                         <input type="text" name="catalog_location_symbol"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_location_symbol'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Class Number</label>
                                                         <input type="text" name="catalog_class_number"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_class_number'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Author Number</label>
                                                         <input type="text" name="catalog_author_number"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_author_number'].'"/>
                                                     </div>
-                                                    <div class="form-group col-6 mb-0">
+                                                    <div class="form-group col-3 mb-0">
                                                         <label class="col-form-label">Copyright Date</label>
                                                         <input type="text" name="catalog_copyright_date"
                                                             class="form-control border-dark border" value="'.$catalog['catalog_copyright_date'].'"/>
@@ -795,26 +957,30 @@ include_once 'includes/header.php';
         ';
     }
     ?>
-    </div>
-    <script>
-        $(document).ready(function() {
-            setInterval(() => {
-                $('.renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
-            }, 500);
-        });
-    </script>
-    <script>
-    $(document).ready(function () {
-        $('.myDataTable').DataTable({
-            "order": [[ 2, 'asc' ]]
-        });
-    });
-    </script>
+</div>
 
-    <!---------------->
-    <!---- END BODY -->
-    <!---------------->
+
+<!---------------->
+<!---- END BODY -->
+<!---------------->
 
 <?php
 include_once 'includes/footer.php';
 ?>
+
+<script>
+$(document).ready(function() {
+    setInterval(() => {
+        $('.renderrfidcode').load('rfid/codeForRegister.php').fadeIn("fast");
+    }, 500);
+});
+
+$(document).ready(function() {
+    $('.myDataTable').DataTable({
+        "order": [
+            [2, 'asc']
+        ]
+    });
+
+});
+</script>

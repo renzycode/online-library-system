@@ -18,6 +18,21 @@ try {
             }
         }
 
+        $authors = '';
+        for($num = 1; $num <= 20; $num++){
+            if($num==1){
+                if(isset($_POST['catalog_author'.$num])){
+                    $authors = $authors.$_POST['catalog_author'.$num];
+                }
+            }else{
+                if(isset($_POST['catalog_author'.$num])){
+                    $authors = $authors.','.$_POST['catalog_author'.$num];
+                }
+            }
+            
+        }
+
+
         if(empty($_POST['rfid_code'])){
             $sql = 'INSERT INTO catalog_table(
                 rfid_code,
@@ -63,9 +78,8 @@ try {
             $statement->execute([
                 ':rfid_code' => $_POST['rfid_code'],
                 ':catalog_number' => $_POST['catalog_number'],
-                ':catalog_number' => $_POST['catalog_number'],
                 ':catalog_book_title' => $_POST['catalog_book_title'],
-                ':catalog_author' => $_POST['catalog_author'],
+                ':catalog_author' => $authors,
                 ':catalog_publisher' => $_POST['catalog_publisher'],
                 ':catalog_year' => $_POST['catalog_year'],
                 ':catalog_date_received' => $_POST['catalog_date_received'],
@@ -82,6 +96,7 @@ try {
             ]);
     
             redirectURL('../catalog.php?add=success');
+            exit();
         
         }
         $sql = "SELECT * FROM catalog_table WHERE rfid_code = ?";
@@ -139,9 +154,8 @@ try {
             $statement->execute([
                 ':rfid_code' => $_POST['rfid_code'],
                 ':catalog_number' => $_POST['catalog_number'],
-                ':catalog_number' => $_POST['catalog_number'],
                 ':catalog_book_title' => $_POST['catalog_book_title'],
-                ':catalog_author' => $_POST['catalog_author'],
+                ':catalog_author' => $authors,
                 ':catalog_publisher' => $_POST['catalog_publisher'],
                 ':catalog_year' => $_POST['catalog_year'],
                 ':catalog_date_received' => $_POST['catalog_date_received'],
