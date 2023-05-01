@@ -142,8 +142,7 @@ include_once 'includes/header.php';
                             <label class="col-form-label">Last name
                                 <span class="text-danger"><em>(required)</em></span>
                             </label>
-                            <input type="text" name="author_lname" class="form-control border-dark border"
-                                required />
+                            <input type="text" name="author_lname" class="form-control border-dark border" required />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -181,9 +180,7 @@ include_once 'includes/header.php';
                 </thead>
                 <tbody class="border">
                 ';
-                    $number = 0;
                     foreach ($authors as $author){
-                        $number++;
                         echo '
                         <tr>
                             <td class="border-tr">'.$author['author_id'].'</td>
@@ -191,10 +188,79 @@ include_once 'includes/header.php';
                             <td class="border-tr">'.$author['author_lname'].'</td>
                             <td class="border-tr">test</td>
                             <td class="border-tr">
-                                Edit
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modalEdit'.$author['author_id'].'"> Edit
+                                </button>
+                                <!-- edit modal -->
+                                <div class="modal fade" id="modalEdit'.$author['author_id'].'" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="api/edit_author.php" method="post" enctype="multipart/form-data">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Author</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <input type="hidden" name="author_id" value="'.$author['author_id'].'" required>
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="col-form-label">First Name
+                                                                <span class="text-danger"><em>(required)</em></span>
+                                                            </label>
+                                                            <input type="text" name="author_fname" class="form-control border-dark border" value="'.$author['author_fname'].'" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="col-form-label">First Name
+                                                                <span class="text-danger"><em>(required)</em></span>
+                                                            </label>
+                                                            <input type="text" name="author_lname" class="form-control border-dark border" value="'.$author['author_lname'].'" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="edit_author" class="btn btn-success">Submit</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end edit modal -->
                             </td>
                             <td class="border-tr">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#modalDelete'.$author['author_id'].'">
                                 Delete
+                                </button>
+                                <!-- delete modal -->
+                                <div class="modal fade" id="modalDelete'.$author['author_id'].'" tabindex="-1"
+                                    aria-labelledby="" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="api/delete_author.php" method="post">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="">Delete Author</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this author?
+                                                </div>
+                                                <input type="hidden" name="author_id" value="'.$author['author_id'].'">
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="delete_author" class="btn btn-success">Yes</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end delete modal -->
                             </td>
                         </tr>
                         ';

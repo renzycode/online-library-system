@@ -32,6 +32,9 @@ try {
             
         }
 
+        $author_ids = preg_split("/\,/", $authors);
+        
+
 
         if(empty($_POST['rfid_code'])){
             $sql = 'INSERT INTO catalog_table(
