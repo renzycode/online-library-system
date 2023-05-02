@@ -903,36 +903,19 @@ include_once 'includes/header.php';
                                                     
                                                     $authors = preg_split("/\,/", $catalog['catalog_author']);
 
-                                                    echo '
+                                                    foreach($authors as $author){
+                                                        echo '
                                                     
-                                                    <div class="form-group col-3 mb-0">
-                                                        <label class="col-form-label">Author 1
-                                                        <span class="text-danger"><em>(required)</em></span>
-                                                        </label>
-                                                        <input type="text" name="catalog_author"
-                                                            class="form-control border-dark border" value="'.$authors[0].'" required/>
-                                                    </div>
-                                                    <div class="form-group col-3 mb-0">
-                                                        <label class="col-form-label">Author 2
-                                                        <span class="text-danger"><em>(required)</em></span>
-                                                        </label>
-                                                        <input type="text" name="catalog_author"
-                                                            class="form-control border-dark border" value="'.$authors[1].'" required/>
-                                                    </div>
-                                                    <div class="form-group col-3 mb-0">
-                                                        <label class="col-form-label">Author 3
-                                                        <span class="text-danger"><em>(required)</em></span>
-                                                        </label>
-                                                        <input type="text" name="catalog_author"
-                                                            class="form-control border-dark border" value="'.$authors[2].'" required/>
-                                                    </div>
-                                                    <div class="form-group col-3 mb-0">
-                                                        <label class="col-form-label">Author 4
-                                                        <span class="text-danger"><em>(required)</em></span>
-                                                        </label>
-                                                        <input type="text" name="catalog_author"
-                                                            class="form-control border-dark border" value="'.$authors[3].'" required/>
-                                                    </div>
+                                                        <div class="form-group col-3 mb-0">
+                                                            <label class="col-form-label">Wala pa na edit Author 1
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                            </label>
+                                                            <input type="text" name="catalog_author"
+                                                                class="form-control border-dark border" value="'.$author.'" required/>
+                                                        </div>';
+                                                    }
+                                                    
+                                                    echo '
 
                                                     <div class="form-group col-12 m-0">
                                                         <hr/>

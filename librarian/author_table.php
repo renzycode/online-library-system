@@ -185,8 +185,24 @@ include_once 'includes/header.php';
                         <tr>
                             <td class="border-tr">'.$author['author_id'].'</td>
                             <td class="border-tr">'.$author['author_fname'].'</td>
-                            <td class="border-tr">'.$author['author_lname'].'</td>
-                            <td class="border-tr">test</td>
+                            <td class="border-tr">'.$author['author_lname'].'</td>';
+                            $sql = 'SELECT * FROM catalog_table WHERE catalog_author LIKE \'%'.$author['author_id'].'%\' ORDER BY catalog_author';
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute();
+                            $catalogs= $statement->fetchAll();
+
+                            $catalogs_written = '';
+                            foreach($catalogs as $catalog){
+                                if(empty($catalogs_written)){
+                                    $catalogs_written = $catalogs_written.$catalog['catalog_book_title'];
+                                }
+                                else{
+                                    $catalogs_written = $catalogs_written.','.$catalog['catalog_book_title'];
+                                }
+                                
+                            }
+                            echo '
+                            <td class="border-tr">'.$catalogs_written.'</td>
                             <td class="border-tr">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalEdit'.$author['author_id'].'"> Edit
