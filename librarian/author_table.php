@@ -201,8 +201,59 @@ include_once 'includes/header.php';
                                 }
                                 
                             }
+                            $catalogs_written_list = preg_split("/\,/", $catalogs_written);
                             echo '
-                            <td class="border-tr">'.$catalogs_written.'</td>
+                            <td class="border-tr">
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#modalViewBooks'.$author['author_id'].'">
+                            View Books Written
+                            </button>
+                            <!-- view modal -->
+                            <div class="modal fade" id="modalViewBooks'.$author['author_id'].'" tabindex="-1"
+                                aria-labelledby="" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="">Books Written</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Catalog Book Title</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                ';
+                                                $num = 1;
+                                                foreach($catalogs_written_list as $data){
+                                                    echo '
+                                                    <tr>
+                                                        <th scope="row">'.$num.'</th>
+                                                        <td>'.$data.'</td>
+                                                    </tr>
+                                                    ';
+                                                    $num++;
+                                                }
+                                                
+                                                echo '
+                                                </tbody>
+                                            </table>
+                                            
+                                        </div>
+                                        <input type="hidden" name="author_id" value="'.$author['author_id'].'">
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end view modal -->
+                            </td>
                             <td class="border-tr">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#modalEdit'.$author['author_id'].'"> Edit

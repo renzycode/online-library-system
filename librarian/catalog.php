@@ -464,6 +464,108 @@ include_once 'includes/header.php';
                                                 }
                                             echo '
                                             `);
+                                        }else if(str==15){
+                                            $("#rendered_authors").html(`
+                                            ';
+                                                for($numi = 1; $numi <= 15; $numi++){
+                                                    echo '
+                                                    <div class="form-group col-2 mb-0">
+                                                        <label class="col-form-label">Author '.$numi.'
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist" name="catalog_author'.$numi.'" required>
+                                                        <datalist id="authors-list">
+                                                            '.$options.'
+                                                        </datalist>
+                                                    </div>';
+                                                }
+                                            echo '
+                                            `);
+                                        }else if(str==16){
+                                            $("#rendered_authors").html(`
+                                            ';
+                                                for($numi = 1; $numi <= 16; $numi++){
+                                                    echo '
+                                                    <div class="form-group col-2 mb-0">
+                                                        <label class="col-form-label">Author '.$numi.'
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist" name="catalog_author'.$numi.'" required>
+                                                        <datalist id="authors-list">
+                                                            '.$options.'
+                                                        </datalist>
+                                                    </div>';
+                                                }
+                                            echo '
+                                            `);
+                                        }else if(str==17){
+                                            $("#rendered_authors").html(`
+                                            ';
+                                                for($numi = 1; $numi <= 17; $numi++){
+                                                    echo '
+                                                    <div class="form-group col-2 mb-0">
+                                                        <label class="col-form-label">Author '.$numi.'
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist" name="catalog_author'.$numi.'" required>
+                                                        <datalist id="authors-list">
+                                                            '.$options.'
+                                                        </datalist>
+                                                    </div>';
+                                                }
+                                            echo '
+                                            `);
+                                        }else if(str==18){
+                                            $("#rendered_authors").html(`
+                                            ';
+                                                for($numi = 1; $numi <= 18; $numi++){
+                                                    echo '
+                                                    <div class="form-group col-2 mb-0">
+                                                        <label class="col-form-label">Author '.$numi.'
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist" name="catalog_author'.$numi.'" required>
+                                                        <datalist id="authors-list">
+                                                            '.$options.'
+                                                        </datalist>
+                                                    </div>';
+                                                }
+                                            echo '
+                                            `);
+                                        }else if(str==19){
+                                            $("#rendered_authors").html(`
+                                            ';
+                                                for($numi = 1; $numi <= 19; $numi++){
+                                                    echo '
+                                                    <div class="form-group col-2 mb-0">
+                                                        <label class="col-form-label">Author '.$numi.'
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist" name="catalog_author'.$numi.'" required>
+                                                        <datalist id="authors-list">
+                                                            '.$options.'
+                                                        </datalist>
+                                                    </div>';
+                                                }
+                                            echo '
+                                            `);
+                                        }else if(str==20){
+                                            $("#rendered_authors").html(`
+                                            ';
+                                                for($numi = 1; $numi <= 20; $numi++){
+                                                    echo '
+                                                    <div class="form-group col-2 mb-0">
+                                                        <label class="col-form-label">Author '.$numi.'
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist" name="catalog_author'.$numi.'" required>
+                                                        <datalist id="authors-list">
+                                                            '.$options.'
+                                                        </datalist>
+                                                    </div>';
+                                                }
+                                            echo '
+                                            `);
                                         }else{
                                             $("#rendered_authors").html(``);
                                         }
@@ -688,7 +790,7 @@ include_once 'includes/header.php';
                                                             if(empty($author_names)){
                                                                 $author_names = $author_names.$author_name['author_fname'].' '.$author_name['author_lname'];
                                                             }else{
-                                                                $author_names = $author_names.','.$author_name['author_fname'].' '.$author_name['author_lname'];
+                                                                $author_names = $author_names.', '.$author_name['author_fname'].' '.$author_name['author_lname'];
                                                             }
                                                         }else{
                                                             $author_names = $author_names;
@@ -1022,22 +1124,545 @@ include_once 'includes/header.php';
                                                     <div class="form-group col-12 m-0">
                                                         <hr/>
                                                     </div>';
-                                                    
-                                                    $authors = preg_split("/\,/", $catalog['catalog_author']);
 
-                                                    foreach($authors as $author){
-                                                        echo '
-                                                    
-                                                        <div class="form-group col-3 mb-0">
-                                                            <label class="col-form-label">Wala pa na edit Author 1
-                                                            <span class="text-danger"><em>(required)</em></span>
-                                                            </label>
-                                                            <input type="text" name="catalog_author"
-                                                                class="form-control border-dark border" value="'.$author.'" required/>
-                                                        </div>';
-                                                    }
-                                                    
+                                                        $sql = 'SELECT * FROM author_table ORDER BY author_fname';
+                                                        $statement = $pdo->prepare($sql);
+                                                        $statement->execute();
+                                                        $authors = $statement->fetchAll();
+
+                                                        
+
                                                     echo '
+                                                    <div class="form-group col-12 mb-0">
+                                                        <label class="col-form-label">Number of Authors
+                                                            <span class="text-danger"><em>(required)</em></span>
+                                                        </label>
+                                                        <select class="form-select col-2 border-dark border" aria-label="select example" id="no_of_authors2'.$number.'">';
+                                                                $no_authors = preg_split("/\,/", $catalog['catalog_author']);
+                                                                for($num = 1; $num <= 20; $num++){
+                                                                    if(count($no_authors)==$num){
+                                                                        echo '
+                                                                        <option value="'.$num.'" selected>'.$num.'</option>
+                                                                        ';
+                                                                    }else{
+                                                                        echo '
+                                                                        <option value="'.$num.'">'.$num.'</option>
+                                                                        ';
+                                                                    }
+                                                                }
+                                                                
+                                                            echo '
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="row" id="rendered_authors2'.$number.'">
+
+                                                    </div>
+
+
+                                                    <script>
+                                                    $(document).ready(function() {
+                                                        ';
+                                                            $options = '';
+                                                            foreach($authors as $author){
+                                                                $author_full_name = $author['author_fname'].' '.$author['author_lname'];
+                                                                $author_id = $author['author_id'];
+                                                                $options = $options.'<option value="'.$author_id.'">'.$author_full_name.'</option>';
+                                                                
+                                                            }
+                                                            
+                                                            $authors = preg_split("/\,/", $catalog['catalog_author']);
+
+                                                            echo '
+                                                            $("#no_of_authors2'.$number.'")
+                                                                .on("change", function() {
+                                                                    var str = "";
+                                                                    $("#no_of_authors2'.$number.' option:selected").each(function() {
+                                                                        str += $(this).text() + " ";
+                                                                    });
+                                                                    if(str==1){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 1; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'"
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '"
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==2){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 2; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '"
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==3){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 3; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'"
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==4){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 4; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==5){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 5; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==6){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 6; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'"
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==7){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 7; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==8){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 8; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==9){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 9; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==10){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 10; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==11){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 11; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==12){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 12; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalis2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==13){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 13; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==14){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 14; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==15){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 15; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==16){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 16; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==17){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 17; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==18){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 18; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==19){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 19; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else if(str==20){
+                                                                        $("#rendered_authors2'.$number.'").html(`
+                                                                        ';
+                                                                            for($numi = 1; $numi <= 20; $numi++){
+                                                                                echo '
+                                                                                <div class="form-group col-2 mb-0">
+                                                                                    <label class="col-form-label">Author '.$numi.'
+                                                                                        <span class="text-danger"><em>(required)</em></span>
+                                                                                    </label>
+                                                                                    <input type="text" class="form-control border-dark border" list="authors-list" id="input-datalist2" name="catalog_author'.$numi.'" 
+                                                                                    value="'; 
+                                                                                    if(isset($authors[$numi-1])){
+                                                                                        echo $authors[$numi-1];
+                                                                                    } 
+                                                                                    echo '" 
+                                                                                    required>
+                                                                                    <datalist id="authors-list">
+                                                                                        '.$options.'
+                                                                                    </datalist>
+                                                                                </div>';
+                                                                            }
+                                                                        echo '
+                                                                        `);
+                                                                    }else{
+                                                                        $("#rendered_authors2'.$number.'").html(``);
+                                                                    }
+                                                                    
+                                                                })
+                                                                .trigger("change");';
+                                                        echo '
+                                                    });
+                                                    ';
+                                                    $sql = 'SELECT * FROM author_table ORDER BY author_fname';
+                                                    $statement = $pdo->prepare($sql);
+                                                    $statement->execute();
+                                                    $authors = $statement->fetchAll();
+                                                    
+                                                    
+
+                                                    echo '
+                                                    document.addEventListener("DOMContentLoaded", e => {
+                                                        $("#input-datalist2'.$number.'").autocomplete()
+                                                    }, false);
+
+                                                    </script>
+
 
                                                     <div class="form-group col-12 m-0">
                                                         <hr/>

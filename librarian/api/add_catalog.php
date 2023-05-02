@@ -26,7 +26,7 @@ try {
                 }
             }else{
                 if(isset($_POST['catalog_author'.$num])){
-                    $authors = $authors.','.$_POST['catalog_author'.$num];
+                    $authors = $authors.', '.$_POST['catalog_author'.$num];
                 }
             }
             

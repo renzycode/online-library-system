@@ -11,6 +11,23 @@ try {
         $statement->execute(array($_POST['book_id']));
         $fetched = $statement->fetch();
 
+
+        $authors = '';
+        for($num = 1; $num <= 20; $num++){
+            if($num==1){
+                if(isset($_POST['catalog_author'.$num])){
+                    $authors = $authors.$_POST['catalog_author'.$num];
+                }
+            }else{
+                if(isset($_POST['catalog_author'.$num])){
+                    $authors = $authors.', '.$_POST['catalog_author'.$num];
+                }
+            }
+            
+        }
+
+        $author_ids = preg_split("/\,/", $authors);
+
         if(isset($fetched['book_id'])){
             if(!empty($fetched)){
                 if($fetched['book_id']==$_POST['book_id']){
@@ -37,7 +54,7 @@ try {
                 
                     $statement->execute([
                         ':catalog_book_title' => $_POST['catalog_book_title'],
-                        ':catalog_author' => $_POST['catalog_author'],
+                        ':catalog_author' => $authors,
                         ':catalog_publisher' => $_POST['catalog_publisher'],
                         ':catalog_year' => $_POST['catalog_year'],
                         ':catalog_date_received' => $_POST['catalog_date_received'],
