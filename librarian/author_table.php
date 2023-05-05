@@ -63,10 +63,10 @@ include_once 'includes/header.php';
                     Error Add, RFID already used.
                 </div>
                 ';
-            }elseif($_GET['error']=='catalognumberexisting'){
+            }elseif($_GET['error']=='authoralready'){
                 echo '
                 <div class="alert alert-danger">
-                    Error Add, Catalog number already used.
+                    Error Add, Author already exist.
                 </div>
                 ';
             }else{
@@ -131,7 +131,7 @@ include_once 'includes/header.php';
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body row">
-
+                        <input type="hidden" name="librarian_id" value="<?php echo $librarian_id ?>">
                         <div class="form-group col-6 mb-0">
                             <label class="col-form-label">First Name
                                 <span class="text-danger"><em>(required)</em></span>
@@ -228,17 +228,33 @@ include_once 'includes/header.php';
                                                 </thead>
                                                 <tbody>
                                                 ';
-                                                $num = 1;
+                                                
+
+                                                $myArrays = array();
+                                                $num = 0;
+                                                $tempSelectedTitle = '';
                                                 foreach($catalogs_written_list as $data){
+                                                    if($tempSelectedTitle!=$data){
+                                                        $myArrays[$num] = [
+                                                            'catalog_book_title'=>$data,
+                                                            ];
+                                                    }
+                                                    $tempSelectedTitle=$data;
+                                                    $num++;
+                                                }
+
+
+                                                $num = 1;
+                                                foreach($myArrays as $array){
                                                     echo '
                                                     <tr>
                                                         <th scope="row">'.$num.'</th>
-                                                        <td>'.$data.'</td>
+                                                        <td>'.$array['catalog_book_title'].'</td>
                                                     </tr>
                                                     ';
                                                     $num++;
                                                 }
-                                                
+
                                                 echo '
                                                 </tbody>
                                             </table>

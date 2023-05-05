@@ -34,14 +34,36 @@ try {
 
         $author_ids = preg_split("/\,/", $authors);
         
+        //check duplicate id
+        if (count($author_ids, SORT_REGULAR) != count(array_unique($author_ids, SORT_REGULAR))){
+            redirectURL('../catalog.php?add=error&error=duplicateauthorid');
+            exit();
+        }
+
+        foreach($author_ids as $author_id){
+            $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array($author_id));
+            $check_author = $statement->fetch();
+
+            if(!isset($check_author['author_id'])){
+                redirectURL('../catalog.php?add=error&error=authoridnotfound');
+                exit();
+            }
+
+            if(empty($check_author['author_id'])){
+                redirectURL('../catalog.php?add=error&error=authoridnotfound');
+                exit();
+            }
+        }
 
 
         if(empty($_POST['rfid_code'])){
             $sql = 'INSERT INTO catalog_table(
+                librarian_id,
                 rfid_code,
                 catalog_number,
                 catalog_book_title,
-                catalog_author,
                 catalog_publisher,
                 catalog_year,
                 catalog_date_received,
@@ -57,10 +79,10 @@ try {
                 catalog_status
                 ) 
             VALUES(
+                :librarian_id,
                 :rfid_code,
                 :catalog_number,
                 :catalog_book_title,
-                :catalog_author,
                 :catalog_publisher,
                 :catalog_year,
                 :catalog_date_received,
@@ -79,10 +101,10 @@ try {
             $statement = $pdo->prepare($sql);
         
             $statement->execute([
+                ':librarian_id' => $_POST['librarian_id'],
                 ':rfid_code' => $_POST['rfid_code'],
                 ':catalog_number' => $_POST['catalog_number'],
                 ':catalog_book_title' => $_POST['catalog_book_title'],
-                ':catalog_author' => $authors,
                 ':catalog_publisher' => $_POST['catalog_publisher'],
                 ':catalog_year' => $_POST['catalog_year'],
                 ':catalog_date_received' => $_POST['catalog_date_received'],
@@ -97,7 +119,20 @@ try {
                 ':catalog_copyright_date' => $_POST['catalog_copyright_date'],
                 ':catalog_status' => $_POST['catalog_status']
             ]);
+
+            $sql = "SELECT MAX(book_id) as max_id FROM catalog_table";
+            $statement = $pdo->prepare($sql);
+            $statement->execute();
+            $fetched = $statement->fetch();
     
+            for($num = 1; $num <= 20; $num++){
+                if(!empty($_POST['catalog_author'.$num])){
+                    $sql = 'INSERT INTO author_book_bridge_table (author_id, book_id) VALUES (?,?)';
+                    $statement = $pdo->prepare($sql);
+                    $statement->execute(array($_POST['catalog_author'.$num],$fetched['max_id']));
+                }
+            }
+            
             redirectURL('../catalog.php?add=success');
             exit();
         
@@ -114,10 +149,10 @@ try {
             }
         }else{
             $sql = 'INSERT INTO catalog_table(
+                :librarian_id
                 rfid_code,
                 catalog_number,
                 catalog_book_title,
-                catalog_author,
                 catalog_publisher,
                 catalog_year,
                 catalog_date_received,
@@ -133,10 +168,10 @@ try {
                 catalog_status
                 ) 
             VALUES(
+                :librarian_id,
                 :rfid_code,
                 :catalog_number,
                 :catalog_book_title,
-                :catalog_author,
                 :catalog_publisher,
                 :catalog_year,
                 :catalog_date_received,
@@ -155,10 +190,10 @@ try {
             $statement = $pdo->prepare($sql);
         
             $statement->execute([
+                ':librarian_id' => $_POST['librarian_id'],
                 ':rfid_code' => $_POST['rfid_code'],
                 ':catalog_number' => $_POST['catalog_number'],
                 ':catalog_book_title' => $_POST['catalog_book_title'],
-                ':catalog_author' => $authors,
                 ':catalog_publisher' => $_POST['catalog_publisher'],
                 ':catalog_year' => $_POST['catalog_year'],
                 ':catalog_date_received' => $_POST['catalog_date_received'],

@@ -121,20 +121,7 @@ if($hours<0){
                     <div class="form-group col-12 mb-1">
                         <div class="row">
 
-                            <form action="">
-                                <div class="form-group col-12 mb-1 border pb-3">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <label for="bookNumber" class="col-form-label">
-                                                Book ID <span class="text-danger"><em>(book to be copied)
-                                                        (required)</em></span></label>
-                                            <input type="text" name="book_id" class="form-control col-6" id="book1"
-                                                required />
-                                            <button type="submit" class="btn btn-success mt-2">Submit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            
 
                             <form action="api/clone_catalog.php" method="post">
                                 <?php
@@ -189,7 +176,7 @@ if($hours<0){
                                         echo '
                                         <div class="row mx-1">
                                             <div class="col-12 mb-0 mt-3">
-                                                <div class="alert alert-danger py-2 mb-2">There is no pending transaction for this book.</div>
+                                                <div class="alert alert-danger py-2 mb-2">No book found.</div>
                                             </div>
                                         </div>
                                         ';
@@ -271,72 +258,72 @@ if($hours<0){
                                                     value="<?php echo $data['catalog_date_received'] ?>" readonly
                                                     disabled />
                                             </div>
-                                            <div class="col-6">
+                                            <!--div class="col-6">
                                                 <label class="col-form-label">
                                                     Class</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_class'] ?>" readonly disabled />
+                                                    value="<?php //echo $data['catalog_class'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Edition</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_edition'] ?>" readonly disabled />
+                                                    value="<?php //echo $data['catalog_edition'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Volumes</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_volumes'] ?>" readonly disabled />
+                                                    value="<?php //echo $data['catalog_volumes'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Pages</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_pages'] ?>" readonly disabled />
+                                                    value="<?php //echo $data['catalog_pages'] ?>" readonly disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Source of Fund</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_source_of_fund'] ?>" readonly
+                                                    value="<?php //echo $data['catalog_source_of_fund'] ?>" readonly
                                                     disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Cost Price</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_cost_price'] ?>" readonly
+                                                    value="<?php //echo $data['catalog_cost_price'] ?>" readonly
                                                     disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Location Symbol</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_location_symbol'] ?>" readonly
+                                                    value="<?php //echo $data['catalog_location_symbol'] ?>" readonly
                                                     disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Class Number</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_class_number'] ?>" readonly
+                                                    value="<?php //echo $data['catalog_class_number'] ?>" readonly
                                                     disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Author Number</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_author_number'] ?>" readonly
+                                                    value="<?php //echo $data['catalog_author_number'] ?>" readonly
                                                     disabled />
                                             </div>
                                             <div class="col-6">
                                                 <label class="col-form-label">
                                                     Copyright Date</label>
                                                 <input type="text" class="form-control"
-                                                    value="<?php echo $data['catalog_copyright_date'] ?>" readonly
+                                                    value="<?php //echo $data['catalog_copyright_date'] ?>" readonly
                                                     disabled />
-                                            </div>
+                                            </div-->
                                             <div class="col-6">
                                                 <label class="col-form-label">Status</label>
                                                 <select class="form-select" aria-label="" name="catalog_status">
