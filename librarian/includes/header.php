@@ -81,7 +81,7 @@
             </li>
 
             <!-- nav item transaction -->
-            <li
+            <!--li
                 <?php
                     if($active == 'transaction'){ 
                         echo 'class="nav-item active"';

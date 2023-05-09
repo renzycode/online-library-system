@@ -20,7 +20,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);  //--> Create MFRC522 instance.
 const char* ssid = "Sappy";
 const char* password = "Avrenim123";
 
-const char* urlpath = "http://192.168.1.104/online-library-system/librarian/rfid/getRfidCode.php";
+const char* urlpath = "http://192.168.1.106/online-library-system/librarian/rfid/getRfidCode.php";
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
@@ -83,7 +83,7 @@ void loop() {
     postData = "rfidCode=" + UIDresultSend;
 
 
-    http.begin(urlpath);  //Specify request destination
+    http.begin("http://192.168.1.106/online-library-system/librarian/rfid/getRfidCode.php");  //Specify request destination
     http.addHeader("Content-Type", "application/x-www-form-urlencoded"); //Specify content-type header
 
     int httpCode = http.POST(postData);   //Send the request

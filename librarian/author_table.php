@@ -20,7 +20,7 @@ if(isset($_SESSION["authen"])){
 
 include_once 'includes/header.php';
 
-        $sql = 'SELECT * FROM author_table ORDER BY author_fname';
+        $sql = 'SELECT * FROM author_table ORDER BY author_fullname';
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $authors = $statement->fetchAll();
@@ -171,8 +171,7 @@ include_once 'includes/header.php';
                 <thead class="border">
                     <tr>
                         <th scope="col">Author ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">First Name</th>
+                        <th scope="col">Full Name</th>
                         <th scope="col">Books Written</th>
                         <th scope="col">Edit All Copies</th>
                         <th scope="col">Delete</th>
@@ -184,15 +183,22 @@ include_once 'includes/header.php';
                         echo '
                         <tr>
                             <td class="border-tr">'.$author['author_id'].'</td>
-                            <td class="border-tr">'.$author['author_fname'].'</td>
-                            <td class="border-tr">'.$author['author_lname'].'</td>';
-                            $sql = 'SELECT * FROM catalog_table WHERE catalog_author LIKE \'%'.$author['author_id'].'%\' ORDER BY catalog_author';
-                            $statement = $pdo->prepare($sql);
-                            $statement->execute();
-                            $catalogs= $statement->fetchAll();
+                            <td class="border-tr">'.$author['author_fullname'].'</td>
+                            ';
 
+                            //fetch author ids in author book bridge table
+                            $sql = 'SELECT * FROM author_book_bridge_table WHERE author_id = ? ';
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($author['author_id']));
+                            $author_book_ids= $statement->fetchAll();
+
+                            //create array with catalog titles
                             $catalogs_written = '';
-                            foreach($catalogs as $catalog){
+                            foreach($author_book_ids as $author_book_id){
+                                $sql = 'SELECT * FROM catalog_table WHERE book_id = ? ';
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($author_book_id['book_id']));
+                                $catalog = $statement->fetch();
                                 if(empty($catalogs_written)){
                                     $catalogs_written = $catalogs_written.$catalog['catalog_book_title'];
                                 }
@@ -202,6 +208,7 @@ include_once 'includes/header.php';
                                 
                             }
                             $catalogs_written_list = preg_split("/\,/", $catalogs_written);
+                            
                             echo '
                             <td class="border-tr">
                             <button type="button" class="btn btn-info" data-bs-toggle="modal"
@@ -289,18 +296,10 @@ include_once 'includes/header.php';
                                                 <input type="hidden" name="author_id" value="'.$author['author_id'].'" required>
                                                     <div class="form-group row">
                                                         <div class="col-12">
-                                                            <label class="col-form-label">First Name
+                                                            <label class="col-form-label">Full Name
                                                                 <span class="text-danger"><em>(required)</em></span>
                                                             </label>
-                                                            <input type="text" name="author_fname" class="form-control border-dark border" value="'.$author['author_fname'].'" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="col-12">
-                                                            <label class="col-form-label">First Name
-                                                                <span class="text-danger"><em>(required)</em></span>
-                                                            </label>
-                                                            <input type="text" name="author_lname" class="form-control border-dark border" value="'.$author['author_lname'].'" required>
+                                                            <input type="text" name="author_fullname" class="form-control border-dark border" value="'.$author['author_fullname'].'" required>
                                                         </div>
                                                     </div>
                                                 </div>

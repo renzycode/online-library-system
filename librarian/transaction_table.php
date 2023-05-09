@@ -169,14 +169,37 @@ include_once 'includes/header.php';
                                                         $statement->execute(array($transaction['book_id']));
                                                         $book = $statement->fetch();
 
+                                                        $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ?';
+                                                        $statement = $pdo->prepare($sql);
+                                                        $statement->execute(array($transaction['book_id']));
+                                                        $book_ids = $statement->fetchAll();
+                                                        
+                                                        $author_names = '';
+
+                                                        foreach($book_ids as $book_id){
+                                                            if(empty($author_names)){
+                                                                $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                                                $statement = $pdo->prepare($sql);
+                                                                $statement->execute(array($book_id['author_id']));
+                                                                $author = $statement->fetch();
+                                                                $author_names = $author_names.$author['author_fullname'];
+                                                            }else{
+                                                                $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                                                $statement = $pdo->prepare($sql);
+                                                                $statement->execute(array($book_id['author_id']));
+                                                                $author = $statement->fetch();
+                                                                $author_names = $author_names.', '.$author['author_fullname'];
+                                                            }
+                                                        }
+
                                                             echo '
                                                             <div class="form-group col-12 mb-1">
                                                                 <div class="row">
 
-                                                                    <div class="col-6">
+                                                                    <!--div class="col-6">
                                                                         <label class="col-form-label"> Book ID </label>
                                                                         <input type="text" class="form-control" value="'.$book['book_id'].'">
-                                                                    </div>
+                                                                    </div-->
 
                                                                     <div class="col-6">
                                                                         <label class="col-form-label"> Catalog Number </label>
@@ -188,9 +211,9 @@ include_once 'includes/header.php';
                                                                         <input type="text" class="form-control" value="'.$book['catalog_book_title'].'">
                                                                     </div>
 
-                                                                    <div class="col-6">
-                                                                        <label class="col-form-label"> Author </label>
-                                                                        <input type="text" class="form-control" value="'.$book['catalog_author'].'">
+                                                                    <div class="col-12">
+                                                                        <label class="col-form-label"> Authors </label>
+                                                                        <input type="text" class="form-control" value="'.$author_names.'">
                                                                     </div>
 
                                                                     <div class="col-6">

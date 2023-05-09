@@ -27,27 +27,6 @@ try {
             exit();
         }
 
-        date_default_timezone_set("Asia/Hong_Kong");
-
-        $dueDateTime = strtotime($_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time'])));
-        $borrowDateTime = strtotime($_POST['borrow_date'].' '.date("g:i a", strtotime($_POST['borrow_time'])));
-        
-        $dueDateTimeConverted = date("Y-m-d H:i", $dueDateTime);
-        $borrowDateTimeConverted = date("Y-m-d H:i", $borrowDateTime);
-        
-        $due_date_time=strtotime($dueDateTimeConverted);
-        $borrow_date_time=strtotime($borrowDateTimeConverted);
-        
-        $difference=$borrow_date_time-$due_date_time;
-        
-        $hours=($difference / 3600);
-        $days=($hours/24);
-
-        if($days>=0){
-            redirectURL('../transaction.php?add=error&error=duedatetime2');
-            exit();
-        }
-
         $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ? AND borrower_status = "rejected"';
         $statement = $pdo->prepare($sql);
         $statement->execute(array($_POST['borrower_id']));
@@ -96,7 +75,7 @@ try {
                     $_POST['librarian_id'],
                     $_POST['borrower_id'],
                     $_POST['book_id'],
-                    $_POST['borrow_date'].' '.date("g:i a", strtotime($_POST['borrow_time'])),
+                    date("Y-m-d g:i a", strtotime(date("Y-m-d g:i a"))),
                     $due_date,
                     '------',
                     '------',
@@ -173,15 +152,15 @@ try {
                 - onlinelibrarysystem001@gmail.com
                 ';
                 if($mail->send()){
-                    redirectURL('../transaction.php?add=success');
+                    redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=success');
                     exit();
                 }else{
-                    redirectURL('../transaction.php?add=error&mailer=error');
+                    redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error&mailer=error');
                     exit();
                 }
 
     
-                redirectURL('../transaction.php?add=success');
+                redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=success');
                 exit();
             }
             
@@ -189,14 +168,14 @@ try {
         
         }else{
             printInConsole('add transaction error!');
-            redirectURL('../transaction.php?add=error&error=borrower');
+            redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error&error=borrower');
             exit();
         }
 
         
     }else{
         printInConsole('add transaction error!');
-        redirectURL('../transaction.php?add=error');
+        redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error');
         exit();
     }
 } catch (Exception $e) {

@@ -40,7 +40,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
 
 }else{
     $search = '';
-
+ 
     if(!isset($_GET['sort_by'])){
         echo '<script> window.location.href = "index.php?sort_by=title"; </script>';
     }else{
@@ -69,9 +69,30 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     $tempSelectedTitle = '';
     foreach($catalogs as $catalog){
         if($tempSelectedTitle!=$catalog['catalog_book_title']){
+            $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array($catalog['book_id']));
+            $bridge_catalogs = $statement->fetchAll();
+
+            $authors = '';
+            foreach($bridge_catalogs as $bridge_catalog){
+                $sql = "SELECT * FROM author_table WHERE author_id = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($bridge_catalog['author_id']));
+                $author_fetched = $statement->fetch();
+
+                if(empty($authors)){
+                    
+                    $authors = $authors.$author_fetched['author_fullname'];
+                }else{
+                    $authors = $authors.','.$author_fetched['author_fullname'];
+                }
+                
+            }
+
             $myArrays[$num] = [
                 'catalog_book_title'=>$catalog['catalog_book_title'],
-                'catalog_author'=>$catalog['catalog_author'],
+                'catalog_author'=> $authors,
                 'catalog_publisher'=>$catalog['catalog_publisher'],
                 'catalog_year'=>$catalog['catalog_year']
                 ];
@@ -79,7 +100,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
         $tempSelectedTitle=$catalog['catalog_book_title'];
         $num++;
     }
-
 
 }
 
@@ -235,7 +255,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                 <th scope="col">#</th>
                                 <th scope="col">Book Title</th>
                                 <th scope="col">Author</th>
-                                <th scope="col">Publisher</th>
                                 <th scope="col">Year</th>
                                 <th scope="col">Available</th>
                             </tr>
@@ -263,7 +282,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                     <td>'.$number.'</td>
                                     <td>'.$myArray["catalog_book_title"].'</td>
                                     <td>'.$myArray["catalog_author"].'</td>
-                                    <td>'.$myArray["catalog_publisher"].'</td>
                                     <td>'.$myArray["catalog_year"].'</td>
                                     <td>'.$available.'/'.$all.'</td>
                                 </tr>
@@ -363,11 +381,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                         </th>
                         <th scope="col">
                             <div class="d-flex justify-content-between">
-                                <div class="text-dark">Publisher</div>
-                            </div>
-                        </th>
-                        <th scope="col">
-                            <div class="d-flex justify-content-between">
                                 <div class="text-dark">Year</div>
                             </div>
                         </th>
@@ -400,7 +413,6 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                                 <td>'.$number.'</td>
                                 <td>'.$myArray["catalog_book_title"].'</td>
                                 <td>'.$myArray["catalog_author"].'</td>
-                                <td>'.$myArray["catalog_publisher"].'</td>
                                 <td>'.$myArray["catalog_year"].'</td>
                                 <td>'.$available.'/'.$all.'</td>
                             </tr>

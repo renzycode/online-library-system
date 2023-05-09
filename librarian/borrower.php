@@ -24,19 +24,19 @@ include_once 'includes/header.php';
     }else{
         $borrower = $_GET['borrower'];
         if($_GET['borrower']=='pending'){
-            $sql = 'SELECT * FROM borrower_table WHERE borrower_status="pending"; ';
+            $sql = 'SELECT * FROM borrower_table WHERE borrower_status="pending" ORDER BY borrower_fname; ';
             $statement = $pdo->prepare($sql);
             $statement->execute();
             $pending_borrowers = $statement->fetchAll();
         }
         if($_GET['borrower']=='accepted'){
-            $sql = 'SELECT * FROM borrower_table WHERE borrower_status="accepted"; ';
+            $sql = 'SELECT * FROM borrower_table WHERE borrower_status="accepted" ORDER BY borrower_fname; ';
             $statement = $pdo->prepare($sql);
             $statement->execute();
             $accepted_borrowers = $statement->fetchAll();
         }
         if($_GET['borrower']=='rejected'){
-            $sql = 'SELECT * FROM borrower_table WHERE borrower_status="rejected"; ';
+            $sql = 'SELECT * FROM borrower_table WHERE borrower_status="rejected" ORDER BY borrower_fname; ';
             $statement = $pdo->prepare($sql);
             $statement->execute();
             $rejected_borrowers = $statement->fetchAll();
@@ -309,9 +309,9 @@ include_once 'includes/header.php';
                     <table class="table table-bordered">
                         <thead class="border">
                             <tr>
-                                <th scope="col">No.</th>
+                                <th scope="col">#</th>
                                 <!--th scope="col">Id Picture</th-->
-                                <th scope="col">Borrower Id</th>
+                                <!--th scope="col">Borrower Id</th-->
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
                                 <th scope="col">Address</th>
@@ -329,7 +329,7 @@ include_once 'includes/header.php';
                                 echo '
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>'.$pending['borrower_id'].'</td>
+                                    <!--td>'.$pending['borrower_id'].'</td-->
                                     <td>'.$pending['borrower_fname'].'</td>
                                     <td>'.$pending['borrower_lname'].'</td>
                                     <td>'.$pending['borrower_address'].'</td>
@@ -421,14 +421,14 @@ include_once 'includes/header.php';
                     <table class="table table-bordered">
                         <thead class="border">
                             <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Borrower Id</th>
+                                <th scope="col">#</th>
+                                <!--th scope="col">Borrower Id</th-->
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">Contact</th>
                                 <th scope="col">Email</th>
-                                <!--th scope="col">Borrowed Books</th-->
+                                <th scope="col">Borrow</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
@@ -441,14 +441,13 @@ include_once 'includes/header.php';
                                 echo '
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>'.$accepted['borrower_id'].'</td>
+                                    <!--td>'.$accepted['borrower_id'].'</td-->
                                     <td>'.$accepted['borrower_fname'].'</td>
                                     <td>'.$accepted['borrower_lname'].'</td>
                                     <td>'.$accepted['borrower_address'].'</td>
                                     <td>'.$accepted['borrower_contact'].'</td>
                                     <td>'.$accepted['borrower_email'].'</td>
-                                    <!--td>'.$accepted['borrowed_books'].'</td-->
-
+                                    <td><a href="transaction.php?borrower='.$accepted['borrower_id'].'" class="btn btn-success"> Borrow </a></td>
                                     <td>
                                         <!-- reject modal button -->
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit'.$number.'">
@@ -584,8 +583,8 @@ include_once 'includes/header.php';
                     <table class="table table-bordered" id="example">
                         <thead class="table-bordered">
                             <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Borrower Id</th>
+                                <th scope="col">#</th>
+                                <!--th scope="col">Borrower Id</th-->
                                 <th scope="col">First Name</th>
                                 <th scope="col">Last Name</th>
                                 <th scope="col">Address</th>
@@ -602,7 +601,7 @@ include_once 'includes/header.php';
                                 echo'
                                 <tr>
                                     <td>'.$number.'</td>
-                                    <td>'.$rejected['borrower_id'].'</td>
+                                    <!--td>'.$rejected['borrower_id'].'</td-->
                                     <td>'.$rejected['borrower_fname'].'</td>
                                     <td>'.$rejected['borrower_lname'].'</td>
                                     <td>'.$rejected['borrower_address'].'</td>

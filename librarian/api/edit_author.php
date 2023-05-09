@@ -8,13 +8,12 @@ try {
     
 
         $sql = 'UPDATE author_table SET 
-        author_fname = ?,
-        author_lname = ?
+        author_fullname = ?
         WHERE author_id = ? ';
     
         $statement = $pdo->prepare($sql);
     
-        $statement->execute(array($_POST['author_fname'],$_POST['author_lname'],$_POST['author_id']));
+        $statement->execute(array($_POST['author_fullname'],$_POST['author_id']));
 
         printInConsole('author Edited Successfully!');
         redirectURL('../author_table.php?edit=success');

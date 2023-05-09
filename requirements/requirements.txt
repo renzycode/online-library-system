@@ -1,0 +1,10 @@
+Install the Arduino IDE
+open the Arduino IDE from the desktop icon
+Click on File tab and than open preferences
+In the additional Boards Manager URLs add the following link 
+
+(http://arduino.esp8266.com/stable/package_esp8266com_index.json)
+
+ and click OK
+Goto Tools>Borads>Boards Manager
+In the search field type esp8266 click the esp8266 by ESP8266 Community option and click Install

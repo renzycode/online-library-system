@@ -37,11 +37,16 @@
 <!---------------->
 
 <div class="m-4">
+    <h2 class="mb-4 text-dark">
+        <a type="button" class="btn btn-secondary" href="borrower.php?borrower=accepted">
+            Go Back
+        </a>
+    </h2>
     <div class="row">
         <div class="form col-12 mb-4">
             <div class="border-left-primary border-top border-right border-bottom p-3 shadow rounded">
                 <form action="api/add_transaction.php" method="POST">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Borrow</h5>
                     <hr>
 
                     <?php
@@ -134,15 +139,34 @@
                     <div class="row">
                         <?php
                             echo '<input type="hidden" name="librarian_id" value="'.$librarian_id.'">';
+                            $sql = 'SELECT * FROM borrower_table WHERE borrower_id = ? AND borrower_status = "accepted"';
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($_GET['borrower']));
+                            $borrower = $statement->fetch();
                         ?>
 
                         <div class="form-group col-12 mb-1">
                             <div class="row">
-                                <div class="col-6 col-lg-2">
+                                <div class="col-6 col-lg-4">
                                     <label for="bookNumber" class="col-form-label">
-                                        Borrower ID <span class="text-danger">(required)</span></label>
-                                    <input type="text" name="borrower_id" class="form-control" required />
+                                        Borrower Name <span class="text-danger">(required)</span></label>
+                                    <input type="text" class="form-control" value="<?php echo $borrower['borrower_fname'].' '.$borrower['borrower_lname']; ?>" disabled/>
                                 </div>
+                            </div>
+                            <input type="hidden" name="borrower_id" value="<?php echo $_GET['borrower']; ?>">
+                        </div>
+                        <div class="form-group col-12 mb-1">
+                            <div class="row">
+                                <div class="col-6 col-lg-4">
+                                    <label for="bookNumber" class="col-form-label">
+                                        Borrower Email <span class="text-danger">(required)</span></label>
+                                    <input type="text" class="form-control" value="<?php echo $borrower['borrower_email']; ?>" disabled/>
+                                </div>
+                            </div>
+                            <input type="hidden" name="borrower_id" value="<?php echo $_GET['borrower']; ?>">
+                        </div>
+                        <div class="form-group col-12 mb-1">
+                            <div class="row">
                                 <div class="col-6 col-lg-2">
                                     <label for="bookNumber" class="col-form-label">
                                         Book ID <span class="text-danger">(required)</span></label>
@@ -156,15 +180,15 @@
 
                         <div class="form-group col-12 mb-1">
                             <label for="author" class="col-form-label">Borrow Date & Time <span
-                                    class="text-danger">(required)</span></label>
-                            <div class="row">
+                                    class="text-danger">(autodetect)</span></label>
+                            <!--div class="row">
                                 <div class="col-6 col-lg-2">
                                     <input type="date" name="borrow_date" class="form-control" required />
                                 </div>
                                 <div class="col-6 col-lg-2">
                                     <input type="time" name="borrow_time" class="form-control" required />
                                 </div>
-                            </div>
+                            </div-->
                         </div>
                         <div class="form-group col-12 mb-1">
                             <label for="author" class="col-form-label">Due Date & Time <span
@@ -243,7 +267,7 @@
             </div>
         </div>
 
-        <div class="borrower-table col-6">
+        <!--div class="borrower-table col-6">
             <div
                 class="table-responsive p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
                 <h5 class="modal-title" id="exampleModalLabel">List of Borrowers </h5>
@@ -254,30 +278,31 @@
                             <th scope="col">Borrower ID</th>
                             <th scope="col">Borrower Name</th>
                             <th scope="col">Borrower Email</th>
-                            <!--th scope="col">Action</th-->
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                                                    $number = 0;
-                                                    foreach ($borrowers as $borrower){
-                                                        $number++;
-                                                        echo '
-                                                            <tr>
-                                                                <td class="border-tr">'.$borrower['borrower_id'].'</td>
-                                                                <td class="border-tr">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
-                                                                <td class="border-tr">'.$borrower['borrower_email'].'</td>
-                                                            </tr>
+                        /*
+                            $number = 0;
+                            foreach ($borrowers as $borrower){
+                                $number++;
+                                echo '
+                                    <tr>
+                                        <td class="border-tr">'.$borrower['borrower_id'].'</td>
+                                        <td class="border-tr">'.$borrower['borrower_fname'].' '.$borrower['borrower_lname'].'</td>
+                                        <td class="border-tr">'.$borrower['borrower_email'].'</td>
+                                    </tr>
 
-                                                        ';
-                                                    }
-                                                    ?>
+                                ';
+                            }
+                            */
+                        ?>
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div-->
 
-        <div class="book-table col-6 ">
+        <div class="book-table col-12 ">
             <div class=" p-3 border-left-primary border-top border-right border-bottom p-3 shadow rounded">
                 <h5 class="modal-title" id="exampleModalLabel">List of Books </h5>
                 <hr>

@@ -5,7 +5,53 @@ include_once "../../includes/functions.php";
 
 try {
     if(isset($_POST['edit_catalog'])){
-    
+
+            $sql = 'DELETE FROM author_book_bridge_table WHERE book_id = ? ';
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array(
+                $_POST['book_id']
+            ));
+
+
+            //store all author names in array
+            $authors = '';
+            for($num = 1; $num <= 20; $num++){
+                if($num==1){
+                    if(isset($_POST['catalog_author'.$num])){
+                        $authors = $authors.$_POST['catalog_author'.$num];
+                    }
+                }else{
+                    if(isset($_POST['catalog_author'.$num])){
+                        $authors = $authors.','.$_POST['catalog_author'.$num];
+                    }
+                }
+                
+            }
+        $author_names = preg_split("/\,/", $authors);
+
+            //convert authornames to ids array
+            $author_ids_str = '';
+            foreach($author_names as $author_name){
+                $sql = 'SELECT * FROM author_table WHERE author_fullname = ? ';
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($author_name));
+                $author_fetched = $statement->fetch();
+                if(empty($author_ids_str)){
+                    $author_ids_str = $author_ids_str.$author_fetched['author_id'];
+                }else{
+                    $author_ids_str = $author_ids_str.', '.$author_fetched['author_id'];
+                }
+            }
+            $author_ids = preg_split("/\,/", $author_ids_str);
+
+            //store in bridge table
+            foreach($author_ids as $author_id){
+                $sql = 'INSERT INTO author_book_bridge_table (author_id, book_id) VALUES (?,?)';
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($author_id,$_POST['book_id']));
+            }
+
+
             $sql = 'UPDATE catalog_table SET 
             catalog_number = ?,
             catalog_book_title = ?,

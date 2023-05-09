@@ -187,7 +187,7 @@ include_once 'includes/header.php';
                         </div>
 
                         <?php
-                            $sql = 'SELECT * FROM author_table ORDER BY author_fname';
+                            $sql = 'SELECT * FROM author_table ORDER BY author_fullname';
                             $statement = $pdo->prepare($sql);
                             $statement->execute();
                             $authors = $statement->fetchAll();
@@ -217,9 +217,8 @@ include_once 'includes/header.php';
                             ';
                                 $options = '';
                                 foreach($authors as $author){
-                                    $author_full_name = $author['author_fname'].' '.$author['author_lname'];
-                                    $author_id = $author['author_id'];
-                                    $options = $options.'<option value="'.$author_id.'">'.$author_full_name.'</option>';
+                                    $author_full_name = $author['author_fullname'];
+                                    $options = $options.'<option value="'.$author_full_name.'">'.$author_full_name.'</option>';
                                     
                                 }
 
@@ -677,6 +676,7 @@ include_once 'includes/header.php';
                 <thead class="border">
                     <tr>
                         <!--th scope="col">Book ID</th-->
+                        <th scope="col">RFID Code</th>
                         <th scope="col">Catalog Number</th>
                         <th scope="col">Book Title</th>
                         <th scope="col">View More Info</th>
@@ -692,6 +692,7 @@ include_once 'includes/header.php';
                         $number++;
                         echo '
                         <tr>
+                            <td class="border-tr">'.$catalog['rfid_code'].'</td>
                             <td class="border-tr">'.$catalog['catalog_number'].'</td>
                             <td class="border-tr">'.$catalog['catalog_book_title'].'</td>
                             <td class="border-tr">
@@ -736,19 +737,23 @@ include_once 'includes/header.php';
                                                         $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ?';
                                                         $statement = $pdo->prepare($sql);
                                                         $statement->execute(array($catalog['book_id']));
-                                                        $authors = $statement->fetchAll();
+                                                        $book_ids = $statement->fetchAll();
                                                         
                                                         $author_names = '';
 
-                                                        foreach($authors as $author){
+                                                        foreach($book_ids as $book_id){
                                                             if(empty($author_names)){
                                                                 $sql = 'SELECT * FROM author_table WHERE author_id = ?';
                                                                 $statement = $pdo->prepare($sql);
-                                                                $statement->execute(array($author['author_id']));
+                                                                $statement->execute(array($book_id['author_id']));
                                                                 $author = $statement->fetch();
-                                                                $author_names = $author_names.$author['author_fname'].' '.$author['author_lname'];
+                                                                $author_names = $author_names.$author['author_fullname'];
                                                             }else{
-                                                                $author_names = $author_names.', '.$author['author_fname'].' '.$author['author_lname'];
+                                                                $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                                                $statement = $pdo->prepare($sql);
+                                                                $statement->execute(array($book_id['author_id']));
+                                                                $author = $statement->fetch();
+                                                                $author_names = $author_names.', '.$author['author_fullname'];
                                                             }
                                                         }
 
@@ -893,17 +898,33 @@ include_once 'includes/header.php';
                                                     </div>
                                                     
                                                     ';
-                                                        $sql = 'SELECT * FROM author_table ORDER BY author_fname';
+
+                                                    $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ?';
+                                                    $statement = $pdo->prepare($sql);
+                                                    $statement->execute(array($catalog['book_id']));
+                                                    $book_ids = $statement->fetchAll();
+                                                    
+                                                    $author_names = '';
+
+                                                    foreach($book_ids as $book_id){
+                                                        $sql = 'SELECT * FROM author_table WHERE author_id = ?';
                                                         $statement = $pdo->prepare($sql);
-                                                        $statement->execute();
-                                                        $authors = $statement->fetchAll();
+                                                        $statement->execute(array($book_id['author_id']));
+                                                        $author = $statement->fetch();
+                                                        if(empty($author_names)){
+                                                            $author_names = $author_names.$author['author_fullname'];
+                                                        }else{
+                                                            $author_names = $author_names.','.$author['author_fullname'];
+                                                        }
+                                                    }
+
                                                     echo '
                                                     <div class="form-group col-12 mb-0">
                                                         <label class="col-form-label">Number of Authors
                                                             <span class="text-danger"><em>(required)</em></span>
                                                         </label>
                                                         <select class="form-select col-2 border-dark border" aria-label="select example" id="no_of_authors2'.$number.'">';
-                                                                $no_authors = preg_split("/\,/", $catalog['catalog_author']);
+                                                                $no_authors = preg_split("/\,/", $author_names);
                                                                 for($num = 1; $num <= 20; $num++){
                                                                     if(count($no_authors)==$num){
                                                                         echo '
@@ -929,19 +950,19 @@ include_once 'includes/header.php';
                                                         $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ?';
                                                         $statement = $pdo->prepare($sql);
                                                         $statement->execute(array($catalog['book_id']));
-                                                        $authors = $statement->fetchAll();
-
+                                                        $book_ids = $statement->fetchAll();
+                                                        
                                                         $author_names = '';
 
-                                                        foreach($authors as $author){
+                                                        foreach($book_ids as $book_id){
+                                                            $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                                            $statement = $pdo->prepare($sql);
+                                                            $statement->execute(array($book_id['author_id']));
+                                                            $author = $statement->fetch();
                                                             if(empty($author_names)){
-                                                                $sql = 'SELECT * FROM author_table WHERE author_id = ?';
-                                                                $statement = $pdo->prepare($sql);
-                                                                $statement->execute(array($author['author_id']));
-                                                                $author = $statement->fetch();
-                                                                $author_names = $author_names.$author['author_fname'].' '.$author['author_lname'];
+                                                                $author_names = $author_names.$author['author_fullname'];
                                                             }else{
-                                                                $author_names = $author_names.', '.$author['author_fname'].' '.$author['author_lname'];
+                                                                $author_names = $author_names.','.$author['author_fullname'];
                                                             }
                                                         }
 
