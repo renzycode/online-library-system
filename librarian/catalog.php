@@ -676,9 +676,12 @@ include_once 'includes/header.php';
                 <thead class="border">
                     <tr>
                         <!--th scope="col">Book ID</th-->
-                        <th scope="col">RFID Code</th>
+
+                        <!--th scope="col">RFID Code</th>
                         <th scope="col">Catalog Number</th>
-                        <th scope="col">Book Title</th>
+                        <th scope="col">Book Title</th-->
+                        <th scope="col">Book Title, Edition, Author</th>
+                        <th scope="col">Status</th>
                         <th scope="col">View More Info</th>
                         <th scope="col">Edit</th>
                         <th scope="col">Clone Book</th>
@@ -690,11 +693,54 @@ include_once 'includes/header.php';
                     $number = 0;
                     foreach ($catalogs as $catalog){
                         $number++;
+                        $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ?';
+                        $statement = $pdo->prepare($sql);
+                        $statement->execute(array($catalog['book_id']));
+                        $book_ids = $statement->fetchAll();
+                        
+                        $author_names = '';
+
+                        foreach($book_ids as $book_id){
+                            if(empty($author_names)){
+                                $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($book_id['author_id']));
+                                $author = $statement->fetch();
+                                $author_names = $author_names.$author['author_fullname'];
+                            }else{
+                                $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($book_id['author_id']));
+                                $author = $statement->fetch();
+                                $author_names = $author_names.', '.$author['author_fullname'];
+                            }
+                        }
+                        $author_names_exploded = explode(',', $author_names)[0];
                         echo '
                         <tr>
-                            <td class="border-tr">'.$catalog['rfid_code'].'</td>
+                            <!--td class="border-tr">'.$catalog['rfid_code'].'</td>
                             <td class="border-tr">'.$catalog['catalog_number'].'</td>
-                            <td class="border-tr">'.$catalog['catalog_book_title'].'</td>
+                            <td class="border-tr">'.$catalog['catalog_book_title'].'</td-->
+                            ';
+                            if(empty($catalog['catalog_edition'])){
+                                echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
+                            }else{
+                                echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
+                            }
+                            echo'
+                            <td class="border-tr">
+                            ';
+                            if($catalog["catalog_status"]=="Available"){
+                                echo '
+                                    <span class="badge badge-success">'.$catalog["catalog_status"].' </span> 
+                                ';
+                            }else{
+                                echo '
+                                    <span class="badge badge-danger">'.$catalog["catalog_status"].' </span> 
+                                ';
+                            }
+                            echo '
+                            </td>
                             <td class="border-tr">
                             
                                 <button type="button" class="btn btn-info" data-bs-toggle="modal"
