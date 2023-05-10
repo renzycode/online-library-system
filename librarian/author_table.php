@@ -132,17 +132,13 @@ include_once 'includes/header.php';
                     </div>
                     <div class="modal-body row">
                         <input type="hidden" name="librarian_id" value="<?php echo $librarian_id ?>">
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">First Name
-                                <span class="text-danger"><em>(required)</em></span>
-                            </label>
-                            <input type="text" name="author_fname" class="form-control border-dark border" required />
-                        </div>
-                        <div class="form-group col-6 mb-0">
-                            <label class="col-form-label">Last name
-                                <span class="text-danger"><em>(required)</em></span>
-                            </label>
-                            <input type="text" name="author_lname" class="form-control border-dark border" required />
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label class="col-form-label">Full Name
+                                    <span class="text-danger"><em>(required)</em></span>
+                                </label>
+                                <input type="text" name="author_fullname" class="form-control border-dark border" required>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -150,13 +150,44 @@ if($hours<0){
                                     $statement = $pdo->prepare($sql);
                                     $statement->execute(array($_GET['book_id']));
                                     $catalog = $statement->fetch();
+
+                                    $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ? ';
+                                    $statement = $pdo->prepare($sql);
+                                    $statement->execute(array($_GET['book_id']));
+                                    $books_bridged = $statement->fetchAll();
+
+                                    $author_ids = '';
+                                    foreach($books_bridged as $book_bridged){
+                                        if(empty($author_ids)){
+                                            $author_ids = $author_ids.$book_bridged['author_id'];
+                                        }else{
+                                            $author_ids = $author_ids.','.$book_bridged['author_id'];
+                                        }
+                                    }
+
+                                    $author_ids_array = preg_split("/\,/", $author_ids);
+
+                                    $author_names = '';
+                                    foreach($author_ids_array as $author_id_array){
+                                        $sql = 'SELECT * FROM author_table WHERE author_id = ? ';
+                                        $statement = $pdo->prepare($sql);
+                                        $statement->execute(array($author_id_array));
+                                        $author = $statement->fetch();
+
+                                        if(empty($author_names)){
+                                            $author_names = $author_names.$author['author_fullname'];
+                                        }else{
+                                            $author_names = $author_names.','.$author['author_fullname'];
+                                        }
+                                    }
+
                                     if(!empty($catalog)){
                                         if($catalog['book_id']==$_GET['book_id']){
                                             $data = array();
                                             $data = array(
                                                 'book_id'=>$catalog['book_id'],
                                                 'catalog_book_title'=>$catalog['catalog_book_title'],
-                                                'catalog_author'=>$catalog['catalog_author'],
+                                                'catalog_author'=>$author_names,
                                                 'catalog_publisher'=>$catalog['catalog_publisher'],
                                                 'catalog_year'=>$catalog['catalog_year'],
                                                 'catalog_date_received'=>$catalog['catalog_date_received'],
@@ -232,7 +263,7 @@ if($hours<0){
                                                     value="<?php echo $data['catalog_book_title'] ?>" readonly
                                                     disabled />
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-12">
                                                 <label class="col-form-label">
                                                     Author</label>
                                                 <input type="text" class="form-control"
@@ -324,13 +355,14 @@ if($hours<0){
                                                     value="<?php //echo $data['catalog_copyright_date'] ?>" readonly
                                                     disabled />
                                             </div-->
-                                            <div class="col-6">
+                                            <!--div class="col-6">
                                                 <label class="col-form-label">Status</label>
                                                 <select class="form-select" aria-label="" name="catalog_status">
                                                     <option selected value="Available">Available</option>
                                                     <option value="Unavailable">Unavailable</option>
                                                 </select>
-                                            </div>
+                                            </div-->
+                                            <input type="hidden" name="catalog_status" value="Available"/>
                                         </div>
                                     </div>
                                 </div>

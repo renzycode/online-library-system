@@ -6,11 +6,10 @@ include_once "../../includes/functions.php";
 try {
     if(isset($_POST['add_author'])){
         
-        $sql = 'SELECT * FROM author_table WHERE author_fname=? AND author_lname=?';
+        $sql = 'SELECT * FROM author_table WHERE author_fullname = ?';
         $statement = $pdo->prepare($sql);
         $statement->execute(array(
-            $_POST['author_fname'],
-            $_POST['author_lname']
+            $_POST['author_fullname']
         ));
         $authors= $statement->fetch();
         if(!empty($authors)){
@@ -21,15 +20,13 @@ try {
 
         $sql = 'INSERT INTO author_table(
             librarian_id,
-            author_fname,
-            author_lname
+            author_fullname
             ) 
-        VALUES(?,?,?)';
+        VALUES(?,?)';
         $statement = $pdo->prepare($sql);
         $statement->execute(array(
             $_POST['librarian_id'],
-            $_POST['author_fname'],
-            $_POST['author_lname']
+            $_POST['author_fullname']
         ));
         printInConsole('author added successfully!');
         redirectURL('../author_table.php?add=success');

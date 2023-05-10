@@ -23,7 +23,7 @@ try {
         $days=($hours/24);
 
         if($days>=0){
-            redirectURL('../transaction.php?add=error&error=duedatetime');
+            redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error&error=duedatetime');
             exit();
         }
 
@@ -35,7 +35,7 @@ try {
         if(isset($result['borrower_id'])){
             if(!empty($result)){
                 if($result['borrower_id']==$_POST['borrower_id']){
-                    redirectURL('../transaction.php?add=error&borrower=rejected');
+                    redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error&borrower=rejected');
                     exit();
                 }
             }
@@ -57,12 +57,12 @@ try {
                 $statement->execute($params);
                 $result = $statement->fetch();
                 if($result<=0){
-                    redirectURL('../transaction.php?add=error&error=book1');
+                    redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error&error=book1');
                     $runquery="";
                     exit();
                 }
                 elseif($result['catalog_status']=='Unavailable'){
-                    redirectURL('../transaction.php?add=error&error=book1unavailable');
+                    redirectURL('../transaction.php?borrower='.$_POST['borrower_id'].'&add=error&error=book1unavailable');
                     $runquery="";
                     exit();
                 }else{

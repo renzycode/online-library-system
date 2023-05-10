@@ -94,7 +94,7 @@
                     <i class="fas fa-fw fa-plus"></i>
                     <span>Add Transaction</span>
                 </a>
-            </li>
+            </li-->
             
             <li
                 <?php

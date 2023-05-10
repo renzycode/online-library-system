@@ -137,6 +137,9 @@ if($hours<0){
                                     'borrow_datetime'=>'----------',
                                     'return_datetime'=>'----------'
                                 );
+
+
+
                                 if(isset($_GET['book_id'])){
                                     $sql = 'SELECT * FROM transaction_table as tt, catalog_table as ct, borrower_table as bt
                                     WHERE tt.book_id = ? AND ct.book_id = ? AND bt.borrower_id = tt.borrower_id AND transaction_status = "On Borrow"';
@@ -145,6 +148,31 @@ if($hours<0){
                                     $transaction = $statement->fetch();
                                     if(!empty($transaction)){
                                         if($transaction['book_id']==$_GET['book_id']){
+
+                                            $sql = 'SELECT * FROM author_book_bridge_table WHERE book_id = ?';
+                                            $statement = $pdo->prepare($sql);
+                                            $statement->execute(array($_GET['book_id']));
+                                            $book_ids = $statement->fetchAll();
+                                            
+                                            $author_names = '';
+
+                                            foreach($book_ids as $book_id){
+                                                if(empty($author_names)){
+                                                    $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                                    $statement = $pdo->prepare($sql);
+                                                    $statement->execute(array($book_id['author_id']));
+                                                    $author = $statement->fetch();
+                                                    $author_names = $author_names.$author['author_fullname'];
+                                                }else{
+                                                    $sql = 'SELECT * FROM author_table WHERE author_id = ?';
+                                                    $statement = $pdo->prepare($sql);
+                                                    $statement->execute(array($book_id['author_id']));
+                                                    $author = $statement->fetch();
+                                                    $author_names = $author_names.', '.$author['author_fullname'];
+                                                }
+                                            }
+
+
                                             $data = array();
                                             $data = array(
                                                 'transaction_id'=>$transaction['transaction_id'],
@@ -153,7 +181,7 @@ if($hours<0){
                                                 'book_id'=>$transaction['book_id'],
                                                 'catalog_number'=>$transaction['catalog_number'],
                                                 'book_title'=>$transaction['catalog_book_title'],
-                                                'author'=>$transaction['catalog_author'],
+                                                'author'=>$author_names,
                                                 'publisher'=>$transaction['catalog_publisher'],
                                                 'year'=>$transaction['catalog_year'],
                                                 'borrow_datetime'=>$transaction['transaction_borrow_datetime'],
@@ -225,12 +253,14 @@ if($hours<0){
                                                     value="<?php echo $data['book_title'] ?>" readonly disabled />
                                             </div>
 
-                                            <div class="col-6">
+                                            <div class="col-12">
                                                 <label class="col-form-label">
                                                     Author</label>
                                                 <input type="text" class="form-control"
                                                     value="<?php echo $data['author'] ?>" readonly disabled />
                                             </div>
+
+
 
                                             <div class="col-6">
                                                 <label class="col-form-label">

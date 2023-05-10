@@ -83,7 +83,7 @@ void loop() {
     postData = "rfidCode=" + UIDresultSend;
 
 
-    http.begin("http://192.168.1.106/online-library-system/librarian/rfid/getRfidCode.php");  //Specify request destination
+    http.begin(urlpath);  //Specify request destination
     http.addHeader("Content-Type", "application/x-www-form-urlencoded"); //Specify content-type header
 
     int httpCode = http.POST(postData);   //Send the request
