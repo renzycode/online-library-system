@@ -680,7 +680,8 @@ include_once 'includes/header.php';
                         <!--th scope="col">RFID Code</th>
                         <th scope="col">Catalog Number</th>
                         <th scope="col">Book Title</th-->
-                        <th scope="col">Book Title, Edition, Author</th>
+
+                        <th scope="col">Book Info</th>
                         <th scope="col">Status</th>
                         <th scope="col">View More Info</th>
                         <th scope="col">Edit</th>
@@ -715,6 +716,7 @@ include_once 'includes/header.php';
                                 $author_names = $author_names.', '.$author['author_fullname'];
                             }
                         }
+                        $array_author_names = preg_split("/\,/", $author_names);
                         $author_names_exploded = explode(',', $author_names)[0];
                         echo '
                         <tr>
@@ -723,9 +725,17 @@ include_once 'includes/header.php';
                             <td class="border-tr">'.$catalog['catalog_book_title'].'</td-->
                             ';
                             if(empty($catalog['catalog_edition'])){
-                                echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
+                                if(count($array_author_names)==1){
+                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$author_names_exploded.'</td>';
+                                }else{
+                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
+                                }
                             }else{
-                                echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
+                                if(count($array_author_names)==1){
+                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded.'</td>';
+                                }else{
+                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
+                                }
                             }
                             echo'
                             <td class="border-tr">

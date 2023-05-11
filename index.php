@@ -5,17 +5,10 @@ include_once "includes/functions.php";
 
 //redirectURL('librarian/');
 
-if(isset( $_GET['search']) && isset($_GET['search_by'])){
+if(isset( $_GET['search'])){
     $search = $_GET['search'];
-    $search_by = $_GET['search_by'];
-
-    if($search_by=='book_title'){
-        $sql1 = 'SELECT * FROM catalog_table WHERE catalog_book_title LIKE \'%'.$search.'%\' ORDER BY catalog_author';
-        $echo_search_by = 'Book Title';
-    }else{
-        $sql1 = 'SELECT * FROM catalog_table WHERE catalog_author LIKE \'%'.$search.'%\' ORDER BY catalog_author';
-        $echo_search_by = 'Author';
-    }
+    $sql1 = 'SELECT * FROM catalog_table WHERE catalog_book_title LIKE \'%'.$search.'%\' ORDER BY catalog_book_title';
+    $echo_search_by = 'Book Title';
 
     $statement = $pdo->prepare($sql1);
     $statement->execute();
@@ -27,9 +20,33 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     $tempSelectedTitle = '';
     foreach($search_catalogs as $catalog){
         if($tempSelectedTitle!=$catalog['catalog_book_title']){
+
+            $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array($catalog['book_id']));
+            $bridge_catalogs = $statement->fetchAll();
+
+            $authors = '';
+            foreach($bridge_catalogs as $bridge_catalog){
+                $sql = "SELECT * FROM author_table WHERE author_id = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($bridge_catalog['author_id']));
+                $author_fetched = $statement->fetch();
+
+                if(empty($authors)){
+                    
+                    $authors = $authors.$author_fetched['author_fullname'];
+                }else{
+                    $authors = $authors.','.$author_fetched['author_fullname'];
+                }
+                
+            }
+
+
             $myArrays[$num] = [
                 'catalog_book_title'=>$catalog['catalog_book_title'],
-                'catalog_author'=>$catalog['catalog_author'],
+                'catalog_edition'=>$catalog['catalog_edition'],
+                'catalog_author'=>$authors,
                 'catalog_publisher'=>$catalog['catalog_publisher'],
                 'catalog_year'=>$catalog['catalog_year']
                 ];
@@ -39,27 +56,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     }
 
 }else{
-    $search = '';
- 
-    if(!isset($_GET['sort_by'])){
-        echo '<script> window.location.href = "index.php?sort_by=title"; </script>';
-    }else{
-        $sort_by=$_GET['sort_by'];
-    }
-
-    if($sort_by=='author'){
-        $titleSortIconStatus = 'sort-btn';
-        $authorSortIconStatus = 'sort-btn-active';
-    
-        $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_author";
-    
-    }else{
-        $titleSortIconStatus = 'sort-btn-active';
-        $authorSortIconStatus = 'sort-btn';
-    
-        $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
-    }
-
+    $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
     $statement = $pdo->prepare($sql1);
     $statement->execute();
     $catalogs = $statement->fetchAll();
@@ -92,6 +89,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
 
             $myArrays[$num] = [
                 'catalog_book_title'=>$catalog['catalog_book_title'],
+                'catalog_edition'=>$catalog['catalog_edition'],
                 'catalog_author'=> $authors,
                 'catalog_publisher'=>$catalog['catalog_publisher'],
                 'catalog_year'=>$catalog['catalog_year']
@@ -126,7 +124,7 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="assets/image/logo.png" width="50" height="50" alt="logo">
+                <!--img src="assets/image/logo.png" width="50" height="50" alt="logo"-->
             </a>
             <div class="justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -252,65 +250,72 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                     <table class="table table-bordered">
                         <thead class="border">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Book Title</th>
-                                <th scope="col">Author</th>
-                                <th scope="col">Year</th>
+                                <th scope="col">Book Info</th>
                                 <th scope="col">Available</th>
                             </tr>
                         </thead>
                         <tbody class="border">';
-                        
-                            $number = 1;
+                        $number = 1;
 
-                            foreach($myArrays as $myArray){
-                        
-                                $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
-                                $statement = $pdo->prepare($sql);
-                                $statement->execute(array($myArray['catalog_book_title']));
-                                $catalogs = $statement->fetchAll();
-                                $all = count($catalogs);
+                        foreach($myArrays as $myArray){
+                    
+                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($myArray['catalog_book_title']));
+                            $catalogs = $statement->fetchAll();
+                            $all = count($catalogs);
 
-                                $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
-                                $statement = $pdo->prepare($sql);
-                                $statement->execute(array($myArray['catalog_book_title']));
-                                $catalogs = $statement->fetchAll();
-                                $available = count($catalogs);
+                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($myArray['catalog_book_title']));
+                            $catalogs = $statement->fetchAll();
+                            $available = count($catalogs);
 
-                                echo '
-                                <tr>
-                                    <td>'.$number.'</td>
-                                    <td>'.$myArray["catalog_book_title"].'</td>
-                                    <td>'.$myArray["catalog_author"].'</td>
-                                    <td>'.$myArray["catalog_year"].'</td>
-                                    <td>'.$available.'/'.$all.'</td>
-                                </tr>
+
+                            $array_author_names = preg_split("/\,/", $myArray['catalog_author']);
+                            $author_names_exploded = explode(',', $myArray['catalog_author'])[0];
+
+                            echo '
+                            <tr>
                                 ';
-                                $number++;
+                                if(empty($myArray['catalog_edition'])){
+                                    if(count($array_author_names)==1){
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.'</td>';
+                                    }else{
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
+                                    }
+                                }else{
+                                    if(count($array_author_names)==1){
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.'</td>';
+                                    }else{
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
+                                    }
+                                }
+                                echo '
+                                <td>'.$available.'/'.$all.'</td>
+                            </tr>
+                            ';
+                            $number++;
 
 
-                            }
-                        echo '
-                        </tbody>
+                        }
+                    echo '
+                    </tbody>
                     </table>
-                </div>';
-            }
-            else{
-                echo '
-                <div class="alert alert-danger">
-                    No result found
-                </div>';
-            }
+            </div>';
+        }
+        else{
+            echo '
+            <div class="alert alert-danger">
+                No result found
+            </div>';
+        }
 
-        echo '</div>';
+    echo '</div>';
     }
     else{
         echo '
-        <div class="m-4">
-            <h2 class="mb-4 text-dark">
-                <span class="page-title">List of Books</span>
-                <hr>
-            </h2>';
+        <div class="m-4">';
             
             if(isset($_GET['register'])){
                 if($_GET['register']=='success'){
@@ -339,57 +344,34 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
             }
 
             echo'
-            <div class="col-xl-3 col-lg-3 col-md-6">
-                <form action="index.php" method="GET">
-                    <div class="input-group mb-3">
-                        <input type="text" name="search" class="form-control" placeholder="Search Book" required>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Search by
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="submit" name="search_by" value="book_title">Book Title</button></li>
-                            <li><button class="dropdown-item" type="submit" name="search_by" value="author">Author</button></li>
-                        </ul>
+            <div class="col-12 row">
+                <div class="col-lg-4 col-xl-4 col-md-4 col-sm-0">
+                &nbsp;
+                </div>
+                <div class="col-lg-4 col-xl-4 col-md-4 col-sm-12">
+                <form action="index.php" method="GET" class="" style="">
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        <img src="assets/image/logo.png" width="150" height="150" alt="logo">
+                    </div>
+                    <input type="text" name="search" class="form-control" placeholder="Search Book" required>
+                    <div class="d-flex justify-content-center mt-2 mb-2">
+                        <button class="btn btn-success" type="submit"> Search </button>
                     </div>
                 </form>
+                </div>
+                <div class="col-lg-4 col-xl-4 col-md-4 col-sm-0">
+                &nbsp;
+                </div>
+                
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead class="border">
 
-                    <!tr>
-                        <th scope="col">
-                            <div class="d-flex justify-content-between">
-                                <div class="text-dark">#</div>
-                            </div>
-                        </th>
-                        <th scope="col">
-                            <div class="d-flex justify-content-between">
-                                <div class="text-dark">Book Title</div>
-                                <a type="button" href="index.php?sort_by=title" class="float-right">
-                                    <i class="'.$titleSortIconStatus.' bi bi-chevron-expand"></i>
-                                </a>
-                            </div>
-                        </th>
-                        <th scope="col">
-                            <div class="d-flex justify-content-between">
-                                <div class="text-dark">Author</div>
-                                <a type="button" href="index.php?sort_by=author" class="float-right">
-                                    <i class="'.$authorSortIconStatus.' bi bi-chevron-expand"></i>
-                                </a>
-                            </div>
-                        </th>
-                        <th scope="col">
-                            <div class="d-flex justify-content-between">
-                                <div class="text-dark">Year</div>
-                            </div>
-                        </th>
-                        <th scope="col">
-                            <div class="d-flex justify-content-between">
-                                <div class="text-dark">Available</div>
-                            </div>
-                        </th>
-                    </tr>
+                        <tr>
+                            <th scope="col">Book Info</th>
+                            <th scope="col">Available</th>
+                        </tr>
                     </thead>
                     <tbody class="border">';
                         $number = 1;
@@ -408,12 +390,27 @@ if(isset( $_GET['search']) && isset($_GET['search_by'])){
                             $catalogs = $statement->fetchAll();
                             $available = count($catalogs);
 
+
+                            $array_author_names = preg_split("/\,/", $myArray['catalog_author']);
+                            $author_names_exploded = explode(',', $myArray['catalog_author'])[0];
+
                             echo '
                             <tr>
-                                <td>'.$number.'</td>
-                                <td>'.$myArray["catalog_book_title"].'</td>
-                                <td>'.$myArray["catalog_author"].'</td>
-                                <td>'.$myArray["catalog_year"].'</td>
+                                ';
+                                if(empty($myArray['catalog_edition'])){
+                                    if(count($array_author_names)==1){
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.'</td>';
+                                    }else{
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
+                                    }
+                                }else{
+                                    if(count($array_author_names)==1){
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.'</td>';
+                                    }else{
+                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
+                                    }
+                                }
+                                echo '
                                 <td>'.$available.'/'.$all.'</td>
                             </tr>
                             ';
