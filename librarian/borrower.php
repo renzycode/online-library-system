@@ -291,6 +291,34 @@ include_once 'includes/header.php';
             }
         }
 
+        if(isset($_GET['add'])){
+            if($_GET['add']=='success'){
+                echo '
+                <div class="alert alert-success">
+                    Borrower has been successfully deleted.
+                </div>
+                ';
+            }
+            if($_GET['add']=='error'){
+                if(isset($_GET['error'])){
+                    if($_GET['error']=='emailalreadyused'){
+                        echo '
+                        <div class="alert alert-danger">
+                            Error, Email already used.
+                        </div>
+                        ';
+                    }
+                }else{
+                    echo '
+                    <div class="alert alert-danger">
+                        Error, Please try again later.
+                    </div>
+                    ';
+                }
+                
+            }
+        }
+
         ?>
 
     <!-- pending borrowers -->

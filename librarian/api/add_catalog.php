@@ -48,8 +48,18 @@ try {
             $check_author = $statement->fetch();
 
             if(!isset($check_author['author_fullname'])){
-                redirectURL('../catalog.php?add=error&error=authoridnotfound');
-                exit();
+                $sql = 'INSERT INTO author_table(
+                    librarian_id,
+                    author_fullname
+                    ) 
+                VALUES(?,?)';
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array(
+                    $_POST['librarian_id'],
+                    $author_name
+                ));
+                //redirectURL('../catalog.php?add=error&error=authoridnotfound');
+                //exit();
             }
         }
 

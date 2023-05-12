@@ -35,7 +35,7 @@ include_once 'includes/header.php';
 
 <div class="m-4">
     <h2 class="mb-4 text-dark">
-        <span class="page-title">Catalog Table</span>
+        <span class="page-title">Author Table</span>
         <hr>
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalAdd"
             onclick="clearRFID()">
@@ -83,7 +83,7 @@ include_once 'includes/header.php';
         if($_GET['edit']=='success'){
             echo '
             <div class="alert alert-success">
-                Catalog has been successfully updated.
+                Author has been successfully updated.
             </div>
             ';
         }
@@ -108,7 +108,7 @@ include_once 'includes/header.php';
         if($_GET['delete']=='success'){
             echo '
             <div class="alert alert-success">
-                Catalog has been successfully deleted.
+                Author has been successfully deleted.
             </div>
             ';
         }
@@ -163,10 +163,10 @@ include_once 'includes/header.php';
     else{
         echo '
         <div class="table-responsive">
-            <table class="table table-bordered border-secondary">
+            <table class="table table-bordered border-secondary myDataTable">
                 <thead class="border">
                     <tr>
-                        <th scope="col">Author ID</th>
+                        <!--th scope="col">Author ID</th-->
                         <th scope="col">Full Name</th>
                         <th scope="col">Books Written</th>
                         <th scope="col">Edit All Copies</th>
@@ -178,7 +178,7 @@ include_once 'includes/header.php';
                     foreach ($authors as $author){
                         echo '
                         <tr>
-                            <td class="border-tr">'.$author['author_id'].'</td>
+                            <!--td class="border-tr">'.$author['author_id'].'</td-->
                             <td class="border-tr">'.$author['author_fullname'].'</td>
                             ';
 

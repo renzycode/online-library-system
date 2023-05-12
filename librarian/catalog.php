@@ -72,7 +72,7 @@ include_once 'includes/header.php';
             }elseif($_GET['error']=='duplicateauthorid'){
                 echo '
                 <div class="alert alert-danger">
-                    Duplicate Author Names.
+                    Error, Duplicate Author Names.
                 </div>
                 ';
             }elseif($_GET['error']=='authoridnotfound'){
@@ -100,18 +100,58 @@ include_once 'includes/header.php';
             ';
         }
         if($_GET['edit']=='error'){
-            if($_GET['rfid']=='existing'){
-                echo '
-                <div class="alert alert-danger">
-                    Error Edit, RFID already used.
-                </div>
-                ';
+            if(isset($_GET['rfid'])){
+                if($_GET['rfid']=='existing'){
+                    echo '
+                    <div class="alert alert-danger">
+                        Error Edit, RFID already used.
+                    </div>
+                    ';
+                }else{
+                    echo '
+                    <div class="alert alert-danger">
+                        Error Edit, Please try again later.
+                    </div>
+                    ';
+                }
+            }elseif(isset($_GET['error'])){
+                if($_GET['error']=='rfidexisting'){
+                    echo '
+                    <div class="alert alert-danger">
+                        RFID already used.
+                    </div>
+                    ';
+                }elseif($_GET['error']=='catalognumberexisting'){
+                    echo '
+                    <div class="alert alert-danger">
+                        Catalog number already used.
+                    </div>
+                    ';
+                }elseif($_GET['error']=='duplicateauthorid'){
+                    echo '
+                    <div class="alert alert-danger">
+                        Error, Duplicate Author Names.
+                    </div>
+                    ';
+                }elseif($_GET['error']=='authoridnotfound'){
+                    echo '
+                    <div class="alert alert-danger">
+                        Author name not found.
+                    </div>
+                    ';
+                }else{
+                    echo '
+                    <div class="alert alert-danger">
+                        Error Add, Please try again later.
+                    </div>
+                    ';
+                }
             }else{
                 echo '
-                <div class="alert alert-danger">
-                    Error Edit, Please try again later.
-                </div>
-                ';
+                    <div class="alert alert-danger">
+                        Error Add, Please try again later.
+                    </div>
+                    ';
             }
         }
     }
@@ -923,6 +963,7 @@ include_once 'includes/header.php';
                                                         aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body row">
+                                                    <input type="hidden" name="librarian_id" value="'.$librarian_id.'">
                                                     <input type="hidden" name="book_id" value="'.$catalog['book_id'].'">
                                                     
                                                     <div class="form-group col-3 mb-0">

@@ -6,13 +6,6 @@ include_once "../../includes/functions.php";
 try {
     if(isset($_POST['edit_catalog'])){
 
-            $sql = 'DELETE FROM author_book_bridge_table WHERE book_id = ? ';
-            $statement = $pdo->prepare($sql);
-            $statement->execute(array(
-                $_POST['book_id']
-            ));
-
-
             //store all author names in array
             $authors = '';
             for($num = 1; $num <= 20; $num++){
@@ -27,7 +20,43 @@ try {
                 }
                 
             }
-        $author_names = preg_split("/\,/", $authors);
+            $author_names = preg_split("/\,/", $authors);
+
+            //check duplicate name
+            if (count($author_names, SORT_REGULAR) != count(array_unique($author_names, SORT_REGULAR))){
+                redirectURL('../catalog.php?edit=error&error=duplicateauthorid');
+                exit();
+            }
+
+            //check if author is valid or is there
+            foreach($author_names as $author_name){
+                $sql = 'SELECT * FROM author_table WHERE author_fullname LIKE \'%'.$author_name.'%\' ';
+                $statement = $pdo->prepare($sql);
+                $statement->execute();
+                $check_author = $statement->fetch();
+
+                if(!isset($check_author['author_fullname'])){
+                    $sql = 'INSERT INTO author_table(
+                        librarian_id,
+                        author_fullname
+                        ) 
+                    VALUES(?,?)';
+                    $statement = $pdo->prepare($sql);
+                    $statement->execute(array(
+                        $_POST['librarian_id'],
+                        $author_name
+                    ));
+                    //redirectURL('../catalog.php?add=error&error=authoridnotfound');
+                    //exit();
+                }
+            }
+
+
+            $sql = 'DELETE FROM author_book_bridge_table WHERE book_id = ? ';
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array(
+                $_POST['book_id']
+            ));
 
             //convert authornames to ids array
             $author_ids_str = '';
