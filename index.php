@@ -5,6 +5,7 @@ include_once "includes/functions.php";
 
 //redirectURL('librarian/');
 
+//search for book title
 if(isset( $_GET['search'])){
     $search = $_GET['search'];
     $sql1 = 'SELECT * FROM catalog_table WHERE catalog_book_title LIKE \'%'.$search.'%\' ORDER BY catalog_book_title';
@@ -55,50 +56,232 @@ if(isset( $_GET['search'])){
         $num++;
     }
 
-}else{
-    $sql1 = "SELECT * FROM catalog_table ORDER BY catalog_book_title";
-    $statement = $pdo->prepare($sql1);
-    $statement->execute();
-    $catalogs = $statement->fetchAll();
+    //search for edition
+    if(empty($myArrays)){
+        $search = $_GET['search'];
+        $sql1 = 'SELECT * FROM catalog_table WHERE catalog_edition LIKE \'%'.$search.'%\' ORDER BY catalog_book_title';
+        $echo_search_by = 'Edition';
 
-    $myArrays = array();
-    $num = 0;
-    $tempSelectedTitle = '';
-    foreach($catalogs as $catalog){
-        if($tempSelectedTitle!=$catalog['catalog_book_title']){
-            $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
-            $statement = $pdo->prepare($sql);
-            $statement->execute(array($catalog['book_id']));
-            $bridge_catalogs = $statement->fetchAll();
+        $statement = $pdo->prepare($sql1);
+        $statement->execute();
+        $search_catalogs = $statement->fetchAll();
+        
 
-            $authors = '';
-            foreach($bridge_catalogs as $bridge_catalog){
-                $sql = "SELECT * FROM author_table WHERE author_id = ?";
+        $myArrays = array();
+        $num = 0;
+        $tempSelectedTitle = '';
+        foreach($search_catalogs as $catalog){
+            if($tempSelectedTitle!=$catalog['catalog_book_title']){
+
+                $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
                 $statement = $pdo->prepare($sql);
-                $statement->execute(array($bridge_catalog['author_id']));
-                $author_fetched = $statement->fetch();
+                $statement->execute(array($catalog['book_id']));
+                $bridge_catalogs = $statement->fetchAll();
 
-                if(empty($authors)){
+                $authors = '';
+                foreach($bridge_catalogs as $bridge_catalog){
+                    $sql = "SELECT * FROM author_table WHERE author_id = ?";
+                    $statement = $pdo->prepare($sql);
+                    $statement->execute(array($bridge_catalog['author_id']));
+                    $author_fetched = $statement->fetch();
+
+                    if(empty($authors)){
+                        
+                        $authors = $authors.$author_fetched['author_fullname'];
+                    }else{
+                        $authors = $authors.','.$author_fetched['author_fullname'];
+                    }
                     
-                    $authors = $authors.$author_fetched['author_fullname'];
-                }else{
-                    $authors = $authors.','.$author_fetched['author_fullname'];
                 }
-                
-            }
 
-            $myArrays[$num] = [
-                'catalog_book_title'=>$catalog['catalog_book_title'],
-                'catalog_edition'=>$catalog['catalog_edition'],
-                'catalog_author'=> $authors,
-                'catalog_publisher'=>$catalog['catalog_publisher'],
-                'catalog_year'=>$catalog['catalog_year']
-                ];
+
+                $myArrays[$num] = [
+                    'catalog_book_title'=>$catalog['catalog_book_title'],
+                    'catalog_edition'=>$catalog['catalog_edition'],
+                    'catalog_author'=>$authors,
+                    'catalog_publisher'=>$catalog['catalog_publisher'],
+                    'catalog_year'=>$catalog['catalog_year']
+                    ];
+            }
+            $tempSelectedTitle=$catalog['catalog_book_title'];
+            $num++;
         }
-        $tempSelectedTitle=$catalog['catalog_book_title'];
-        $num++;
     }
 
+    //search for author
+    if(empty($myArrays)){
+        $search = $_GET['search'];
+        $sql1 = 'SELECT * FROM author_table WHERE author_fullname LIKE \'%'.$search.'%\' ';
+        $echo_search_by = 'Author';
+
+        $statement = $pdo->prepare($sql1);
+        $statement->execute();
+        $authors = $statement->fetchAll();
+
+        $myArrays = array();
+        $num = 0;
+        foreach($authors as $author){
+
+            $sql = "SELECT * FROM author_book_bridge_table WHERE author_id = ?";
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array($author['author_id']));
+            $author_with_books = $statement->fetchAll();
+            foreach($author_with_books as $author_with_book){
+                
+                $sql = "SELECT * FROM catalog_table WHERE book_id = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($author_with_book['book_id']));
+                $search_catalogs = $statement->fetchAll();
+                
+                $tempSelectedTitle = '';
+                foreach($search_catalogs as $catalog){
+                    if($tempSelectedTitle!=$catalog['catalog_book_title']){
+
+                        $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
+                        $statement = $pdo->prepare($sql);
+                        $statement->execute(array($catalog['book_id']));
+                        $bridge_catalogs = $statement->fetchAll();
+
+                        $authors = '';
+                        foreach($bridge_catalogs as $bridge_catalog){
+                            $sql = "SELECT * FROM author_table WHERE author_id = ?";
+                            $statement = $pdo->prepare($sql);
+                            $statement->execute(array($bridge_catalog['author_id']));
+                            $author_fetched = $statement->fetch();
+
+                            if(empty($authors)){
+                                
+                                $authors = $authors.$author_fetched['author_fullname'];
+                            }else{
+                                $authors = $authors.','.$author_fetched['author_fullname'];
+                            }
+                            
+                        }
+
+
+                        $myArrays[$num] = [
+                            'catalog_book_title'=>$catalog['catalog_book_title'],
+                            'catalog_edition'=>$catalog['catalog_edition'],
+                            'catalog_author'=>$authors,
+                            'catalog_publisher'=>$catalog['catalog_publisher'],
+                            'catalog_year'=>$catalog['catalog_year']
+                            ];
+                    }
+                    $tempSelectedTitle=$catalog['catalog_book_title'];
+                    $num++;
+                }
+    
+            }
+
+        }
+    }
+
+    //search for publisher
+    if(empty($myArrays)){
+        $search = $_GET['search'];
+        $sql1 = 'SELECT * FROM catalog_table WHERE catalog_publisher LIKE \'%'.$search.'%\' ORDER BY catalog_book_title';
+        $echo_search_by = 'Edition';
+
+        $statement = $pdo->prepare($sql1);
+        $statement->execute();
+        $search_catalogs = $statement->fetchAll();
+        
+
+        $myArrays = array();
+        $num = 0;
+        $tempSelectedTitle = '';
+        foreach($search_catalogs as $catalog){
+            if($tempSelectedTitle!=$catalog['catalog_book_title']){
+
+                $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($catalog['book_id']));
+                $bridge_catalogs = $statement->fetchAll();
+
+                $authors = '';
+                foreach($bridge_catalogs as $bridge_catalog){
+                    $sql = "SELECT * FROM author_table WHERE author_id = ?";
+                    $statement = $pdo->prepare($sql);
+                    $statement->execute(array($bridge_catalog['author_id']));
+                    $author_fetched = $statement->fetch();
+
+                    if(empty($authors)){
+                        
+                        $authors = $authors.$author_fetched['author_fullname'];
+                    }else{
+                        $authors = $authors.','.$author_fetched['author_fullname'];
+                    }
+                    
+                }
+
+
+                $myArrays[$num] = [
+                    'catalog_book_title'=>$catalog['catalog_book_title'],
+                    'catalog_edition'=>$catalog['catalog_edition'],
+                    'catalog_author'=>$authors,
+                    'catalog_publisher'=>$catalog['catalog_publisher'],
+                    'catalog_year'=>$catalog['catalog_year']
+                    ];
+            }
+            $tempSelectedTitle=$catalog['catalog_book_title'];
+            $num++;
+        }
+    }
+
+    //search for date published
+    if(empty($myArrays)){
+        $search = $_GET['search'];
+        $sql1 = 'SELECT * FROM catalog_table WHERE catalog_year LIKE \'%'.$search.'%\' ORDER BY catalog_book_title';
+        $echo_search_by = 'Edition';
+
+        $statement = $pdo->prepare($sql1);
+        $statement->execute();
+        $search_catalogs = $statement->fetchAll();
+        
+
+        $myArrays = array();
+        $num = 0;
+        $tempSelectedTitle = '';
+        foreach($search_catalogs as $catalog){
+            if($tempSelectedTitle!=$catalog['catalog_book_title']){
+
+                $sql = "SELECT * FROM author_book_bridge_table WHERE book_id = ?";
+                $statement = $pdo->prepare($sql);
+                $statement->execute(array($catalog['book_id']));
+                $bridge_catalogs = $statement->fetchAll();
+
+                $authors = '';
+                foreach($bridge_catalogs as $bridge_catalog){
+                    $sql = "SELECT * FROM author_table WHERE author_id = ?";
+                    $statement = $pdo->prepare($sql);
+                    $statement->execute(array($bridge_catalog['author_id']));
+                    $author_fetched = $statement->fetch();
+
+                    if(empty($authors)){
+                        
+                        $authors = $authors.$author_fetched['author_fullname'];
+                    }else{
+                        $authors = $authors.','.$author_fetched['author_fullname'];
+                    }
+                    
+                }
+
+
+                $myArrays[$num] = [
+                    'catalog_book_title'=>$catalog['catalog_book_title'],
+                    'catalog_edition'=>$catalog['catalog_edition'],
+                    'catalog_author'=>$authors,
+                    'catalog_publisher'=>$catalog['catalog_publisher'],
+                    'catalog_year'=>$catalog['catalog_year']
+                    ];
+            }
+            $tempSelectedTitle=$catalog['catalog_book_title'];
+            $num++;
+        }
+    }
+
+}else{
+    $myArrays = array();
 }
 
 
@@ -128,10 +311,10 @@ if(isset( $_GET['search'])){
             </a>
             <div class="justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <button type="button" class="btn btn-light mx-1 my-2" data-bs-toggle="modal"
+                    <!--button type="button" class="btn btn-light mx-1 my-2" data-bs-toggle="modal"
                         data-bs-target="#modalRegister">
                         Register
-                    </button>
+                    </button-->
                     <!-- register modal -->
                     <div class="modal fade" id="modalRegister" tabindex="-1" aria-labelledby="registerModal"
                         aria-hidden="true">
@@ -211,109 +394,7 @@ if(isset( $_GET['search'])){
 
     <?php
 
-    if (!empty($search)){
-        echo '
-        <div class="m-4">
-            <h2 class="mb-4 text-dark">Result for '.$echo_search_by.' \''.$search.'\'
-                <a class="btn btn-secondary" href="index.php" role="button">Go back</a>
-            </h2>';
-            
-            if(isset($_GET['register'])){
-                if($_GET['register']=='success'){
-                    echo '
-                    <div class="alert alert-success">
-                        Request successfully submited.
-                    </div>
-                    ';
-                }
-                if($_GET['register']=='error'){
-                    if(isset($_GET['error'])){
-                        if($_GET['error']=='emailalreadyused')
-                        echo '
-                            <div class="alert alert-danger">
-                                Request error, email already used.
-                            </div>
-                        ';
-                    }else{
-                    echo '
-                        <div class="alert alert-danger">
-                            Request error.
-                        </div>
-                    ';
-                    }
-                }
-            }
-
-            if (!empty($search_catalogs)){
-                echo '
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="border">
-                            <tr>
-                                <th scope="col">Book Info</th>
-                                <th scope="col">Available</th>
-                            </tr>
-                        </thead>
-                        <tbody class="border">';
-                        $number = 1;
-
-                        foreach($myArrays as $myArray){
-                    
-                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
-                            $statement = $pdo->prepare($sql);
-                            $statement->execute(array($myArray['catalog_book_title']));
-                            $catalogs = $statement->fetchAll();
-                            $all = count($catalogs);
-
-                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
-                            $statement = $pdo->prepare($sql);
-                            $statement->execute(array($myArray['catalog_book_title']));
-                            $catalogs = $statement->fetchAll();
-                            $available = count($catalogs);
-
-
-                            $array_author_names = preg_split("/\,/", $myArray['catalog_author']);
-                            $author_names_exploded = explode(',', $myArray['catalog_author'])[0];
-
-                            echo '
-                            <tr>
-                                ';
-                                if(empty($myArray['catalog_edition'])){
-                                    if(count($array_author_names)==1){
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.'</td>';
-                                    }else{
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
-                                    }
-                                }else{
-                                    if(count($array_author_names)==1){
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.'</td>';
-                                    }else{
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
-                                    }
-                                }
-                                echo '
-                                <td>'.$available.'/'.$all.'</td>
-                            </tr>
-                            ';
-                            $number++;
-
-
-                        }
-                    echo '
-                    </tbody>
-                    </table>
-            </div>';
-        }
-        else{
-            echo '
-            <div class="alert alert-danger">
-                No result found
-            </div>';
-        }
-
-    echo '</div>';
-    }
-    else{
+    
         echo '
         <div class="m-4">';
             
@@ -351,10 +432,10 @@ if(isset( $_GET['search'])){
                 <div class="col-lg-4 col-xl-4 col-md-4 col-sm-12">
                 <form action="index.php" method="GET" class="" style="">
                     <div class="d-flex justify-content-center mt-2 mb-2">
-                        <img src="assets/image/logo.png" width="150" height="150" alt="logo">
+                        <img src="assets/image/logo.png" width="200" height="200" alt="logo">
                     </div>
-                    <input type="text" name="search" class="form-control" placeholder="Search Book" required>
-                    <div class="d-flex justify-content-center mt-2 mb-2">
+                    <input type="text" name="search" class="form-control" placeholder="Search Book Info" required>
+                    <div class="d-flex justify-content-center mt-3 mb-3">
                         <button class="btn btn-success" type="submit"> Search </button>
                     </div>
                 </form>
@@ -363,66 +444,73 @@ if(isset( $_GET['search'])){
                 &nbsp;
                 </div>
                 
-            </div>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="border">
+            </div>';
 
-                        <tr>
-                            <th scope="col">Book Info</th>
-                            <th scope="col">Available</th>
-                        </tr>
-                    </thead>
-                    <tbody class="border">';
-                        $number = 1;
+            if(count($myArrays)>0){
 
-                        foreach($myArrays as $myArray){
-                    
-                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
-                            $statement = $pdo->prepare($sql);
-                            $statement->execute(array($myArray['catalog_book_title']));
-                            $catalogs = $statement->fetchAll();
-                            $all = count($catalogs);
+                echo '
 
-                            $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
-                            $statement = $pdo->prepare($sql);
-                            $statement->execute(array($myArray['catalog_book_title']));
-                            $catalogs = $statement->fetchAll();
-                            $available = count($catalogs);
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="border">
 
-
-                            $array_author_names = preg_split("/\,/", $myArray['catalog_author']);
-                            $author_names_exploded = explode(',', $myArray['catalog_author'])[0];
-
-                            echo '
                             <tr>
-                                ';
-                                if(empty($myArray['catalog_edition'])){
-                                    if(count($array_author_names)==1){
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.'</td>';
-                                    }else{
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
-                                    }
-                                }else{
-                                    if(count($array_author_names)==1){
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.'</td>';
-                                    }else{
-                                        echo '<td class="border-tr">'.$myArray['catalog_book_title'].', '.$myArray['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
-                                    }
-                                }
-                                echo '
-                                <td>'.$available.'/'.$all.'</td>
+                                <th scope="col">Title</th>
+                                <th scope="col">Edition</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Publisher</th>
+                                <th scope="col">Date Published</th>
+                                <th scope="col">Available</th>
                             </tr>
-                            ';
-                            $number++;
+                        </thead>
+                        <tbody class="border">';
+                            $number = 1;
+
+                            foreach($myArrays as $myArray){
+                        
+                                $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ?";
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($myArray['catalog_book_title']));
+                                $catalogs = $statement->fetchAll();
+                                $all = count($catalogs);
+
+                                $sql = "SELECT * FROM catalog_table WHERE catalog_book_title = ? AND catalog_status = 'Available'";
+                                $statement = $pdo->prepare($sql);
+                                $statement->execute(array($myArray['catalog_book_title']));
+                                $catalogs = $statement->fetchAll();
+                                $available = count($catalogs);
 
 
-                        }
-                    echo '
-                    </tbody>
-                </table>
-            </div>
-        </div>';
+                                $array_author_names = preg_split("/\,/", $myArray['catalog_author']);
+                                $author_names_exploded = explode(',', $myArray['catalog_author'])[0];
+
+                                echo '
+                                <tr>
+                                    <td class="border-tr"><strong>'.$myArray['catalog_book_title'].'</strong></td>
+                                    <td class="border-tr">'.$myArray['catalog_edition'].'</td>
+                                    ';
+                                    if(count($array_author_names)==1){
+                                        echo '<td class="border-tr">'.$author_names_exploded.'</td>';
+                                    }else{
+                                        echo '<td class="border-tr">'.$author_names_exploded.' et al.</td>';
+                                    }
+                                    echo '
+                                    <td class="border-tr">'.$myArray['catalog_publisher'].'</td>
+                                    <td class="border-tr">'.$myArray['catalog_year'].'</td>
+                                    <td>'.$available.'/'.$all.'</td>
+                                </tr>
+                                ';
+                                $number++;
+
+
+                            }
+                        echo '
+                        </tbody>
+                    </table>
+                </div>
+            </div>';
+        }elseif(isset($_GET['search']) && count($myArrays)<=0){
+            echo ' <div class="alert alert-danger">No books found.</div>';
         }
     ?>
 
