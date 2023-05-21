@@ -715,12 +715,6 @@ include_once 'includes/header.php';
             <table class="table table-bordered border-secondary myDataTable">
                 <thead class="border">
                     <tr>
-                        <!--th scope="col">Book ID</th-->
-
-                        <!--th scope="col">RFID Code</th>
-                        <th scope="col">Catalog Number</th>
-                        <th scope="col">Book Title</th-->
-
                         <th scope="col">Book Info</th>
                         <th scope="col">Status</th>
                         <th scope="col">View More Info</th>
@@ -760,24 +754,23 @@ include_once 'includes/header.php';
                         $author_names_exploded = explode(',', $author_names)[0];
                         echo '
                         <tr>
-                            <!--td class="border-tr">'.$catalog['rfid_code'].'</td>
-                            <td class="border-tr">'.$catalog['catalog_number'].'</td>
-                            <td class="border-tr">'.$catalog['catalog_book_title'].'</td-->
+                            <td class="border-tr">
                             ';
                             if(empty($catalog['catalog_edition'])){
                                 if(count($array_author_names)==1){
-                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$author_names_exploded.'</td>';
+                                    echo $catalog['catalog_book_title'].', '.$author_names_exploded;
                                 }else{
-                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$author_names_exploded.' et al.</td>';
+                                    echo $catalog['catalog_book_title'].', '.$author_names_exploded.' et al.';
                                 }
                             }else{
                                 if(count($array_author_names)==1){
-                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded.'</td>';
+                                    echo $catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded;
                                 }else{
-                                    echo '<td class="border-tr">'.$catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded.' et al.</td>';
+                                    echo $catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded;
                                 }
                             }
                             echo'
+                            </td>
                             <td class="border-tr">
                             ';
                             if($catalog["catalog_status"]=="Available"){
@@ -2406,11 +2399,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.myDataTable').DataTable({
-        "order": [
-            [2, 'asc']
-        ]
-    });
+    $('.myDataTable').DataTable();
 
 });
 </script>
