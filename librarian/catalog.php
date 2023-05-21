@@ -2399,7 +2399,11 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('.myDataTable').DataTable();
+    $('.myDataTable').DataTable({
+        "columnDefs": [
+            { "targets": [1,2,3,4,5], "searchable": false }
+        ]
+    });
 
 });
 </script>
