@@ -9,10 +9,10 @@ try {
 
         date_default_timezone_set("Asia/Hong_Kong");
 
-        $dueDateTime = strtotime($_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time'])));
+        $dueDateTime = strtotime($_POST['due_date']);
         
-        $dueDateTimeConverted = date("Y-m-d H:i", $dueDateTime);
-        $currentDateTimeConverted = date("Y-m-d H:i");
+        $dueDateTimeConverted = date("Y-m-d", $dueDateTime);
+        $currentDateTimeConverted = date("Y-m-d");
         
         $due_date_time=strtotime($dueDateTimeConverted);
         $current_date_time=strtotime($currentDateTimeConverted);
@@ -69,13 +69,13 @@ try {
                     
                 }
             }
-            $due_date = $_POST['due_date'].' '.date("g:i a", strtotime($_POST['due_time']));
+            $due_date = $_POST['due_date'];
             if($runquery=="true"){
                 $params = array(
                     $_POST['librarian_id'],
                     $_POST['borrower_id'],
                     $_POST['book_id'],
-                    date("Y-m-d g:i a", strtotime(date("Y-m-d g:i a"))),
+                    date("Y-m-d", strtotime(date("Y-m-d"))),
                     $due_date,
                     '------',
                     '------',

@@ -30,8 +30,8 @@ try {
 
         $dueDateTime = strtotime($result['transaction_due_datetime']);
         
-        $dueDateTimeConverted = date("Y-m-d H:i", $dueDateTime);
-        $currentDateTimeConverted = date("Y-m-d H:i");
+        $dueDateTimeConverted = date("Y-m-d ", $dueDateTime);
+        $currentDateTimeConverted = date("Y-m-d");
         
         $due_date_time=strtotime($dueDateTimeConverted);
         $current_date_time=strtotime($currentDateTimeConverted);
@@ -46,18 +46,18 @@ try {
         
 
         if(floor($days)==1 || floor($days)==-1){
-            $string = floor($days). " day & ";
+            $string = floor($days). " day";
         }else{
-            $string = floor($days). " days & ";
+            $string = floor($days). " days";
         }
         
-    
-        $hour = sprintf("%02d",$hours);
-        if($hour==1){
-            $string = $string.$hour." hour";
-        }else{
-            $string = $string.$hour." hours";
-        }
+        
+        // $hour = sprintf("%02d",$hours);
+        // if($hour==1){
+        //     $string = $string.$hour." hour";
+        // }else{
+        //     $string = $string.$hour." hours";
+        // }
 
         if(floor($days)>0){
             $penalty = floor($days)*10;
@@ -67,7 +67,7 @@ try {
             $paid = "----";
         }
 
-        $currentDateTime = date("Y-m-d h:i a");
+        $currentDateTime = date("Y-m-d");
 
 
 

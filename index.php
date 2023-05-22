@@ -38,7 +38,7 @@ if(isset( $_GET['search'])){
                     
                     $authors = $authors.$author_fetched['author_fullname'];
                 }else{
-                    $authors = $authors.','.$author_fetched['author_fullname'];
+                    $authors = $authors.', '.$author_fetched['author_fullname'];
                 }
                 
             }
@@ -89,7 +89,7 @@ if(isset( $_GET['search'])){
                         
                         $authors = $authors.$author_fetched['author_fullname'];
                     }else{
-                        $authors = $authors.','.$author_fetched['author_fullname'];
+                        $authors = $authors.', '.$author_fetched['author_fullname'];
                     }
                     
                 }
@@ -153,7 +153,7 @@ if(isset( $_GET['search'])){
                                 
                                 $authors = $authors.$author_fetched['author_fullname'];
                             }else{
-                                $authors = $authors.','.$author_fetched['author_fullname'];
+                                $authors = $authors.', '.$author_fetched['author_fullname'];
                             }
                             
                         }
@@ -209,7 +209,7 @@ if(isset( $_GET['search'])){
                         
                         $authors = $authors.$author_fetched['author_fullname'];
                     }else{
-                        $authors = $authors.','.$author_fetched['author_fullname'];
+                        $authors = $authors.', '.$author_fetched['author_fullname'];
                     }
                     
                 }
@@ -261,7 +261,7 @@ if(isset( $_GET['search'])){
                         
                         $authors = $authors.$author_fetched['author_fullname'];
                     }else{
-                        $authors = $authors.','.$author_fetched['author_fullname'];
+                        $authors = $authors.', '.$author_fetched['author_fullname'];
                     }
                     
                 }
@@ -490,9 +490,9 @@ if(isset( $_GET['search'])){
                                     <td class="border-tr">'.$myArray['catalog_edition'].'</td>
                                     ';
                                     if(count($array_author_names)==1){
-                                        echo '<td class="border-tr">'.$author_names_exploded.'</td>';
+                                        echo '<td class="border-tr">'.$myArray['catalog_author'].'</td>';
                                     }else{
-                                        echo '<td class="border-tr">'.$author_names_exploded.' et al.</td>';
+                                        echo '<td class="border-tr">'.$myArray['catalog_author'].'</td>';
                                     }
                                     echo '
                                     <td class="border-tr">'.$myArray['catalog_publisher'].'</td>

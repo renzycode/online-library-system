@@ -239,9 +239,9 @@ include_once 'includes/header.php';
                                         </div>
                                         <!-- end delete modal -->
                                     </td>
-                                    <td class="border-tr">'.$transaction['transaction_borrow_datetime'].'</td>
-                                    <td class="border-tr">'.$transaction['transaction_due_datetime'].'</td>
-                                    <td class="border-tr">'.$transaction['transaction_datetime_return'].'</td>
+                                    <td class="border-tr">'.substr($transaction['transaction_borrow_datetime'],0,10).'</td>
+                                    <td class="border-tr">'.substr($transaction['transaction_due_datetime'],0,10).'</td>
+                                    <td class="border-tr">'.substr($transaction['transaction_datetime_return'],0,10).'</td>
                                     <td class="border-tr">'.$transaction['transaction_datetime_lapse'].'</td>
                                     <td class="border-tr">
                                     ';
@@ -435,9 +435,9 @@ include_once 'includes/header.php';
                                     </div>
                                     <!-- end delete modal -->
                                     </td>
-                                    <td class="border-tr">'.$transaction['transaction_borrow_datetime'].'</td>
-                                    <td class="border-tr">'.$transaction['transaction_due_datetime'].'</td>
-                                    <td class="border-tr">'.$transaction['transaction_datetime_return'].'</td>
+                                    <td class="border-tr">'.substr($transaction['transaction_borrow_datetime'],0,10).'</td>
+                                    <td class="border-tr">'.substr($transaction['transaction_due_datetime'],0,10).'</td>
+                                    <td class="border-tr">'.substr($transaction['transaction_datetime_return'],0,10).'</td>
                                     <td class="border-tr">'.$transaction['transaction_datetime_lapse'].'</td>
                                     <td class="border-tr">
                                     ';

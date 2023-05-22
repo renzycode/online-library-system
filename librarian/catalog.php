@@ -757,17 +757,9 @@ include_once 'includes/header.php';
                             <td class="border-tr">
                             ';
                             if(empty($catalog['catalog_edition'])){
-                                if(count($array_author_names)==1){
-                                    echo $catalog['catalog_book_title'].', '.$author_names_exploded;
-                                }else{
-                                    echo $catalog['catalog_book_title'].', '.$author_names_exploded.' et al.';
-                                }
+                                echo $catalog['catalog_book_title'].', '.$author_names;
                             }else{
-                                if(count($array_author_names)==1){
-                                    echo $catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded;
-                                }else{
-                                    echo $catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names_exploded;
-                                }
+                                echo $catalog['catalog_book_title'].', '.$catalog['catalog_edition'].', '.$author_names;
                             }
                             echo'
                             </td>
