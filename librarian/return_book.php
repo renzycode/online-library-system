@@ -282,13 +282,13 @@ if($hours<0){
 
                                 <div class="row mx-1">
                                     <div class="col-6">
-                                        <label class="col-form-label"> Borrow Date&Time</label>
+                                        <label class="col-form-label"> Borrow Date</label>
                                         <input type="text" class="form-control"
                                             value="<?php echo $data['borrow_datetime'] ?>" readonly disabled>
                                     </div>
 
                                     <div class="col-6">
-                                        <label class="col-form-label"> Return Date&Time</label>
+                                        <label class="col-form-label"> Due Date</label>
                                         <input type="text" class="form-control"
                                             value="<?php echo $data['return_datetime'] ?>" readonly disabled>
                                     </div>

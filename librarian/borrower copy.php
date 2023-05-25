@@ -20,8 +20,7 @@ if(isset($_SESSION["authen"])){
 include_once 'includes/header.php';
 
     if(!isset($_GET['borrower'])){
-        //redirectURL('borrower.php?borrower=pending');
-        redirectURL('borrower.php?borrower=accepted');
+        redirectURL('borrower.php?borrower=pending');
     }else{
         $borrower = $_GET['borrower'];
         if($_GET['borrower']=='pending'){
@@ -65,6 +64,30 @@ include_once 'includes/header.php';
         </span>
         <br>
         <hr>
+        <a href="borrower.php?borrower=pending" type="button" <?php
+                if($borrower == "pending")
+                    echo 'class="btn text-light btn-dark ml-1"';
+                else
+                    echo 'class="btn text-light btn-secondary ml-1"';
+                ?>>
+            Pending
+        </a>
+        <a href="borrower.php?borrower=accepted" type="button" <?php
+                if($borrower == "accepted")
+                    echo 'class="btn text-light btn-dark ml-1"';
+                else
+                    echo 'class="btn text-light btn-secondary ml-1"';
+                ?>>
+            Accepted
+        </a>
+        <a href="borrower.php?borrower=rejected" type="button" <?php
+                if($borrower == "rejected")
+                    echo 'class="btn text-light btn-dark ml-1"';
+                else
+                    echo 'class="btn text-light btn-secondary ml-1"';
+                ?>>
+            Rejected
+        </a>
         <?php
                 if($borrower == "accepted"){
                 ?>

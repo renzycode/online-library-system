@@ -458,19 +458,24 @@ include_once 'includes/header.php';
                                         echo $transaction['transaction_paid'];
                                     }elseif($transaction['transaction_paid']=='Yes'){
                                         echo '
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <!--div class="dropdown">
+                                            <button class="btn btn-success p-1 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Yes
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="api/edit_transaction_paid.php?transaction_id='.$transaction['transaction_id'].'&paid=no" class="dropdown-item" href="#">No</a></li>
                                             </ul>
+                                        </div-->
+                                        <div class="dropdown">
+                                            <button class="btn btn-success p-1">
+                                                Yes
+                                            </button>
                                         </div>
                                         ';
                                     }else{
                                         echo '
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <button class="btn btn-danger p-1 dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 No
                                             </button>
                                             <ul class="dropdown-menu">

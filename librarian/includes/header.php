@@ -235,9 +235,15 @@
                             </span>
                         </li>
                         <div class="topbar-divider d-none d-sm-block"></div>
-                        <a type="button" class="btn btn-light py-2 my-3" href="https://onlinelibrarysystem001.000webhostapp.com/index.php?sort_by=title" target="_blank">
+                        
+                        <!--a type="button" class="btn btn-light py-2 my-3" href="https://onlinelibrarysystem001.000webhostapp.com/index.php?sort_by=title" target="_blank">
+                                Visit Public Viewing
+                        </a-->
+
+                        <a type="button" class="btn btn-light py-2 my-3" href="../index.php" target="_blank">
                                 Visit Public Viewing
                         </a>
+
                         <li class="nav-item">
                             <button type="button" class="btn btn-light py-2 my-3 mx-2" data-bs-toggle="modal"
                                 data-bs-target="#modalLogout">
